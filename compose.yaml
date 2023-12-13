@@ -1,3 +1,5 @@
 services:
+  aws_cdk_toolkit:
+    build: ./config/aws_cdk_toolkit/
   go:
     image: "golang:latest"
