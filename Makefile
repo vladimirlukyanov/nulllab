@@ -1,10 +1,7 @@
-prony: build clear cdk
+prony: build clear
 
 build :
-	docker-compose -p nulllab up
-
-cdk :
-	docker-compose run --rm aws_cdk_toolkit
+	docker-compose -p nulllab build
 
 clear :
 	docker-compose down --rmi all -v --remove-orphans
