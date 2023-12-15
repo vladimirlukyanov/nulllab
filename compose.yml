@@ -1,6 +1,6 @@
 services:
-  aws_cdk_toolkit:
-    build: ./config/aws_cdk_toolkit/
-    image: aws_cdk_toolkit:2
-  go:
-    image: "golang:latest"
+  aws:
+    build: ./config/aws/
+    image: aws:latest
+    volumes:
+      - ./_cloud:/app

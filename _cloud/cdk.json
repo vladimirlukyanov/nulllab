@@ -1,5 +1,5 @@
 {
-  "app": "docker run -it --rm golang go mod download && go run app.go",
+  "app": "go mod download && go run app.go",
   "watch": {
     "include": [
       "**"
