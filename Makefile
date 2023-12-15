@@ -1,4 +1,6 @@
-prony: build clear
+include .env
+
+prony: build clear test
 
 build :
 	docker-compose -p nulllab build
@@ -9,3 +11,8 @@ sync :
 
 clear :
 	docker-compose down --rmi all -v --remove-orphans
+
+test :
+		cd _cloud && \
+		cdk synth && \
+		cdk deploy
