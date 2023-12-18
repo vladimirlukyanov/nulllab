@@ -2,6 +2,7 @@ prony: build clear test
 
 
 # aws configure export-credentials --profile aws-dev --format env-no-export > .env.docker
+# go mod tidy
 
 build :
 	docker-compose -p nulllab build
