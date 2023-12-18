@@ -1,11 +1,12 @@
-include .env
-
 prony: build clear test
+
+
+# aws configure export-credentials --profile aws-dev --format env-no-export > .env.docker
 
 build :
 	docker-compose -p nulllab build
 
-sync :
+synth :
 	rm -rf ./_cloud/cdk.out
 	docker compose run  aws cdk synth
 

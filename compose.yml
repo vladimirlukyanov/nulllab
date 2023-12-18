@@ -2,6 +2,12 @@ services:
   aws:
     build: ./config/aws/
     image: aws:latest
-    user: "${UID}:${GID}"
     volumes:
-      - ./_cloud:/app
+      - ./cloud:/app
+    env_file:
+      - .env
+  go:
+    build: ./config/golang/
+    image: golang:latest
+    volumes:
+      - ./cloud/generator:/app

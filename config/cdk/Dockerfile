@@ -1,11 +1,8 @@
-# † aws
+# † aws + go
 FROM alpine:latest as runner
 
 # @TODO add AWS SAM CLI later
 MAINTAINER Vladimir Lukyanov <vladimir@lukyanov.net>
-
-# Install AWS CLI
-RUN apk add aws-cli
 
 RUN apk add --update nodejs npm && \
     npm install -g typescript && \
