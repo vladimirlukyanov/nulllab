@@ -1,8 +1,11 @@
-prony: build clear test
+prony: build clear test cloud
 
 
 # aws configure export-credentials --profile aws-dev --format env-no-export > .env.docker
 # go mod tidy
+
+cloud:
+	docker container run -it --rm -v $PWD/cloud:/tf --workdir /tf hashicorp/terraform:latest 
 
 build :
 	docker-compose -p nulllab build
