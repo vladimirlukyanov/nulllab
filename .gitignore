@@ -1,2 +1,3 @@
-./cloud/.terraform
+./cloud/.terraform/*
 ./cloud/.terraform.lock.hcl
+./cloud/terraform.*
