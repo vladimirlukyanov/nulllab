@@ -1,25 +1,31 @@
-// (╯°□°)╯︵ ┻━┻
-
-/*
-resource "aws_cloudfront_origin_access_identity" "cloudfront_oai" {
-
-}
-*/
+// Terraform beat AWS CDK, let's go (╯°□°)╯︵ ┻━┻
 
 resource "aws_s3_bucket" "website" {
   provider = aws.main
-  bucket = local.domain
-  
+  bucket   = variable.bucket
+
   lifecycle {
     prevent_destroy = false
   }
 }
 
+#------------------------------------------------------------------------------
+# CloudFront Origin Access Identity
+#------------------------------------------------------------------------------
+resource "aws_cloudfront_origin_access_identity" "cloudfront_oai" {
+  provider = aws.main
+  comment  = "OAI to restrict access to AWS S3 content"
+}
+
+#------------------------------------------------------------------------------
+# CloudFront Distribution
+#------------------------------------------------------------------------------
 resource "aws_cloudfront_distribution" "cloudfront" {
   provider = aws.main
+
   origin {
-    domain_name = local.domain
-    origin_id   = local.domain
+    domain_name = variable.domain
+    origin_id   = variable.domain
 
     custom_origin_config {
       http_port              = 80
@@ -29,10 +35,10 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     }
   }
 
-  price_class = "PriceClass_200"
+  price_class     = "PriceClass_200"
   enabled         = true
   is_ipv6_enabled = true
-  
+
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
@@ -51,7 +57,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       }
     }
 
-/*
+    /*
     lambda_function_association {
       event_type   = "viewer-request"
       lambda_arn   = aws_lambda_function.short_redirect.qualified_arn
@@ -65,7 +71,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     cloudfront_default_certificate = true
   }
 
-   restrictions {
+  restrictions {
     geo_restriction {
       restriction_type = "none"
     }
