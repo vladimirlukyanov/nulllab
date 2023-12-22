@@ -1,3 +1,4 @@
 ./cloud/.terraform/
 ./cloud/.terraform.lock.hcl
-./cloud/terraform.*
+./cloud/terraform.tfstate
+./cloud/terraform.tfstate.backup
