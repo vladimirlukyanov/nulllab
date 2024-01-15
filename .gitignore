@@ -2,3 +2,31 @@ cloud/.terraform/
 cloud/.terraform.lock.hcl
 cloud/terraform.tfstate
 cloud/terraform.tfstate.backup
+
+
+# build output
+frontend/
+
+# generated types
+backend/.astro/
+
+# dependencies
+backend/node_modules/
+
+# logs
+backend/npm-debug.log*
+backend/npm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
+backend/pnpm-debug.log*
+
+# package lock
+backend/package-lock.json
+
+# environment variables
+.env
+.env.production
+yarn-debug.log*
+
+# macOS-specific files
+.DS_Store

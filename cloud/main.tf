@@ -1,6 +1,12 @@
 module "website-static-cloudfront-s3" {
   source  = "nulllogic/website-static-cloudfront-s3/aws"
-  version = "0.1.4"
+  version = "0.2.4"
+
+  enable = {
+    s3 = {
+      index_html = false
+    }
+  }
 
   s3 = {
     bucket  = "nulllab.net"
