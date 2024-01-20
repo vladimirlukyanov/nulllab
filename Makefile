@@ -1,4 +1,4 @@
-prony: build clear test cloud
+prony: build clear test cloud sync
 
 
 # aws configure export-credentials --profile aws-dev --format env-no-export > .env.docker
@@ -8,11 +8,13 @@ cloud:
 	docker container run -it --rm -v $PWD/cloud:/tf --workdir /tf hashicorp/terraform:latest 
 
 build :
-	docker-compose -p nulllab build
+	ASTRO_TELEMETRY_DISABLED=1 npm run build --prefix="./backend/" -- --verbose
 
-synth :
-	rm -rf ./_cloud/cdk.out
-	docker compose run  aws cdk synth
+sync :
+	npm run build --prefix=./backend/
+	aws s3 rm s3://nulllab.net --recursive
+	aws s3 cp frontend/ s3://nulllab.net --recursive
+	aws cloudfront create-invalidation --distribution-id E3ONXJXS0O5775 --paths '/*'
 
 clear :
 	docker-compose down --rmi all -v --remove-orphans
