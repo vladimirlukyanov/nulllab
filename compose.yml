@@ -1,6 +1,13 @@
+version: "3.9"
 services:
   web:
-    build: ./.config/docker/web.Dockerfile
+    build:
+      context: "./.config/docker"
+      dockerfile: web.Dockerfile
+    volumes:
+      - type: bind
+        source: $PWD/backend
+        target: /opt/app
     ports:
       - "4321:4321"
-    container_image: nulllab
+    container_name: nulllab

@@ -1,9 +1,9 @@
-FROM node:lastest
+FROM alpine:latest
+
+RUN apk update && apk add nodejs npm
 
 WORKDIR /app
 
-COPY ./backend .
-
-RUN npm ci --audit=false --fund=false
+RUN npm i --audit=false --fund=false
 
 CMD ["npm", "start"]
