@@ -1,13 +1,21 @@
 version: "3.9"
 services:
-  web:
+  watch:
+    tty: true
     build:
       context: "./.config/docker"
-      dockerfile: web.Dockerfile
+      dockerfile: watch.Dockerfile
+    working_dir: "/opt/app"
     volumes:
       - type: bind
-        source: $PWD/backend
+        source: ./backend
         target: /opt/app
     ports:
-      - "4321:4321"
+      - "8080:4321"
     container_name: nulllab
+    entrypoint:
+      - sh
+      - -euc
+      - |
+        npm i
+        npm run start --host 0.0.0.0
