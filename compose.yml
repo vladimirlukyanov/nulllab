@@ -1,13 +1,6 @@
 services:
-  aws:
-    build: ./config/aws/
-    image: aws:latest
-    volumes:
-      - ./cloud:/app
-    env_file:
-      - .env
-  go:
-    build: ./config/golang/
-    image: golang:latest
-    volumes:
-      - ./cloud/generator:/app
+  web:
+    build: ./.config/docker/web.Dockerfile
+    ports:
+      - "4321:4321"
+    container_image: nulllab

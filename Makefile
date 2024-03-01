@@ -1,4 +1,4 @@
-prony: build clear test cloud sync
+prony: build clear cloud sync watch
 
 
 # aws configure export-credentials --profile aws-dev --format env-no-export > .env.docker
@@ -6,6 +6,9 @@ prony: build clear test cloud sync
 
 cloud:
 	docker container run -it --rm -v $PWD/cloud:/tf --workdir /tf hashicorp/terraform:latest 
+
+watch:
+	docker-compose
 
 build :
 	ASTRO_TELEMETRY_DISABLED=1 npm run build --prefix="./backend/" -- --verbose
@@ -18,8 +21,3 @@ sync :
 
 clear :
 	docker-compose down --rmi all -v --remove-orphans
-
-test :
-		cd _cloud && \
-		cdk synth && \
-		cdk deploy
