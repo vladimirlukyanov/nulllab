@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   watch:
+    stdin_open: true
     tty: true
     build:
       context: "./.config/docker"
