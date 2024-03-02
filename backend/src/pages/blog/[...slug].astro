@@ -11,8 +11,10 @@ export async function getStaticPaths() {
 
 const post = Astro.props;
 const { Content } = await post.render();
+
+import LayoutBlog from "../../layouts/blog.astro";
 ---
 
-<div>
+<LayoutBlog>
   <Content />
-</div>
+</LayoutBlog>
