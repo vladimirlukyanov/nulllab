@@ -11,7 +11,8 @@ watch:
 	docker-compose
 
 build :
-	ASTRO_TELEMETRY_DISABLED=1 npm run build --prefix="./backend/" -- --verbose
+	docker-compose up -d
+#	ASTRO_TELEMETRY_DISABLED=1 npm run build --prefix="./backend/" -- --verbose
 
 sync :
 	npm run build --prefix=./backend/
