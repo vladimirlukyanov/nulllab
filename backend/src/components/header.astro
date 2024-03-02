@@ -13,8 +13,8 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
   <slot />
 </a>
 
-<header>
-  <div class="container">
+<header class="header">
+  <div class="container xl">
     <nav class="navbar">
       <div class="left">
         <ul class="nav">
@@ -33,3 +33,8 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
     </nav>
   </div>
 </header>
+
+<style type="scss">
+  .header {
+  }
+</style>
