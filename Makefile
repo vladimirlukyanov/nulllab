@@ -1,4 +1,4 @@
-prony: build clear cloud sync watch
+prony: build clean cloud sync watch
 
 
 # aws configure export-credentials --profile aws-dev --format env-no-export > .env.docker
@@ -20,5 +20,5 @@ sync :
 	aws s3 cp frontend/ s3://nulllab.net --recursive
 	aws cloudfront create-invalidation --distribution-id E3ONXJXS0O5775 --paths '/*'
 
-clear :
+clean :
 	docker-compose down --rmi all -v --remove-orphans

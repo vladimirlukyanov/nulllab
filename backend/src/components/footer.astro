@@ -1,7 +1,21 @@
 ---
-
+const today = new Date();
 ---
 
-<footer>
-  <div class="container">123</div>
+<footer class="footer">
+  <div class="container">
+    <div class="grid">
+      <div class="left">
+        &copy; {today.getFullYear()} Your name here. All rights reserved.
+      </div>
+      <div class="right"></div>
+    </div>
+  </div>
 </footer>
+
+<style type="scss">
+  .footer {
+    .grid {
+    }
+  }
+</style>
