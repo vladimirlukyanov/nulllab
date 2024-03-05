@@ -1,20 +1,27 @@
 ---
-import LayoutBlog from '../../layouts/blog.astro';
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { getEntry } from "astro:content";
+
+import LayoutBlog from "../../layouts/blog.astro";
+import { type CollectionEntry, getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection("blog");
   return posts.map((post) => {
+    console.log(post.slug.substr(5));
     return {
       params: {
-        slug: post.slug,
+        slug: post.slug.substr(5)
       },
-      props: post
+      props: post,
     };
   });
 }
 
+console.log(Astro);
+
 const post = Astro.props;
+
+console.log(post);
 
 const { Content } = await post.render();
 ---
