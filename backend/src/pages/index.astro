@@ -2,14 +2,14 @@
 import { getCollection } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 
-import LayoutBlog from "../layouts/blog.astro";
+import LayoutIndex from "../layouts/index.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
 );
 ---
 
-<LayoutBlog>
+<LayoutIndex>
   <main>
     <section>
       <ul>
@@ -34,4 +34,4 @@ const posts = (await getCollection("blog")).sort(
       </ul>
     </section>
   </main>
-</LayoutBlog>
+</LayoutIndex>
