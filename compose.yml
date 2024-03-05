@@ -11,7 +11,7 @@ services:
       - type: bind
         source: ./backend
         target: /opt/app
-      - "~/Developer/xiigrid/dist/css:/opt/app/src/styles"
+      - "~/Developer/xiigrid/scss:/opt/app/src/styles"
     ports:
       - "8080:4321"
     container_name: nulllab
