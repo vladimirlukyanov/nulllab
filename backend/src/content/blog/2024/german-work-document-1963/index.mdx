@@ -10,6 +10,7 @@ category: "images"
 tags: ["astro", "successes"]
 type: "post"
 ---
+import { Image } from 'astro:assets';
 import image from './german_work_document.jpg'
 
-<img src={image.src} />
+<Image src={image} alt="" />

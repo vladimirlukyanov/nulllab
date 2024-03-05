@@ -10,7 +10,7 @@ category: "images"
 tags: ["astro", "successes"]
 type: "post"
 ---
-
+import { Image } from 'astro:assets';
 import image from './clear-relationship-schema.jpg'
 
-<img src={image.src} />
+<Image src={image} alt="" />
