@@ -47,5 +47,18 @@ const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
 
 <!-- Styles -->
 <style lang="scss" is:global>
-  @use "../styles/xiigrid.scss" as scssleon;
+  @use "sass:list";
+  @use "sass:meta";
+  @use "../styles/app.scss" as app;
+
+  $modules: ("root", "reset", "content");
+  $components: ("components/nav", "components/container");
+  $modules: list.join($modules, $components);
+
+  @each $module in $modules {
+    @include meta.load-css(
+      "../styles/scss/#{$module}",
+      $with: (config: app.$config, theme: app.$theme)
+    );
+  }
 </style>

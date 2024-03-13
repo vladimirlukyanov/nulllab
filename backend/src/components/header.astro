@@ -15,7 +15,7 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
 </a>
 -->
 <header class="header">
-  <div class="container xl">
+  <div class="container xl tt">
     <nav class="navbar">
       <div class="left">
         <ul class="nav">
@@ -33,7 +33,28 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
 </header>
 
 <style lang="scss">
-  //  @use "../styles/_mixins.scss" as mixins;
-  .header {
-  }
+  @use "sass:list";
+  @use "sass:map";
+  @use "sass:meta";
+
+  @use "../styles/app.scss" as app;
+
+  $components: ("components/navbar");
+
+  $component_config: (
+    components: (
+      navbar: (
+        background: red,
+        responsive: (
+          "md": (
+            background: green,
+          ),
+        ),
+      ),
+    ),
+  );
+
+  $component_config: map.deep-merge(app.$theme, $component_config);
+
+  @debug meta.inspect($component_config);
 </style>
