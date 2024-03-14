@@ -51,7 +51,7 @@ const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
   @use "sass:meta";
   @use "../styles/app.scss" as app;
 
-  $modules: ("root", "reset", "content");
+  $modules: ("root", "reset", "base", "content");
   $components: ("components/nav", "components/container");
   $modules: list.join($modules, $components);
 
