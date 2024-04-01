@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 import { getCollection } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 
@@ -11,27 +13,74 @@ const posts = (await getCollection("blog")).sort(
 
 <LayoutIndex>
   <main>
-    <section>
-      <ul>
+    <section class="hot">
+      <div class="primary">
         {
-          posts.map((post) => (
-            <li>
-              <a href={`/${post.slug.substring(5)}/`}>
-                <img
-                  width={720}
-                  height={360}
-                  src={post.data.heroImage}
-                  alt=""
-                />
-                <h4 class="title">{post.data.title}</h4>
-                <p class="date">
-                  <FormattedDate date={post.data.pubDate} />
-                </p>
-              </a>
-            </li>
-          ))
+          posts.slice(0, 1).map((post) => {
+            console.log(post);
+            return (
+              <div>
+                <a href={`/${post.slug.substring(5)}/`}>
+                  <Image src={post.data.image.url} alt={post.data.image.alt} />
+                  <img src={post.data.heroImage} alt="" />
+                  <h4 class="title">{post.data.title}</h4>
+                  <p class="date">
+                    <FormattedDate date={post.data.pubDate} />
+                  </p>
+                </a>
+              </div>
+            );
+          })
         }
-      </ul>
+      </div>
+      <div class="secondary">
+        {
+          posts.slice(1).map((post) => {
+            return (
+              <div>
+                <a href={`/${post.slug.substring(5)}/`}>
+                  <img src={post.data.heroImage} alt="" />
+                  <h4 class="title">{post.data.title}</h4>
+                  <p class="date">
+                    <FormattedDate date={post.data.pubDate} />
+                  </p>
+                </a>
+              </div>
+            );
+          })
+        }
+      </div>
     </section>
   </main>
 </LayoutIndex>
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "../styles/app.scss" as app;
+  @use "../styles/scss/mixins.scss" as mixins;
+  @use "../styles/scss/functions.scss" as functions;
+
+  $hot-section: (
+    display: grid,
+    width: 100%,
+    grid-template-columns: 2.5fr 1.5fr,
+    grid-auto-rows: 5rem,
+    grid-gap: 1rem,
+    responsive: (
+      md: (
+        padding: 5px 5px,
+      ),
+    ),
+  );
+
+  @include mixins.generate-component(
+    $hot-section,
+    "hot",
+    app.$config,
+    app.$theme
+  );
+</style>
