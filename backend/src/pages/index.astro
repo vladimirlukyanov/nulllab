@@ -12,46 +12,48 @@ const posts = (await getCollection("blog")).sort(
 ---
 
 <LayoutIndex>
-  <main>
-    <section class="hot">
-      <div class="primary">
-        {
-          posts.slice(0, 1).map((post) => {
-            console.log(post);
-            return (
-              <div>
-                <a href={`/${post.slug.substring(5)}/`}>
-                  <Image src={post.data.image.url} alt={post.data.image.alt} />
-                  <img src={post.data.heroImage} alt="" />
-                  <h4 class="title">{post.data.title}</h4>
-                  <p class="date">
-                    <FormattedDate date={post.data.pubDate} />
-                  </p>
-                </a>
-              </div>
-            );
-          })
-        }
+  <section class="hot">
+    <div class="container xxl">
+      <div class="grid">
+        <div class="primary">
+          {
+            posts.slice(0, 1).map((post) => {
+              return (
+                <div>
+                  <a href={`/${post.slug.substring(5)}/`} class="link">
+                    <Image
+                      src={post.data.image.url}
+                      alt={post.data.image.alt}
+                    />
+                    <span class="title">{post.data.title}</span>
+                    <p class="date">
+                      <FormattedDate date={post.data.pubDate} />
+                    </p>
+                  </a>
+                </div>
+              );
+            })
+          }
+        </div>
+        <div class="secondary">
+          {
+            posts.slice(1).map((post) => {
+              return (
+                <div>
+                  <a href={`/${post.slug.substring(5)}/`} class="link">
+                    <span class="title">{post.data.title}</span>
+                    <p class="date">
+                      <FormattedDate date={post.data.pubDate} />
+                    </p>
+                  </a>
+                </div>
+              );
+            })
+          }
+        </div>
       </div>
-      <div class="secondary">
-        {
-          posts.slice(1).map((post) => {
-            return (
-              <div>
-                <a href={`/${post.slug.substring(5)}/`}>
-                  <img src={post.data.heroImage} alt="" />
-                  <h4 class="title">{post.data.title}</h4>
-                  <p class="date">
-                    <FormattedDate date={post.data.pubDate} />
-                  </p>
-                </a>
-              </div>
-            );
-          })
-        }
-      </div>
-    </section>
-  </main>
+    </div>
+  </section>
 </LayoutIndex>
 
 <style lang="scss">
@@ -65,14 +67,32 @@ const posts = (await getCollection("blog")).sort(
   @use "../styles/scss/functions.scss" as functions;
 
   $hot-section: (
-    display: grid,
-    width: 100%,
-    grid-template-columns: 2.5fr 1.5fr,
-    grid-auto-rows: 5rem,
-    grid-gap: 1rem,
-    responsive: (
-      md: (
-        padding: 5px 5px,
+    subclasses: (
+      ".grid": (
+        display: grid,
+        width: 100%,
+        grid-template-columns: 1fr,
+        grid-auto-rows: auto,
+        grid-gap: 0,
+        responsive: (
+          md: (
+            grid-template-columns: 2.5fr 1.5fr,
+            grid-gap: 1rem,
+          ),
+        ),
+        subclasses: (
+          ".link": (
+            text-decoration: none,
+            subclasses: (
+              "&:hover": (
+                text-decoration: none,
+              ),
+              ".title": (
+                font-size: 2rem,
+              ),
+            ),
+          ),
+        ),
       ),
     ),
   );
