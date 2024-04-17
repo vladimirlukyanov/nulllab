@@ -1,28 +1,56 @@
 ---
-import { getEntry } from "astro:content";
+import {getEntry} from "astro:content";
 
 import LayoutBlog from "../layouts/blog.astro";
-import { type CollectionEntry, getCollection } from "astro:content";
+import {type CollectionEntry, getCollection} from "astro:content";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
-  return posts.map((post) => {
-    const [year, slug] = post.slug.split("/");
-    return {
-      params: {
-        slug: slug.toString(),
-      },
-      props: post,
-    };
-  });
+    const posts = await getCollection("blog");
+    return posts.map((post) => {
+        const [year, slug] = post.slug.split("/");
+        return {
+            params: {
+                slug: slug.toString(),
+            },
+            props: post,
+        };
+    });
 }
 
 const post = Astro.props;
-const { Content } = await post.render();
+const {Content} = await post.render();
 ---
 
 <LayoutBlog>
-  <div class="content">
-    <Content />
+  <div class="post">
+    <div class="container xxl">
+      <div class="content">
+        <Content/>
+      </div>
+    </div>
   </div>
 </LayoutBlog>
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "../styles/app.scss" as app;
+  @use "../styles/scss/mixins.scss" as mixins;
+  @use "../styles/scss/functions.scss" as functions;
+
+  $post-section: (
+    margin: 25px 0,
+    subclasses: (
+    ),
+  );
+
+  @include mixins.generate-component(
+      $post-section,
+      "post",
+      app.$config,
+      app.$theme
+  );
+</style>

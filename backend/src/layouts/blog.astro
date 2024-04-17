@@ -1,6 +1,6 @@
 ---
 import Head from "../components/head.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import {SITE_TITLE, SITE_DESCRIPTION} from "../consts";
 
 // Components
 import Header from "../components/header.astro";
@@ -9,14 +9,13 @@ import Footer from "../components/footer.astro";
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <Head title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header />
-    <div class="container xxl">
-      <slot />
-    </div>
-    <Footer />
-  </body>
+<head>
+  <Head title={SITE_TITLE} description={SITE_DESCRIPTION}/>
+</head>
+<body>
+<Header/>
+<slot/>
+<Footer/>
+</body>
 </html>
+
