@@ -1,11 +1,12 @@
 ---
-import type { HTMLAttributes } from "astro/types";
-
+import type {HTMLAttributes} from "astro/types";
+import Logo from "../components/logo/index.astro";
 type Props = HTMLAttributes<"a">;
 
-const { href, class: className, ...props } = Astro.props;
+const {href, class: className, ...props} = Astro.props;
 
-const { pathname } = Astro.url;
+const {pathname} = Astro.url;
+
 const isActive = href === pathname || href === pathname.replace(/\/$/, "");
 ---
 
@@ -20,7 +21,9 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
       <div class="left">
         <ul class="nav">
           <li class="item">
-            <a href="/" class="link">Home</a>
+            <a href="/" class="link">
+              <Logo/>
+            </a>
           </li>
           <li class="item">
             <a href="/about" class="link">About</a>
@@ -45,10 +48,10 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
   $navbar: functions.get-theme(app.$theme, "components.navbar");
 
   $navbar: map.deep-merge(
-    $navbar,
-    (
-      --grid-template-columns: auto auto,
-    )
+      $navbar,
+      (
+        --grid-template-columns: auto auto,
+      )
   );
 
   $header-section: (
@@ -61,9 +64,9 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
     colors: (
       dark: (
         background:
-          string.unquote(
+        string.unquote(
             "linear-gradient(rgba(0, 95, 94, 0.85) 0%, rgba(23, 59, 86, 0.55) 100%)"
-          ),
+        ),
         border: 1px solid #173b56,
       ),
     ),
@@ -83,9 +86,9 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
   );
 
   @include mixins.generate-component(
-    $header-section,
-    "header",
-    app.$config,
-    app.$theme
+      $header-section,
+      "header",
+      app.$config,
+      app.$theme
   );
 </style>
