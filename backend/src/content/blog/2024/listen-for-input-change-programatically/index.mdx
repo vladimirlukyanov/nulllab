@@ -1,0 +1,29 @@
+---
+title: Listen for input change programmatically
+author: Vladimir Lukyanov
+description: "This post will show up on its own!"
+published_date: 2024-04-25
+category: "images"
+tags: ["js", "vanilla"]
+type: "code"
+---
+
+
+```
+let event = new Event('change');
+let inputBox = document.querySelector("#shipping_postcode");
+
+const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(inputBox), 'value');
+
+Object.defineProperty(inputBox, 'value', {
+    set: function(t) {
+        if(t === '') return;
+        return descriptor.set.apply(this, arguments);
+    },
+    get: function() {
+        return descriptor.get.apply(this);
+    }
+});
+```
+
+<a href="https://gist.github.com/vladimirlukyanov/a990efb823f7522db6ee8823861b17c1" class="btn btn-link" target="_blank">GitHub Gist</a>
