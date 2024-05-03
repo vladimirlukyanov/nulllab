@@ -8,6 +8,45 @@ tags: ["js", "vanilla"]
 type: "code"
 ---
 
+import Snippet from "~/src/components/snippet/index.astro"
+
+## Example
+<Snippet client:load>
+    <Fragment slot="html">
+        <div class="accordion">
+            <div class="item">
+                <div class="title">123</div>
+                <div class="content">333</div>
+            </div>
+        </div>
+    </Fragment>
+    <Fragment slot="scss">
+        ```scss
+        @use "sass:list";
+        @use "sass:string";
+        @use "sass:meta";
+        @use "sass:map";
+        ```
+    </Fragment>
+    <Fragment slot="js">
+        ```js
+        let event = new Event('change');
+        let inputBox = document.querySelector("#shipping_postcode");
+        const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(inputBox), 'value');
+
+        Object.defineProperty(inputBox, 'value', {
+            set: function(t) {
+                if(t === '') return;
+                return descriptor.set.apply(this, arguments);
+            },
+            get: function() {
+                return descriptor.get.apply(this);
+            }
+        });
+        ```
+    </Fragment>
+</Snippet>
+
 
 ```
 let event = new Event('change');
@@ -26,4 +65,56 @@ Object.defineProperty(inputBox, 'value', {
 });
 ```
 
-<a href="https://gist.github.com/vladimirlukyanov/a990efb823f7522db6ee8823861b17c1" class="btn btn-link" target="_blank">GitHub Gist</a>
+<a href="https://gist.github.com/vladimirlukyanov/a990efb823f7522db6ee8823861b17c1" class="btn btn-link"
+   target="_blank">GitHub Gist</a>
+
+
+```css
+.gradient-border {
+  --border-width: 3px;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 200px;
+  font-family: Lato, sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  color: white;
+  background: #222;
+  border-radius: var(--border-width);
+
+  &::after {
+    position: absolute;
+    content: "";
+    top: calc(-1 * var(--border-width));
+    left: calc(-1 * var(--border-width));
+    z-index: -1;
+    width: calc(100% + var(--border-width) * 2);
+    height: calc(100% + var(--border-width) * 2);
+    background: linear-gradient(
+      60deg,
+      hsl(224, 85%, 66%),
+      hsl(269, 85%, 66%),
+      hsl(314, 85%, 66%),
+      hsl(359, 85%, 66%),
+      hsl(44, 85%, 66%),
+      hsl(89, 85%, 66%),
+      hsl(134, 85%, 66%),
+      hsl(179, 85%, 66%)
+    );
+    background-size: 300% 300%;
+    background-position: 0 50%;
+    border-radius: calc(2 * var(--border-width));
+    animation: moveGradient 4s alternate infinite;
+  }
+}
+
+@keyframes moveGradient {
+  50% {
+    background-position: 100% 50%;
+  }
+}
+```
