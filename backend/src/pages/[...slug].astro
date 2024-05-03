@@ -5,19 +5,20 @@ import LayoutBlog from "../layouts/blog.astro";
 import {type CollectionEntry, getCollection} from "astro:content";
 
 export async function getStaticPaths() {
-    const posts = await getCollection("blog");
-    return posts.map((post) => {
-        const [year, slug] = post.slug.split("/");
-        return {
-            params: {
-                slug: slug.toString(),
-            },
-            props: post,
-        };
-    });
+  const posts = await getCollection("blog");
+  return posts.map((post) => {
+    const [year, slug] = post.slug.split("/");
+    return {
+      params: {
+        slug: slug.toString(),
+      },
+      props: post,
+    };
+  });
 }
 
 const post = Astro.props;
+console.log(post.data.tags);
 const {Content} = await post.render();
 ---
 
@@ -25,6 +26,16 @@ const {Content} = await post.render();
   <div class="post">
     <div class="container xxl">
       <div class="content">
+        <h1>{post.data.title}</h1>
+        <p>Новости — Пятница, 3 мая 2024, 13:41 — Иванна Костина</p>
+        <p>
+          {post.data.tags.map((tag) => {
+            return (
+                <span class="badge">{tag}</span>
+            )
+          })}
+        </p>
+        <p>{post.data.description}</p>
         <Content/>
       </div>
     </div>
@@ -40,6 +51,15 @@ const {Content} = await post.render();
   @use "../styles/app.scss" as app;
   @use "../styles/scss/mixins.scss" as mixins;
   @use "../styles/scss/functions.scss" as functions;
+
+  $components: ("badge");
+
+  @each $component in $components {
+    @include meta.load-css(
+        "../styles/scss/components/#{$component}",
+      $with: (config: app.$config, theme: app.$theme)
+    );
+  }
 
   $post-section: (
     margin: 25px 0,

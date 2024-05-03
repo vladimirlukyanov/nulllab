@@ -7,7 +7,7 @@ import FormattedDate from "../components/FormattedDate.astro";
 import LayoutIndex from "../layouts/index.astro";
 
 const posts = (await getCollection("blog")).sort(
-    (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
+  (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
 );
 ---
 
@@ -16,40 +16,42 @@ const posts = (await getCollection("blog")).sort(
     <div class="container xxl">
       <div class="grid">
         <div class="primary">
-            {
-                posts.slice(0, 1).map((post) => {
-                    return (
-                        <div>
-                          <a href={`/${post.slug.substring(5)}/`} class="link">
-                            <Image
-                                src={post.data.image.url}
-                                alt={post.data.image.alt}
-                            />
-                            <span class="title">{post.data.title}</span>
-                            <p class="date">
-                              <FormattedDate date={post.data.pubDate}/>
-                            </p>
-                          </a>
-                        </div>
-                    );
-                })
-            }
+          {
+            posts.slice(0, 1).map((post) => {
+              return (
+                  <div>
+                    <a href={`/${post.slug.substring(5)}/`} class="link">
+                      {post.data?.image?.url &&
+                          <Image
+                              src={post.data.image.url}
+                              alt={post.data.image.alt}
+                          />
+                      }
+                      <span class="title">{post.data.title}</span>
+                      <p class="date">
+                        <FormattedDate date={post.data.published_date}/>
+                      </p>
+                    </a>
+                  </div>
+              );
+            })
+          }
         </div>
         <div class="secondary">
-            {
-                posts.slice(1).map((post) => {
-                    return (
-                        <div>
-                          <a href={`/${post.slug.substring(5)}/`} class="link">
-                            <span class="title">{post.data.title}</span>
-                            <p class="date">
-                              <FormattedDate date={post.data.pubDate}/>
-                            </p>
-                          </a>
-                        </div>
-                    );
-                })
-            }
+          {
+            posts.slice(1).map((post) => {
+              return (
+                  <div>
+                    <a href={`/${post.slug.substring(5)}/`} class="link">
+                      <span class="title">{post.data.title}</span>
+                      <p class="date">
+                        <FormattedDate date={post.data.published_date}/>
+                      </p>
+                    </a>
+                  </div>
+              );
+            })
+          }
         </div>
       </div>
     </div>
