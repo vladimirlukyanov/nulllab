@@ -1,5 +1,8 @@
 ---
-console.log(Astro);
+import prettier from "prettier";
+import {getHighlighter} from "shiki";
+
+import {Astro} from "astro/env";
 ---
 
-<h5>fffsd</h5>
+<slot client:load />

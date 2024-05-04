@@ -5,7 +5,6 @@ import LayoutBlog from "../layouts/blog.astro";
 import {type CollectionEntry, getCollection} from "astro:content";
 import code from "../components/snippet/code.astro"
 
-
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post) => {
@@ -37,7 +36,7 @@ const {Content} = await post.render();
           })}
         </p>
         <p>{post.data.description}</p>
-        <Content components={{code: code}}/>
+        <Content />
       </div>
     </div>
   </div>
@@ -53,7 +52,7 @@ const {Content} = await post.render();
   @use "../styles/scss/mixins.scss" as mixins;
   @use "../styles/scss/functions.scss" as functions;
 
-  $components: ("badge");
+  $components: ("badge", "button");
 
   @each $component in $components {
     @include meta.load-css(

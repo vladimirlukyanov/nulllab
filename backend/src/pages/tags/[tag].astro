@@ -4,7 +4,7 @@ import LayoutBlog from "../../layouts/blog.astro";
 export async function getStaticPaths() {
   const allPosts = await Astro.glob("../../content/blog/**/*.mdx");
 
-  await console.log(allPosts);
+  // await console.log(allPosts);
 
   const uniqueTags = [
     ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),

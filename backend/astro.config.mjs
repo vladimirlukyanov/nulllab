@@ -11,7 +11,14 @@ export default defineConfig({
   compressHTML: true,
   outDir: "../frontend/",
   site: "https://nulllab.net",
-  integrations: [mdx(), sitemap(), add_csh_nonce(), sitemap({})],
+  markdown: {
+    syntaxHighlight: false,
+  },
+  integrations: [mdx({
+    optimize: {
+
+    },
+  }), sitemap(), add_csh_nonce(), sitemap({})],
   compressHTML: true,
   scopedStyleStrategy: "where",
   server: {
