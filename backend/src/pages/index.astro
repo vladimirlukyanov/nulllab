@@ -9,7 +9,11 @@ import LayoutIndex from "../layouts/index.astro";
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
 );
----
+
+const art = posts.filter((post) => {
+  return post.data.category === 'images'
+});
+  ---
 
 <LayoutIndex>
   <section class="hot">
@@ -23,14 +27,15 @@ const posts = (await getCollection("blog")).sort(
                     <a href={`/${post.slug.substring(5)}/`} class="link">
                       {post.data?.image?.url &&
                           <Image
+                              class="hot_image"
                               src={post.data.image.url}
                               alt={post.data.image.alt}
                           />
                       }
                       <span class="title">{post.data.title}</span>
-                      <p class="date">
+                      <span class="date">
                         <FormattedDate date={post.data.published_date}/>
-                      </p>
+                      </span>
                     </a>
                   </div>
               );
@@ -54,6 +59,24 @@ const posts = (await getCollection("blog")).sort(
           }
         </div>
       </div>
+    </div>
+  </section>
+  <section class="hot">
+    <div class="container xxl">
+      {
+        art.map((post) => {
+          return (
+              <div>
+                <a href={`/${post.slug.substring(5)}/`} class="link">
+                  <span class="title">{post.data.title}</span>
+                  <p class="date">
+                    <FormattedDate date={post.data.published_date}/>
+                  </p>
+                </a>
+              </div>
+          );
+        })
+      }
     </div>
   </section>
 </LayoutIndex>
@@ -84,6 +107,10 @@ const posts = (await getCollection("blog")).sort(
           ),
         ),
         subclasses: (
+          ".hot_image" : (
+            display: block,
+            height: 400px,
+          ),
           ".link": (
             text-decoration: none,
             subclasses: (

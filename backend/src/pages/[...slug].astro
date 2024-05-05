@@ -31,7 +31,7 @@ const {Content} = await post.render();
         <p>
           {post.data.tags.map((tag) => {
             return (
-                <span class="badge">{tag}</span>
+                <a href={'/tags/' + tag} target="_self" title={tag}><span class="badge">{tag}</span></a>
             )
           })}
         </p>
