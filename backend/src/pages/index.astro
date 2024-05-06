@@ -1,5 +1,5 @@
 ---
-import {Image} from "astro:assets";
+import {Image, Picture} from "astro:assets";
 
 import {getCollection} from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
@@ -13,7 +13,7 @@ const posts = (await getCollection("blog")).sort(
 const art = posts.filter((post) => {
   return post.data.category === 'images'
 });
-  ---
+---
 
 <LayoutIndex>
   <section class="hot">
@@ -61,22 +61,30 @@ const art = posts.filter((post) => {
       </div>
     </div>
   </section>
-  <section class="hot">
+  <section class="art">
     <div class="container xxl">
-      {
-        art.map((post) => {
-          return (
-              <div>
-                <a href={`/${post.slug.substring(5)}/`} class="link">
-                  <span class="title">{post.data.title}</span>
-                  <p class="date">
-                    <FormattedDate date={post.data.published_date}/>
-                  </p>
-                </a>
-              </div>
-          );
-        })
-      }
+      <div class="grid">
+        {
+          art.map((post) => {
+
+            if (post.data?.image) {
+              return (
+                  <div>
+                    <a href={`/${post.slug.substring(5)}/`} class="link">
+                      <Image
+                          width={330}
+                          height={250}
+                          aspectRatio={'16:9'}
+                          src={post.data.image.url}
+                          alt={post.data.image.alt}
+                      />
+                    </a>
+                  </div>
+              );
+            }
+          })
+        }
+      </div>
     </div>
   </section>
 </LayoutIndex>
@@ -90,6 +98,8 @@ const art = posts.filter((post) => {
   @use "../styles/app.scss" as app;
   @use "../styles/scss/mixins.scss" as mixins;
   @use "../styles/scss/functions.scss" as functions;
+
+  // --- hot section --- //
 
   $hot-section: (
     margin: 25px 0,
@@ -130,6 +140,35 @@ const art = posts.filter((post) => {
   @include mixins.generate-component(
       $hot-section,
       "hot",
+      app.$config,
+      app.$theme
+  );
+
+  // --- art section --- //
+
+  $art-section: (
+    margin: 25px 0,
+    subclasses: (
+      ".grid": (
+        display: grid,
+        width: 100%,
+        grid-template-columns: 1fr 1fr 1fr 1fr,
+        grid-auto-rows: auto,
+        grid-gap: 0,
+        subclasses: (
+          ".link" : (
+            display: block,
+            height: 300px,
+            width: 100%,
+          )
+        )
+      )
+    ),
+  );
+
+  @include mixins.generate-component(
+      $art-section,
+      "art",
       app.$config,
       app.$theme
   );
