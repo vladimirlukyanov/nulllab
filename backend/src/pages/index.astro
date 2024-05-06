@@ -152,14 +152,18 @@ const art = posts.filter((post) => {
       ".grid": (
         display: grid,
         width: 100%,
-        grid-template-columns: 1fr 1fr 1fr 1fr,
+        grid-template-columns: 1fr 1fr,
         grid-auto-rows: auto,
-        grid-gap: 0,
+        grid-gap: 1rem,
+        responsive: (
+          md: (
+            grid-template-columns: 1fr 1fr 1fr 1fr,
+            grid-gap: 1rem,
+          ),
+        ),
         subclasses: (
           ".link" : (
             display: block,
-            height: 300px,
-            width: 100%,
           )
         )
       )
