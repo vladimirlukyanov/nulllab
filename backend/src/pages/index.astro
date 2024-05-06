@@ -13,6 +13,10 @@ const posts = (await getCollection("blog")).sort(
 const art = posts.filter((post) => {
   return post.data.category === 'images'
 });
+
+const quotes = posts.filter((post) => {
+  return post.data.category === 'quote'
+});
 ---
 
 <LayoutIndex>
@@ -79,6 +83,27 @@ const art = posts.filter((post) => {
                           src={post.data.image.url}
                           alt={post.data.image.alt}
                       />
+                    </a>
+                  </div>
+              );
+            }
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="quotes">
+    <div class="container xxl">
+      <div class="grid">
+        {
+          quotes.map((post) => {
+
+            if (post.data?.description) {
+              return (
+                  <div>
+                    <a href={`/${post.slug.substring(5)}/`} class="link">
+                      123
                     </a>
                   </div>
               );
