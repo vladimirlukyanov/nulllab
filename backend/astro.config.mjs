@@ -31,6 +31,9 @@ export default defineConfig({
     server: {
         host: true,
     },
+    security : {
+        checkOrigin: true
+    },
     vite: {
         resolve: {
             alias: {

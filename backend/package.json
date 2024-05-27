@@ -10,17 +10,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^3.0.0",
-    "@astrojs/rss": "^4.0.5",
-    "@astrojs/sitemap": "^3.1.4",
-    "astro": "^4.8.2",
-    "sharp": "^0.33.3",
+    "astro": "^4.9.1",
+    "@astrojs/mdx": "^3.0.1",
+    "@astrojs/rss": "^4.0.6",
+    "@astrojs/sitemap": "^3.1.5",
+    "sharp": "^0.33.4",
     "@unpic/astro": "^0.0.46"
   },
   "devDependencies": {
-    "@types/prettier": "^3.0.0",
     "prettier": "^3.2.5",
-    "shiki": "^1.5.1",
-    "sass": "^1.77.1"
+    "shiki": "^1.6.0",
+    "sass": "^1.77.2"
   }
 }
