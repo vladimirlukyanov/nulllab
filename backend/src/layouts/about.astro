@@ -14,9 +14,39 @@ import Footer from "../components/footer.astro";
   </head>
   <body>
     <Header />
-    <div class="container xl">
-      <slot />
+    <div class="container xxl">
+      <div class="page">
+        <slot />
+      </div>
     </div>
     <Footer />
   </body>
 </html>
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "../styles/app.scss" as app;
+  @use "../styles/scss/mixins.scss" as mixins;
+  @use "../styles/scss/functions.scss" as functions;
+
+  $page-section: (
+      margin: 25px 0,
+      padding: 0 15px,
+      responsive: (
+          md: (
+              padding: 0,
+          ),
+      ),
+  );
+
+  @include mixins.generate-component(
+          $page-section,
+          "page",
+          app.$config,
+          app.$theme
+  );
+</style>

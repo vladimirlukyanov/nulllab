@@ -1,6 +1,6 @@
 ---
 import Head from "../components/head.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import {SITE_TITLE, SITE_DESCRIPTION} from "../consts";
 
 // Components
 import Header from "../components/header.astro";
@@ -9,14 +9,45 @@ import Footer from "../components/footer.astro";
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <Head title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header />
-    <div class="container xl">
-      <slot />
-    </div>
-    <Footer />
-  </body>
+<head>
+  <Head title={SITE_TITLE} description={SITE_DESCRIPTION}/>
+</head>
+<body>
+<Header/>
+<div class="container xxl">
+  <div class="page">
+    <slot/>
+  </div>
+</div>
+<Footer/>
+</body>
 </html>
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "../styles/app.scss" as app;
+  @use "../styles/scss/mixins.scss" as mixins;
+  @use "../styles/scss/functions.scss" as functions;
+
+  $page-section: (
+      margin: 25px 0,
+      padding: 0 15px,
+      responsive: (
+          md: (
+              padding: 0,
+          ),
+      ),
+  );
+
+  @include mixins.generate-component(
+          $page-section,
+          "page",
+          app.$config,
+          app.$theme
+  );
+</style>
+
