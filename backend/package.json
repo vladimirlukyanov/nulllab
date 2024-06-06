@@ -10,15 +10,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.9.2",
-    "@astrojs/mdx": "^3.0.1",
+    "astro": "^4.10.0",
+    "@astrojs/mdx": "^3.1.0",
     "@astrojs/rss": "^4.0.6",
     "@astrojs/sitemap": "^3.1.5",
     "sharp": "^0.33.4",
     "@unpic/astro": "^0.0.46"
   },
   "devDependencies": {
-    "prettier": "^3.3.0",
+    "prettier": "^3.3.1",
     "shiki": "^1.6.2",
     "sass": "^1.77.4"
   }
