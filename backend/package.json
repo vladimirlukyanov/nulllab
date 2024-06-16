@@ -18,8 +18,8 @@
     "@unpic/astro": "^0.0.46"
   },
   "devDependencies": {
-    "prettier": "^3.3.1",
-    "shiki": "^1.6.2",
-    "sass": "^1.77.4"
+    "prettier": "^3.3.2",
+    "shiki": "^1.6.5",
+    "sass": "^1.77.5"
   }
 }
