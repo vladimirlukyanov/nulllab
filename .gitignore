@@ -30,3 +30,6 @@ yarn-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# IDE
+/.idea
