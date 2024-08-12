@@ -50,7 +50,7 @@ const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
   @use "sass:list";
   @use "sass:meta";
   @use "../styles/app.scss" as app;
-  @use "../styles/scss/functions.scss" as functions;
+  @use "@nulllogic/scssleon/scss/functions.scss" as functions;
 
   $modules: ("root", "reset", "base", "content");
   $components: ("navbar", "nav", "button", "container");
@@ -59,7 +59,7 @@ const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
 
   @each $module in $modules {
     @include meta.load-css(
-      "../styles/scss/#{$module}",
+      "@nulllogic/scssleon/scss/#{$module}",
       $with: (config: app.$config, theme: app.$theme)
     );
   }
