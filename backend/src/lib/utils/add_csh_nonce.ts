@@ -12,6 +12,7 @@ export default function add_csh_nonce(): AstroIntegration {
           if (fs.statSync(file).isFile()) {
             acc.push(file);
           } else if (fs.statSync(file).isDirectory()) {
+            acc = acc.concat(fs.readdirSync(file).map((f) => `${file}/${f}`));
           }
           return acc;
         }, []);
