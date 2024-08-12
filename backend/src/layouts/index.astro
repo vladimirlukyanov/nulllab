@@ -18,33 +18,32 @@ import Footer from "../components/footer.astro";
       <slot />
     </main>
     <Footer />
-  </body>
-</html>
+  </body><style lang="scss">
+    @use "sass:list";
+    @use "sass:string";
+    @use "sass:meta";
+    @use "sass:map";
 
-<style lang="scss">
-  @use "sass:list";
-  @use "sass:string";
-  @use "sass:meta";
-  @use "sass:map";
+    @use "../styles/app.scss" as app;
+    @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
+    @use "@nulllogic/scssleon/scss/functions.scss" as functions;
 
-  @use "../styles/app.scss" as app;
-  @use "../styles/scss/mixins.scss" as mixins;
-  @use "../styles/scss/functions.scss" as functions;
-
-  $main-section: (
+    $main-section: (
       margin: 0 0 15px 0,
       padding: 0 15px,
       responsive: (
-          md: (
-              padding: 0,
-          ),
+        md: (
+          padding: 0,
+        ),
       ),
-  );
+    );
 
-  @include mixins.generate-component(
-          $main-section,
-          "main",
-          app.$config,
-          app.$theme
-  );
-</style>
+    @include mixins.generate-component(
+      $main-section,
+      "main",
+      app.$config,
+      app.$theme
+    );
+  </style>
+</html>
+

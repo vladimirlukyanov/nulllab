@@ -1,7 +1,7 @@
 ---
-import {Image, Picture} from "astro:assets";
+import { Image, Picture } from "astro:assets";
 
-import {getCollection} from "astro:content";
+import { getCollection } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 
 import LayoutIndex from "../layouts/index.astro";
@@ -11,11 +11,11 @@ const posts = (await getCollection("blog")).sort(
 );
 
 const art = posts.filter((post) => {
-  return post.data.category === 'images'
+  return post.data.category === "images";
 });
 
 const quotes = posts.filter((post) => {
-  return post.data.category === 'quote'
+  return post.data.category === "quote";
 });
 ---
 
@@ -28,21 +28,21 @@ const quotes = posts.filter((post) => {
           {
             posts.slice(0, 1).map((post) => {
               return (
-                  <div>
-                    <a href={`/${post.slug.substring(5)}/`} class="link">
-                      {post.data?.image?.url &&
-                          <Image
-                              class="hot_image"
-                              src={post.data.image.url}
-                              alt={post.data.image.alt}
-                          />
-                      }
-                      <span class="title">{post.data.title}</span>
-                      <span class="date">
-                        <FormattedDate date={post.data.published_date}/>
-                      </span>
-                    </a>
-                  </div>
+                <div>
+                  <a href={`/${post.slug.substring(5)}/`} class="link">
+                    {post.data?.image?.url && (
+                      <Image
+                        class="hot_image"
+                        src={post.data.image.url}
+                        alt={post.data.image.alt}
+                      />
+                    )}
+                    <span class="title">{post.data.title}</span>
+                    <span class="date">
+                      <FormattedDate date={post.data.published_date} />
+                    </span>
+                  </a>
+                </div>
               );
             })
           }
@@ -51,14 +51,14 @@ const quotes = posts.filter((post) => {
           {
             posts.slice(1).map((post) => {
               return (
-                  <div>
-                    <a href={`/${post.slug.substring(5)}/`} class="link">
-                      <span class="title">{post.data.title}</span>
-                      <p class="date">
-                        <FormattedDate date={post.data.published_date}/>
-                      </p>
-                    </a>
-                  </div>
+                <div>
+                  <a href={`/${post.slug.substring(5)}/`} class="link">
+                    <span class="title">{post.data.title}</span>
+                    <p class="date">
+                      <FormattedDate date={post.data.published_date} />
+                    </p>
+                  </a>
+                </div>
               );
             })
           }
@@ -69,26 +69,23 @@ const quotes = posts.filter((post) => {
 
   <section class="art">
     <div class="container xxl">
-      <div>
-        Images
-      </div>
+      <div>Images</div>
       <div class="grid">
         {
           art.map((post) => {
-
             if (post.data?.image) {
               return (
-                  <div>
-                    <a href={`/${post.slug.substring(5)}/`} class="link">
-                      <Image
-                          width={330}
-                          height={250}
-                          aspectRatio={1.3333333333333333}
-                          src={post.data.image.url}
-                          alt={post.data.image.alt}
-                      />
-                    </a>
-                  </div>
+                <div>
+                  <a href={`/${post.slug.substring(5)}/`} class="link">
+                    <Image
+                      width={330}
+                      height={250}
+                      aspectRatio={1.3333333333333333}
+                      src={post.data.image.url}
+                      alt={post.data.image.alt}
+                    />
+                  </a>
+                </div>
               );
             }
           })
@@ -99,20 +96,17 @@ const quotes = posts.filter((post) => {
 
   <section class="quotes">
     <div class="container xxl">
-      <div>
-        Quotes
-      </div>
+      <div>Quotes</div>
       <div class="grid">
         {
           quotes.map((post) => {
-
             if (post.data?.description) {
               return (
-                  <div>
-                    <a href={`/${post.slug.substring(5)}/`} class="link">
-                      123
-                    </a>
-                  </div>
+                <div>
+                  <a href={`/${post.slug.substring(5)}/`} class="link">
+                    123
+                  </a>
+                </div>
               );
             }
           })
@@ -129,8 +123,9 @@ const quotes = posts.filter((post) => {
   @use "sass:map";
 
   @use "../styles/app.scss" as app;
-  @use "../styles/scss/mixins.scss" as mixins;
-  @use "../styles/scss/functions.scss" as functions;
+
+  @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
+  @use "@nulllogic/scssleon/scss/functions.scss" as functions;
 
   // --- hot section --- //
 
@@ -150,7 +145,7 @@ const quotes = posts.filter((post) => {
           ),
         ),
         subclasses: (
-          ".hot_image" : (
+          ".hot_image": (
             display: block,
             height: 400px,
           ),
@@ -171,10 +166,10 @@ const quotes = posts.filter((post) => {
   );
 
   @include mixins.generate-component(
-      $hot-section,
-      "hot",
-      app.$config,
-      app.$theme
+    $hot-section,
+    "hot",
+    app.$config,
+    app.$theme
   );
 
   // --- art section --- //
@@ -195,18 +190,18 @@ const quotes = posts.filter((post) => {
           ),
         ),
         subclasses: (
-          ".link" : (
+          ".link": (
             display: block,
-          )
-        )
-      )
+          ),
+        ),
+      ),
     ),
   );
 
   @include mixins.generate-component(
-      $art-section,
-      "art",
-      app.$config,
-      app.$theme
+    $art-section,
+    "art",
+    app.$config,
+    app.$theme
   );
 </style>
