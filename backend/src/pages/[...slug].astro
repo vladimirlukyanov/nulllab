@@ -1,27 +1,27 @@
 ---
-import {getEntry} from "astro:content";
+import { getEntry } from "astro:content";
 
 import LayoutBlog from "../layouts/blog.astro";
-import {type CollectionEntry, getCollection} from "astro:content";
-import code from "../components/snippet/code.astro"
+import { type CollectionEntry, getCollection } from "astro:content";
+import code from "../components/snippet/code.astro";
 
-import {format_date} from "../lib/utils";
+import { format_date } from "../lib/utils";
 
 export async function getStaticPaths() {
-    const posts = await getCollection("blog");
-    return posts.map((post) => {
-        const [year, slug] = post.slug.split("/");
-        return {
-            params: {
-                slug: slug.toString(),
-            },
-            props: post,
-        };
-    });
+  const posts = await getCollection("blog");
+  return posts.map((post) => {
+    const [year, slug] = post.slug.split("/");
+    return {
+      params: {
+        slug: slug.toString(),
+      },
+      props: post,
+    };
+  });
 }
 
 const post = Astro.props;
-const {Content} = await post.render();
+const { Content } = await post.render();
 ---
 
 <LayoutBlog>
@@ -33,19 +33,21 @@ const {Content} = await post.render();
           {format_date(post.data.published_date)}
           —
           <div class="tags">
-            {post.data.tags.map((tag) => {
-              return (
-                  <a href={'/tags/' + tag} target="_self" title={tag}><span class="badge">{tag}</span></a>
-              )
-            })}
+            {
+              post.data.tags.map((tag) => {
+                return (
+                  <a href={"/tags/" + tag} target="_self" title={tag}>
+                    <span class="badge">{tag}</span>
+                  </a>
+                );
+              })
+            }
           </div>
           — name
         </div>
-        <p>
-
-        </p>
+        <p></p>
         <p>{post.data.description}</p>
-        <Content/>
+        <Content />
       </div>
     </div>
   </div>
@@ -58,43 +60,44 @@ const {Content} = await post.render();
   @use "sass:map";
 
   @use "../styles/app.scss" as app;
-  @use "../styles/scss/mixins.scss" as mixins;
-  @use "../styles/scss/functions.scss" as functions;
+
+  @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
+  @use "@nulllogic/scssleon/scss/functions.scss" as functions;
 
   $components: ("badge", "button");
 
   @each $component in $components {
     @include meta.load-css(
-            "../styles/scss/components/#{$component}",
-        $with: (config: app.$config, theme: app.$theme)
+      "@nulllogic/scssleon/scss/components/#{$component}",
+      $with: (config: app.$config, theme: app.$theme)
     );
   }
 
   $post-section: (
-      margin: 25px 0,
-      subclasses: (
-          ".title" : (
+    margin: 25px 0,
+    subclasses: (
+      ".title": (),
+      ".description": (
+        display: flex,
+        align-items: center,
+        subclasses: (
+          ".tags": (
+            margin: 0 10px,
+            display: flex,
+            gap: 10px,
+            text-transform: capitalize,
           ),
-          ".description" : (
-              display: flex,
-              align-items: center,
-              subclasses: (
-                ".tags" : (
-                    margin: 0 10px,
-                    display: flex,
-                    gap: 10px,
-                    text-transform: capitalize
-                )
-              )
-          )
+        ),
       ),
+    ),
   );
 
   @include mixins.generate-component(
-          $post-section,
-          "post",
-          app.$config,
-          app.$theme
+    $post-section,
+    "post",
+    app.$config,
+    app.$theme
   );
 </style>
 `
+

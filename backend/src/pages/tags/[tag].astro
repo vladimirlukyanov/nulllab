@@ -31,17 +31,15 @@ console.log(123);
 <LayoutBlog pageTitle={tag}>
   <section class="posts">
     <div class="container xxl">
-
       <p>Posts tagged with {tag}</p>
       <ul>
         {
-            false &&
+          false &&
             posts.map((post) => (
-                <a href={post.url} title={post.frontmatter.title} />
+              <a href={post.url} title={post.frontmatter.title} />
             ))
         }
       </ul>
-
     </div>
   </section>
 </LayoutBlog>
@@ -53,23 +51,24 @@ console.log(123);
   @use "sass:map";
 
   @use "../../styles/app.scss" as app;
-  @use "../../styles/scss/mixins.scss" as mixins;
-  @use "../../styles/scss/functions.scss" as functions;
+  @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
+  @use "@nulllogic/scssleon/scss/functions.scss" as functions;
 
   $posts-section: (
-      margin: 15px 0,
-      padding: 0 15px,
-      responsive: (
-          md: (
-              padding: 0,
-          ),
+    margin: 15px 0,
+    padding: 0 15px,
+    responsive: (
+      md: (
+        padding: 0,
       ),
+    ),
   );
 
   @include mixins.generate-component(
-          $posts-section,
-          "posts",
-          app.$config,
-          app.$theme
+    $posts-section,
+    "posts",
+    app.$config,
+    app.$theme
   );
 </style>
+
