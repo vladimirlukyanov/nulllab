@@ -10,8 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.16.7",
-    "@astrojs/mdx": "^3.1.8",
+    "astro": "^4.16.10",
+    "@astrojs/mdx": "^3.1.9",
     "@astrojs/rss": "^4.0.9",
     "@astrojs/sitemap": "^3.2.1",
     "sharp": "^0.33.5",
@@ -19,6 +19,6 @@
     "@nulllogic/scssleon": "^1.0.36"
   },
   "devDependencies": {
-    "sass": "^1.80.4"
+    "sass": "^1.80.6"
   }
 }
