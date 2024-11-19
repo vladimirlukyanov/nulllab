@@ -10,7 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.16.10",
+    "astro": "^4.16.13",
     "@astrojs/mdx": "^3.1.9",
     "@astrojs/rss": "^4.0.9",
     "@astrojs/sitemap": "^3.2.1",
@@ -19,6 +19,6 @@
     "@nulllogic/scssleon": "^1.0.36"
   },
   "devDependencies": {
-    "sass": "^1.80.6"
+    "sass": "^1.81.0"
   }
 }
