@@ -8,10 +8,10 @@ cloud:
 	docker container run -it --rm -v $PWD/cloud:/tf --workdir /tf hashicorp/terraform:latest 
 
 watch:
-	docker-compose
+	docker compose
 
 build :
-	docker-compose up -d
+	docker compose up -d
 #	ASTRO_TELEMETRY_DISABLED=1 npm run build --prefix="./backend/" -- --verbose
 
 sync :
@@ -21,4 +21,4 @@ sync :
 	aws cloudfront create-invalidation --distribution-id E3ONXJXS0O5775 --paths '/*'
 
 clean :
-	docker-compose down --rmi all -v --remove-orphans
+	docker compose down --rmi all -v --remove-orphans
