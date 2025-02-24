@@ -1,4 +1,9 @@
-import path from "path";
+import path, { dirname } from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 import {defineConfig} from "astro/config";
 import {imageService} from "@unpic/astro/service";
 
@@ -12,7 +17,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
     compressHTML: true,
     outDir: "../frontend/",
-    site: "https://nulllab.net",
+    site: "https://nulllwab.net",
     markdown: {
         syntaxHighlight: false,
     },
@@ -37,8 +42,8 @@ export default defineConfig({
     vite: {
         resolve: {
             alias: {
-                "~": path.resolve(path.dirname(""), "./"),
-            },
+                '~': path.resolve(__dirname, './src')
+            }
         },
     },
 });
