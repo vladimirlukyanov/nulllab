@@ -13,7 +13,7 @@
     "astro": "^5.7.10",
     "@astrojs/mdx": "^4.2.6",
     "@astrojs/rss": "^4.0.11",
-    "@astrojs/sitemap": "^3.3.0",
+    "@astrojs/sitemap": "^3.3.1",
     "sharp": "^0.33.5",
     "@unpic/astro": "^1.0.0",
     "@nulllogic/scssleon": "^1.0.36"
