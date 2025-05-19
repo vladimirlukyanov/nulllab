@@ -1,1 +1,1 @@
-export { default as Snippet } from "./snippet.astro";
+export { default as Snippet } from "./index.astro";
