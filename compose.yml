@@ -10,7 +10,7 @@ services:
       - type: bind
         source: ./backend
         target: /opt/app
-      - "~/Developer/scssleon/scss:/opt/app/src/styles/scss"
+      - "~/Developer/my/scssleon/scss:/opt/app/src/styles/scss"
     ports:
       - "8080:4321"
     container_name: nulllab

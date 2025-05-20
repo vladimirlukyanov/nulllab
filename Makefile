@@ -1,6 +1,5 @@
 prony: build clean cloud sync watch
 
-
 # aws configure export-credentials --profile aws-dev --format env-no-export > .env.docker
 # go mod tidy
 
@@ -8,7 +7,7 @@ cloud:
 	docker container run -it --rm -v $PWD/cloud:/tf --workdir /tf hashicorp/terraform:latest 
 
 watch:
-	docker compose
+	docker compose up
 
 build :
 	docker compose up -d
