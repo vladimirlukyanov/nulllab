@@ -94,3 +94,19 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
                   app.$theme
   );
 </style>
+
+<script type="text/javascript">
+    const nav = document.querySelector('.header');
+    const navTop = nav.offsetTop;
+
+    function stickyNavigation() {
+        if (window.scrollY > navTop) {
+            // nav offsetHeight = height of nav
+            nav.classList.add('sticky');
+        } else {
+            nav.classList.remove('sticky');
+        }
+    }
+
+    window.addEventListener('scroll', stickyNavigation);
+</script>
