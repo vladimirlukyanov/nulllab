@@ -1,11 +1,11 @@
 ---
-import type { HTMLAttributes } from "astro/types";
+import type {HTMLAttributes} from "astro/types";
 import Logo from "~/components/logo/index.astro";
 type Props = HTMLAttributes<"a">;
 
-const { href, class: className, ...props } = Astro.props;
+const {href, class: className, ...props} = Astro.props;
 
-const { pathname } = Astro.url;
+const {pathname} = Astro.url;
 
 const isActive = href === pathname || href === pathname.replace(/\/$/, "");
 ---
@@ -22,7 +22,7 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
                 <ul class="nav horizontal">
                     <li class="item">
                         <a href="/" class="link">
-                            <Logo />
+                            <Logo/>
                         </a>
                     </li>
                     <li class="item">
@@ -50,48 +50,48 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
   $navbar: functions.get-theme(app.$theme, "components.navbar");
 
   $navbar: map.deep-merge(
-                  $navbar,
-                  (
-                          --grid-template-columns: auto auto,
-                  )
+          $navbar,
+          (
+              --grid-template-columns: auto auto,
+          )
   );
 
   $header-section: (
-          padding: 10px 5px,
-          background: var(--background),
-          border-bottom: var(--border),
-          box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px"),
-          top: 0,
-          position: relative,
-          colors: (
-                  dark: (
-                          background:
-                          string.unquote(
-                                          "linear-gradient(rgba(0, 95, 94, 0.85) 0%, rgba(23, 59, 86, 0.55) 100%)"
-                          ),
-                          border: 1px solid #173b56,
-                  ),
+      padding: 10px 5px,
+      background: var(--background),
+      border-bottom: var(--border),
+      box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px"),
+      top: 0,
+      position: relative,
+      colors: (
+          dark: (
+              background:
+              string.unquote(
+                      "linear-gradient(rgba(0, 95, 94, 0.85) 0%, rgba(23, 59, 86, 0.55) 100%)"
+              ),
+              border: 1px solid #173b56,
           ),
-          subclasses: (
-                  ".navbar": $navbar,
-                  "&.sticky": (
-                          position: sticky,
-                          -webkit-backdrop-filter: blur(10px),
-                          backdrop-filter: blur(10px),
-                  ),
+      ),
+      subclasses: (
+          ".navbar": $navbar,
+          "&.sticky": (
+              position: sticky,
+              -webkit-backdrop-filter: blur(10px),
+              backdrop-filter: blur(10px),
           ),
-          responsive: (
-                  md: (
-                          padding: 10px 5px,
-                  ),
+      ),
+      responsive: (
+          md: (
+              padding: 10px 5px,
           ),
+      ),
   );
 
   @include mixins.generate-component(
-                  $header-section,
-                  "header",
-                  app.$config,
-                  app.$theme
+          $header-section,
+          "header",
+          app.$config,
+          app.$theme
   );
 </style>
 
