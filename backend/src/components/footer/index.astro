@@ -1,0 +1,120 @@
+---
+---
+<div class="footer">
+    <div class="container xxl">
+        <div class="grid">
+            <div class="column">
+                1
+            </div>
+            <div class="column">
+                2
+            </div>
+        </div>
+        <div class="disclaimer">
+            <div>
+                <a href={'#'} class="link">
+                    Privacy Policy
+                </a>
+            </div>
+            <div>
+                |
+            </div>
+            <div>
+                <a href={'#'} class="link">
+                    Terms and conditions
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:meta";
+  @use "sass:string";
+
+  @use "../../styles/app.scss" as app;
+  @use "../../styles//scss/mixins.scss" as mixins;
+
+  $footer-component: (
+      --padding: 35px 15px,
+
+      background: var(--background),
+      border-top: var(--border),
+      padding: var(--padding),
+
+      _responsive: (
+          md: (
+              --padding: 35px 5px,
+          ),
+          lg: (
+              --padding: 35px 5px,
+          ),
+      ),
+
+      _colors: (
+          light : (
+              background: rgb(241, 241, 249),
+              border : 1px solid rgb(211, 216, 223),
+          ),
+          dark: (
+              background : rgb(23, 59, 86),
+              border : 1px solid rgb(11, 89, 140),
+          )
+      ),
+
+      _subclasses: (
+          '.grid' : (
+              --columns: "",
+
+              display: grid,
+              grid-template-columns: var(--columns),
+              gap: 15px,
+              margin: 0 0 1rem 0,
+
+              _responsive: (
+                  md: (
+                      --columns: auto 200px 200px,
+                  ),
+                  lg: (
+                      --columns: auto 200px 200px,
+                  ),
+              ),
+
+              _subclasses: (
+                  '.column' : (
+                      _subclasses : (
+                          '.title' : (
+                              font-size: 1.25rem,
+                              margin: 0 0 0.5rem 0
+                          ),
+                          '.logo' : (
+                              margin: 0 0 15px 0,
+                          )
+                      )
+                  )
+              )
+          ),
+          '.disclaimer' : (
+              display: flex,
+              margin: 0 auto,
+              width: auto,
+              justify-content: center,
+              gap: 10px,
+
+              _subclasses : (
+                  '> div' : (
+
+                  )
+              )
+          )
+      ),
+  );
+
+  @include mixins.generate-component(
+          $footer-component,
+          "footer",
+          app.$config,
+          app.$theme
+  );
+</style>

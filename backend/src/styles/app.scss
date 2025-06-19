@@ -1,20 +1,33 @@
-$config: (
-  prefix: "xii",
-  enable: (
-    wrapper: false,
-  ),
-) !default;
+@use 'sass:map';
+@use "sass:string";
 
-$theme: () !default;
-
-@use "@nulllogic/scssleon/scss/config.scss" as config with (
-  $config: $config
+@use "./scss/config.scss" as config with (
+  $config: (
+    prefix: "xii",
+    enable: (
+      wrapper: false,
+    ),
+  )
 );
 
-@use "@nulllogic/scssleon/scss/themes/default.scss" as theme with (
-  $theme: $theme
+@use "./scss/themes/default.scss" as theme with (
+  $theme: (
+    html : (
+      body : (
+        _colors: (
+          light : (
+            background : rgb(247, 246, 243),
+            color: rgb(28, 29, 31),
+          ),
+          dark : (
+            background : rgb(5, 17, 4),
+            color: '#ccc'
+          )
+        )
+      )
+    )
+  )
 );
 
 $config: config.$config;
 $theme: theme.$theme;
-
