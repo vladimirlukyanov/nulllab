@@ -41,6 +41,7 @@ console.log(featured_post);
                             <span class="overlay"/>
                             <span class="bottom">
                                 <span class="text">
+                                    <span class="category">{featured_post.data.category}</span>
                                     <span class="title">{featured_post.data.title}</span>
                                     <span class="date">
                                         <FormattedDate date={featured_post.data.published_date}/>
@@ -176,6 +177,12 @@ console.log(featured_post);
                                               flex-direction: column,
                                               gap: 10px,
                                               _subclasses: (
+                                                  '.category' : (
+                                                      font-size: 0.825rem,
+                                                      color: #8c602e,
+                                                      font-weight: bold,
+                                                      text-transform: capitalize,
+                                                  ),
                                                   '.title' : (
                                                       font-size: 1.5rem,
                                                   ),

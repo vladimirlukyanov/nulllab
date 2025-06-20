@@ -1,57 +1,63 @@
 ---
-import { getEntry } from "astro:content";
+import {getEntry} from "astro:content";
 
 import LayoutBlog from "../layouts/blog.astro";
-import { type CollectionEntry, getCollection } from "astro:content";
+import {type CollectionEntry, getCollection} from "astro:content";
+import {render} from 'astro:content';
 
-
-import { format_date } from "../lib/utils";
+import {format_date} from "../lib/utils";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+    const posts = await getCollection("blog");
 
-  return posts.map((post) => {
-    const [year, slug] = post.id.split("/");
-    return {
-      params: {
-        slug: slug.toString(),
-      },
-      props: post,
-    };
-  });
+    return posts.map((post) => {
+        const [year, slug] = post.id.split("/");
+        return {
+            params: {
+                slug: slug.toString(),
+            },
+            props: post,
+        };
+    });
 }
 
 const post = Astro.props;
-const { Content } = await post.render();
+const {Content} = await render(post);
 ---
 
 <LayoutBlog>
-  <div class="post">
-    <div class="container xxl">
-      <div class="content">
-        <h1 class="title">{post.data.title}</h1>
-        <div class="description">
-          {format_date(post.data.published_date)}
-          —
-          <div class="tags">
-            {
-              post.data.tags.map((tag) => {
-                return (
-                  <a href={"/tags/" + tag} target="_self" title={tag}>
-                    <span class="badge">{tag}</span>
-                  </a>
-                );
-              })
-            }
-          </div>
-          — name
+    <div class="single_post">
+        <div class="container xxl">
+            <div class="grid">
+                <div class="post">
+                    <div class="content">
+                        <h1 class="title">{post.data.title}</h1>
+                        <div class="description">
+                            {format_date(post.data.published_date)}
+                            —
+                            <div class="tags">
+                                {
+                                    post.data.tags.map((tag) => {
+                                        return (
+                                                <a href={"/tags/" + tag} target="_self" title={tag}>
+                                                    <span class="badge">{tag}</span>
+                                                </a>
+                                        );
+                                    })
+                                }
+                            </div>
+                            — name
+                        </div>
+                        <p>{post.data.description}</p>
+                        <Content/>
+                    </div>
+                </div>
+                <div class="sidebar">
+                    2
+                </div>
+            </div>
         </div>
-        <p></p>
-        <p>{post.data.description}</p>
-        <Content />
-      </div>
     </div>
-  </div>
 </LayoutBlog>
 
 <style lang="scss">
@@ -62,33 +68,55 @@ const { Content } = await post.render();
 
   @use "../styles/app.scss" as app;
 
-  @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
-  @use "@nulllogic/scssleon/scss/functions.scss" as functions;
+  @use "../styles/scss/mixins.scss" as mixins;
+  @use "../styles/scss/functions.scss" as functions;
 
-  $post-section: (
-    margin: 25px 0,
-    subclasses: (
-      ".title": (),
-      ".description": (
-        display: flex,
-        align-items: center,
-        subclasses: (
-          ".tags": (
-            margin: 0 10px,
-            display: flex,
-            gap: 10px,
-            text-transform: capitalize,
+  $single_post: (
+      margin: 25px 0,
+      _subclasses: (
+          '.grid' : (
+              display: grid,
+              width: 100%,
+              grid-template-columns: 1fr,
+              grid-auto-rows: auto,
+              grid-gap: 1rem,
+              _responsive: (
+                  md: (
+                      grid-template-columns: 1.4fr 0.6fr,
+                      grid-gap: 1rem,
+                  ),
+              ),
+              _subclasses: (
+                  '.post' : (
+                      _subclasses: (
+                          '.title': (),
+                          '.description': (
+                              display: flex,
+                              align-items: center,
+                              margin: 0 0 10px 0,
+                              _subclasses: (
+                                  '.tags': (
+                                      margin: 0 10px,
+                                      display: flex,
+                                      gap: 10px,
+                                      text-transform: capitalize,
+                                  ),
+                              ),
+                          ),
+                      )
+                  ),
+                  '.sidebar': (
+                  )
+              )
           ),
-        ),
       ),
-    ),
   );
 
   @include mixins.generate-component(
-    $post-section,
-    "post",
-    app.$config,
-    app.$theme
+          $single_post,
+          'single_post',
+          app.$config,
+          app.$theme
   );
 </style>
 `
