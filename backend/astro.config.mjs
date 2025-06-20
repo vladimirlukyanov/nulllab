@@ -15,35 +15,35 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-    compressHTML: true,
-    outDir: "../frontend/",
-    site: "https://nulllwab.net",
-    markdown: {
-        syntaxHighlight: false,
+  compressHTML: true,
+  outDir: "../frontend/",
+  site: "https://nulllwab.net",
+  markdown: {
+    syntaxHighlight: false,
+  },
+  integrations: [
+    mdx({
+      optimize: {},
+    }),
+    sitemap(),
+    add_csh_nonce(),
+    sitemap({})
+  ],
+  scopedStyleStrategy: "where",
+  image: {
+    service: imageService(),
+  },
+  server: {
+    host: true,
+  },
+  security : {
+    checkOrigin: true
+  },
+  vite: {
+    resolve: {
+      alias: {
+        '~': path.resolve(__dirname, './src')
+      }
     },
-    integrations: [
-        mdx({
-            optimize: {},
-        }),
-        sitemap(),
-        add_csh_nonce(),
-        sitemap({})
-    ],
-    scopedStyleStrategy: "where",
-    image: {
-        service: imageService(),
-    },
-    server: {
-        host: true,
-    },
-    security : {
-        checkOrigin: true
-    },
-    vite: {
-        resolve: {
-            alias: {
-                '~': path.resolve(__dirname, './src')
-            }
-        },
-    },
+  },
 });

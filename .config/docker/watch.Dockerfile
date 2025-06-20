@@ -1,6 +1,10 @@
 FROM alpine:latest
 
-RUN apk update && apk add nodejs npm curl
+RUN apk update && apk add nodejs-current npm curl
+
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
 
 WORKDIR /opt/app
 
