@@ -90,4 +90,17 @@ const { title, description, image = '/placeholder-social.jpg' } = Astro.props
     $theme: $theme
   );
 
+  // ↓ Button
+  @use "~/styles/scss/components/button" with (
+    $config: $config,
+    $theme: $theme
+  );
+
+  // ↓ Amazing content
+  // Special class `.content` to allow formatting of the default html tags
+  @use "~/styles/scss/content" with (
+    $config: $config,
+    $theme: $theme
+  );
+
 </style>

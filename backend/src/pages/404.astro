@@ -3,4 +3,61 @@
 import Layout404 from "../layouts/404.astro";
 ---
 
-<Layout404> 404 </Layout404>
+<Layout404>
+    <div class="error404">
+        <div class="inner">
+            <div class="code">404</div>
+            <div class="title">Page not found</div>
+            <div class="description">Sorry, we couldn’t find the page you’re looking for.</div>
+            <div class="actions">
+                <a href="#" class="btn">
+                    Go back home
+                </a>
+            </div>
+        </div>
+    </div>
+</Layout404>
+
+<style lang="scss">
+
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "../styles/app.scss" as app;
+
+  @use "../styles/scss/mixins.scss" as mixins;
+  @use "../styles/scss/functions.scss" as functions;
+
+  $error404_section: (
+      display: grid,
+      min-height: 500px,
+      place-items: center,
+      text-align: center,
+
+      _subclasses : (
+          '.code' : (
+              margin: 0 0 15px 0,
+              color: rgb(118, 149, 8),
+              font-weight: 900,
+          ),
+          '.title' : (
+              margin: 0 0 25px 0,
+              font-size: 3.5rem,
+          ),
+          '.description' : (
+              font-size: 1rem,
+              margin: 0 0 25px 0,
+          )
+      ),
+  );
+
+  @include mixins.generate-component(
+          $error404_section,
+          "error404",
+          app.$config,
+          app.$theme,
+          (add_pseudo_tag: false)
+  );
+</style>

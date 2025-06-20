@@ -64,15 +64,6 @@ const { Content } = await post.render();
   @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
   @use "@nulllogic/scssleon/scss/functions.scss" as functions;
 
-  $components: ("badge", "button");
-
-  @each $component in $components {
-    @include meta.load-css(
-      "@nulllogic/scssleon/scss/components/#{$component}",
-      $with: (config: app.$config, theme: app.$theme)
-    );
-  }
-
   $post-section: (
     margin: 25px 0,
     subclasses: (
