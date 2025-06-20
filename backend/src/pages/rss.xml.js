@@ -9,7 +9,6 @@ export async function GET(context) {
     description: SITE_DESCRIPTION,
     site: context.site,
     items: posts.map((post) => {
-      console.log(post);
       return {
         ...post.data,
         pubDate: post?.data?.published_date

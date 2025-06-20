@@ -23,9 +23,6 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
-
-console.log(tag, posts);
-console.log(123);
 ---
 
 <LayoutBlog pageTitle={tag}>

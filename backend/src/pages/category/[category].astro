@@ -1,0 +1,128 @@
+---
+import {getCollection} from 'astro:content';
+import CategoryLayout from "../../layouts/category.astro";
+
+export async function getStaticPaths() {
+
+    const posts = await getCollection('blog');
+
+    // console.log(posts);
+
+    // const uniqueTags = [
+    //     ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),
+    // ];
+    //
+    // return uniqueTags.map((category) => {
+    //     const filteredPosts = allPosts.filter((post) =>
+    //         post.frontmatter.tags.includes(tag),
+    //     );
+    //     return {
+    //         params: { category },
+    //         props: { posts: filteredPosts },
+    //     };
+    // });
+
+    const categories = [...new Set(posts.map((post) => post.data.category).flat())];
+
+    // console.log(categories);
+
+    return categories.map((category) => {
+        const filtered_posts = posts.filter((post) => {
+                return post.data.category === category.toLowerCase();
+            }
+        );
+
+        return {
+            params: {category: category},
+            props: {posts: filtered_posts},
+        }
+    });
+}
+
+const {posts} = Astro.props;
+const {category} = Astro.params;
+
+// console.log(posts);
+---
+
+<CategoryLayout>
+    <div class="section">
+        <div class="container xxl">
+            <div class="wrapper">
+                <div class="posts">
+                    {posts.map((post) => {
+                        return (
+                                <div class="post">
+                                    <a class="link" href={`/${post.slug.substring(5)}/`}>
+                                        <span class="title">{post.data.title}</span>
+                                        <span class="description">{post.data.description}</span>
+                                    </a>
+                                </div>
+                        )
+                    })}
+                </div>
+                <div class="sidebar">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</CategoryLayout>
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "../../styles/app.scss" as app;
+
+  @use "../../styles/scss/mixins.scss" as mixins;
+  @use "../../styles/scss/functions.scss" as functions;
+
+  $category-section: (
+      _subclasses: (
+          '.wrapper': (
+              display: grid,
+              width: 100%,
+              grid-template-columns: 1fr 1fr,
+              grid-auto-rows: auto,
+              grid-gap: 1rem,
+              _responsive: (
+                  md: (
+                    /*grid-template-columns: 1fr 1fr 1fr 1fr,*/
+                    /*grid-gap: 1rem,*/
+                  ),
+              ),
+              _subclasses: (
+                  '.posts': (
+                      display: block,
+                      _subclasses: (
+                          '.post' : (
+                              margin: 0 0 15px 0,
+                              _subclasses: (
+                                  '.title' : (
+                                    display: block
+                                  ),
+                                  '.description' : (
+                                      display: block
+                                  )
+                              )
+                          )
+                      ),
+                      '.sidebar' : (
+                          display: block
+                      )
+                  ),
+              ),
+          ),
+      )
+  );
+
+  @include mixins.generate-component(
+          $category-section,
+          "section",
+          app.$config,
+          app.$theme
+  );
+</style>
