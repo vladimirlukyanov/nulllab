@@ -1,119 +1,122 @@
 ---
-import { Image, Picture } from "astro:assets";
+import path from 'node:path';
+import {Image, Picture} from "astro:assets";
 
-import { getCollection } from "astro:content";
+import {getCollection} from "astro:content";
+
 import FormattedDate from "../components/FormattedDate.astro";
 
 import LayoutIndex from "../layouts/index.astro";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
+const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
 );
 
-const art = posts.filter((post) => {
-  return post.data.category === "images";
+
+
+const arts = posts.filter((post) => {
+    return post.data.category === 'images';
 });
 
 const quotes = posts.filter((post) => {
-  return post.data.category === "quote";
+    return post.data.category === "quote";
 });
+
+const featured_post = posts.filter((post) => post.data.featured).at(0);
+console.log(featured_post);
 ---
 
 <LayoutIndex>
-  <section class="hot">
-    <div class="container xxl">
-      <div>Hot</div>
-      <div class="grid">
-        <div class="primary">
-          {
-            posts.slice(0, 1).map((post) => {
-              return (
-                <div>
-                  <a href={`/${post.slug.substring(5)}/`} class="link">
-                    {post.data?.image?.url && (
-                      <Image
-                        class="hot_image"
-                        src={post.data.image.url}
-                        alt={post.data.image.alt}
-                      />
-                    )}
-                    <span class="title">{post.data.title}</span>
-                    <span class="date">
-                      <FormattedDate date={post.data.published_date} />
-                    </span>
-                  </a>
+    <section class="hot">
+        <div class="container xxl">
+            <div>Hot</div>
+            <div class="grid">
+                <div class="one">
+                    1
                 </div>
-              );
-            })
-          }
+                <div class="two">
+                    <div class="featured">
+                        <a href={`/${featured_post.id.substring(5)}/`} class="link">
+                            <Image src={featured_post.data.image.url} alt={'11'} class="image"/>
+                            <span class="overlay"/>
+                            <span class="bottom">
+                                <span class="text">
+                                    <span class="title">{featured_post.data.title}</span>
+                                    <span class="date">
+                                        <FormattedDate date={featured_post.data.published_date}/>
+                                    </span>
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="three">
+                    {
+                        posts.slice(1).map((post) => {
+                            return (
+                                    <div>
+                                        <a href={`/${post.id.substring(5)}/`} class="link">
+                                            <span class="title">{post.data.title}</span>
+                                            <p class="date">
+                                                <FormattedDate date={post.data.published_date}/>
+                                            </p>
+                                        </a>
+                                    </div>
+                            );
+                        })
+                    }
+                </div>
+            </div>
         </div>
-        <div class="secondary">
-          {
-            posts.slice(1).map((post) => {
-              return (
-                <div>
-                  <a href={`/${post.slug.substring(5)}/`} class="link">
-                    <span class="title">{post.data.title}</span>
-                    <p class="date">
-                      <FormattedDate date={post.data.published_date} />
-                    </p>
-                  </a>
-                </div>
-              );
-            })
-          }
+    </section>
+
+    <section class="art">
+        <div class="container xxl">
+            <div>Images</div>
+            <div class="grid">
+                {
+                    arts.map((post) => {
+                        if (post.data?.image) {
+                            return (
+                                    <div>
+                                        <a href={`/${post.id.substring(5)}/`} class="link">
+                                            <Image
+                                                    width={330}
+                                                    height={250}
+                                                    aspectRatio={1.3333333333333333}
+                                                    src={post.data.image.url}
+                                                    alt={post.data.image.alt}
+                                            />
+                                        </a>
+                                    </div>
+                            );
+                        }
+                    })
+                }
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="art">
-    <div class="container xxl">
-      <div>Images</div>
-      <div class="grid">
-        {
-          art.map((post) => {
-            if (post.data?.image) {
-              return (
-                <div>
-                  <a href={`/${post.slug.substring(5)}/`} class="link">
-                    <Image
-                      width={330}
-                      height={250}
-                      aspectRatio={1.3333333333333333}
-                      src={post.data.image.url}
-                      alt={post.data.image.alt}
-                    />
-                  </a>
-                </div>
-              );
-            }
-          })
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="quotes">
-    <div class="container xxl">
-      <div>Quotes</div>
-      <div class="grid">
-        {
-          quotes.map((post) => {
-            if (post.data?.description) {
-              return (
-                <div>
-                  <a href={`/${post.slug.substring(5)}/`} class="link">
-                    123
-                  </a>
-                </div>
-              );
-            }
-          })
-        }
-      </div>
-    </div>
-  </section>
+    <section class="quotes">
+        <div class="container xxl">
+            <div>Quotes</div>
+            <div class="grid">
+                {
+                    quotes.map((post) => {
+                        if (post.data?.description) {
+                            return (
+                                    <div>
+                                        <a href={`/${post.id.substring(5)}/`} class="link">
+                                            123
+                                        </a>
+                                    </div>
+                            );
+                        }
+                    })
+                }
+            </div>
+        </div>
+    </section>
 </LayoutIndex>
 
 <style lang="scss">
@@ -124,84 +127,141 @@ const quotes = posts.filter((post) => {
 
   @use "../styles/app.scss" as app;
 
-  @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
-  @use "@nulllogic/scssleon/scss/functions.scss" as functions;
+  @use "../styles/scss/mixins.scss" as mixins;
+  @use "../styles/scss/functions.scss" as functions;
 
   // --- hot section --- //
 
   $hot-section: (
-    margin: 25px 0,
-    subclasses: (
-      ".grid": (
-        display: grid,
-        width: 100%,
-        grid-template-columns: 1fr,
-        grid-auto-rows: auto,
-        grid-gap: 0,
-        responsive: (
-          md: (
-            grid-template-columns: 2.5fr 1.5fr,
-            grid-gap: 1rem,
-          ),
-        ),
-        subclasses: (
-          ".hot_image": (
-            display: block,
-            height: 400px,
-          ),
-          ".link": (
-            text-decoration: none,
-            subclasses: (
-              "&:hover": (
-                text-decoration: none,
+      margin: 25px 0,
+      _subclasses: (
+          '.grid': (
+              display: grid,
+              width: 100%,
+              grid-template-columns: 1fr,
+              grid-auto-rows: auto,
+              grid-gap: 0,
+              _responsive: (
+                  md: (
+                      grid-template-columns: 1fr fit-content(40%) 1fr,
+                      grid-gap: 1rem,
+                  ),
               ),
-              ".title": (
-                font-size: 2rem,
+              _subclasses: (
+                  '.one' : (
+                  ),
+                  '.two' : (
+                      _subclasses: (
+                          '.featured' : (
+                              _subclasses: (
+                                  '.link' : (
+                                      position: relative,
+                                      display: block,
+                                      _subclasses: (
+                                          '.overlay' : (
+                                              position: absolute,
+                                              display: block,
+                                              left: 0,
+                                              bottom: 0,
+                                              width: 100%,
+                                              height: 150px,
+                                              background-image: string.unquote('linear-gradient(-180deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.62) 62%, rgba(0, 0, 0, 0.82) 82%, rgba(0, 0, 0, 0.86) 86%)'),
+                                          ),
+                                          '.text' : (
+                                              position: absolute,
+                                              bottom: 15px,
+                                              left: 15px,
+                                              width: 100%,
+                                              display: flex,
+                                              flex-direction: column,
+                                              gap: 10px,
+                                              _subclasses: (
+                                                  '.title' : (
+                                                      font-size: 1.5rem,
+                                                  ),
+                                                  '.date' : (
+                                                      font-size: 0.825rem,
+                                                      color: #959595,
+                                                  )
+                                              )
+                                          ),
+                                      ),
+                                  ),
+                              ),
+                          ),
+                      ),
+                      '.three' : (
+                      ),
+                      '.hot_image' : (
+                          display: block,
+                          height: 400px,
+                      ),
+                      '.link': (
+                          text-decoration: none,
+                          _subclasses: (
+                              '&:hover': (
+                                  text-decoration: none,
+                              ),
+                              '.title': (
+                                  font-size: 2rem,
+                              ),
+                          ),
+                      ),
+                  ),
               ),
-            ),
           ),
-        ),
-      ),
-    ),
+      )
   );
 
   @include mixins.generate-component(
-    $hot-section,
-    "hot",
-    app.$config,
-    app.$theme
+          $hot-section,
+          "hot",
+          app.$config,
+          app.$theme
   );
+
+</style>
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "../styles/app.scss" as app;
+
+  @use "../styles/scss/mixins.scss" as mixins;
+  @use "../styles/scss/functions.scss" as functions;
 
   // --- art section --- //
 
   $art-section: (
-    margin: 25px 0,
-    subclasses: (
-      ".grid": (
-        display: grid,
-        width: 100%,
-        grid-template-columns: 1fr 1fr,
-        grid-auto-rows: auto,
-        grid-gap: 1rem,
-        responsive: (
-          md: (
-            grid-template-columns: 1fr 1fr 1fr 1fr,
-            grid-gap: 1rem,
+      margin: 25px 0,
+      _subclasses: (
+          ".grid": (
+              display: grid,
+              width: 100%,
+              grid-template-columns: 1fr 1fr,
+              grid-auto-rows: auto,
+              grid-gap: 1rem,
+              _responsive: (
+                  md: (
+                      grid-template-columns: 1fr 1fr 1fr 1fr,
+                      grid-gap: 1rem,
+                  ),
+              ),
+              _subclasses: (
+                  ".link": (
+                      display: block,
+                  ),
+              ),
           ),
-        ),
-        subclasses: (
-          ".link": (
-            display: block,
-          ),
-        ),
       ),
-    ),
   );
 
   @include mixins.generate-component(
-    $art-section,
-    "art",
-    app.$config,
-    app.$theme
+          $art-section,
+          "art",
+          app.$config,
+          app.$theme
   );
 </style>
