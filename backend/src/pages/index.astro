@@ -235,15 +235,17 @@ function getFirstXWords(input, x, options = {}) {
               width: 100%,
               grid-template-columns: 1fr,
               grid-auto-rows: auto,
-              grid-gap: 0,
+              grid-gap: 1rem,
 
               _responsive: (
                   md : (
                       grid-template-columns: 1fr 1fr,
                   ),
-                  lg: (
+                  lg : (
+                      grid-template-columns: 1fr fit-content(45%) 1fr,
+                  ),
+                  xl: (
                       grid-template-columns: 1fr fit-content(51%) 1fr,
-                      grid-gap: 1rem,
                   ),
               ),
 
