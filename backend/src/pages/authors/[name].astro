@@ -1,0 +1,78 @@
+---
+import {getCollection, render} from 'astro:content';
+import AuthorsLayout from "../../layouts/authors.astro";
+import {Image} from "astro:assets";
+
+export async function getStaticPaths() {
+
+    const authors = await getCollection('authors');
+
+    return authors.map((author) => {
+        return {
+            params: {name: author.id},
+            props: {author: author},
+        }
+    });
+}
+
+const {name} = Astro.params;
+const {author} = Astro.props;
+
+const {Content} = await render(author);
+---
+
+<AuthorsLayout>
+    <div class="author">
+        <div class="container xxl">
+            <div class="category_name">
+                <div>
+                    <div>
+                        Author
+                    </div>
+                    <div class="title">
+                        {author.data.name}
+                    </div>
+                    <div class="position">
+                        {author.data.position}
+                    </div>
+                    <div class="description">
+                        {author.data.description}
+                    </div>
+                </div>
+                <div class="content">
+                    <Content />
+                </div>
+            </div>
+        </div>
+    </div>
+</AuthorsLayout>
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "../../styles/app.scss" as app;
+
+  @use "../../styles/scss/mixins.scss" as mixins;
+  @use "../../styles/scss/functions.scss" as functions;
+
+  $author: (
+      margin: 0 0 25px 0,
+      _subclasses: (
+          '.title' : (
+              font-size: 3rem,
+              text-transform: capitalize,
+              font-weight: 600,
+          )
+      )
+  );
+
+  @include mixins.generate-component(
+          $author,
+          'author',
+          app.$config,
+          app.$theme
+  );
+</style>

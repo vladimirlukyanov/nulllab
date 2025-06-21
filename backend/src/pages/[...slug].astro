@@ -24,7 +24,12 @@ export async function getStaticPaths() {
 const post = Astro.props;
 const {Content} = await render(post);
 
+const authors = post.data.authors ? await getEntries(post.data.authors) : null;
+const categories = post.data.categories ? await getEntries(post.data.categories) : null;
+const tags = post.data.tags ? await getEntries(post.data.tags) : null;
 const related_posts = post.data.related_posts ? await getEntries(post.data.related_posts) : null;
+
+console.log(post.data.categories);
 ---
 
 <LayoutBlog>
@@ -32,30 +37,45 @@ const related_posts = post.data.related_posts ? await getEntries(post.data.relat
         <div class="container xxl">
             <div class="grid">
                 <div class="post">
-                    <div class="content">
+                    <article class="content" itemscope itemtype="https://schema.org/Article">
                         <div class="category">
-                            <a href={'/category/' + post.data.category} class="link">{post.data.category}</a>
+                            {post.data.categories.map((category) => {
+                                return (
+                                    <a href={'/category/' + category.id} class="link">{category.id}</a>
+                                )
+                            })}
                         </div>
-                        <h1 class="title">{post.data.title}</h1>
-                        <div class="description">
+                        <h1 class="title" itemprop="headline">{post.data.title}</h1>
+                        <div class="description" itemprop="description">
                             {format_date(post.data.published_date)}
                             —
                             <div class="tags">
                                 {
                                     post.data.tags.map((tag) => {
                                         return (
-                                                <a href={"/tags/" + tag} target="_self" title={tag}>
-                                                    <span class="badge">{tag}</span>
+                                                <a href={"/tags/" + tag.id} target="_self" title={tag.id}>
+                                                    <span class="badge">{tag.id}</span>
                                                 </a>
                                         );
                                     })
                                 }
                             </div>
-                            — name
+                            —&nbsp;{authors.map((author) => {
+                            return (
+                                    <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                        <a href={'/authors/' + author.id}
+                                           title={author.data.name}
+                                           itemprop="url"
+                                        ><span itemprop="name">
+                                            {author.data.name}
+                                        </span></a>
+                                    </span>
+                            )
+                        })}
                         </div>
                         <p>{post.data.description}</p>
                         <Content/>
-                    </div>
+                    </article>
 
                     {related_posts &&
                             <div class="related_posts">

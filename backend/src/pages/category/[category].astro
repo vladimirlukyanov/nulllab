@@ -6,38 +6,20 @@ import {Image} from "astro:assets";
 export async function getStaticPaths() {
 
     const posts = (await getCollection('blog')).sort(
-      (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
+        (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
     );
 
-    // console.log(posts);
-
-    // const uniqueTags = [
-    //     ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),
-    // ];
-    //
-    // return uniqueTags.map((category) => {
-    //     const filteredPosts = allPosts.filter((post) =>
-    //         post.frontmatter.tags.includes(tag),
-    //     );
-    //     return {
-    //         params: { category },
-    //         props: { posts: filteredPosts },
-    //     };
-    // });
-
-    const categories = [...new Set(posts.map((post) => post.data.category).flat())];
-
-    // console.log(categories);
+    const categories = await getCollection('categories');
 
     return categories.map((category) => {
-        const filtered_posts = posts.filter((post) => {
-                return post.data.category === category.toLowerCase();
-            }
-        );
 
         return {
-            params: {category: category},
-            props: {posts: filtered_posts},
+            params: {category: category.id},
+            props: {
+                posts: posts.filter((post) => {
+                    return post.data.categories.some(cat => cat.id === category.id);
+                })
+            },
         }
     });
 }
@@ -126,14 +108,11 @@ const {category} = Astro.params;
   @use "../../styles/scss/functions.scss" as functions;
 
   $category_name: (
-
       display: flex,
       width: 100%,
       justify-content: center,
       text-align: center,
-
       margin: 0 0 25px 0,
-
       _subclasses: (
           '.title' : (
               font-size: 3rem,

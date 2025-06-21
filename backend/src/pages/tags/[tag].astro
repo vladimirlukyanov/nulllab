@@ -10,22 +10,18 @@ export async function getStaticPaths() {
         (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
     );
 
-    // await console.log(allPosts);
+    const tags = await getCollection('tags');
 
-    const uniqueTags = [
-        ...new Set(posts.map((post) => post.data.tags).flat()),
-    ];
-
-    return uniqueTags.map((tag) => {
-
-        const filteredPosts = posts.filter((post) =>
-            post.data.tags.includes(tag),
-        );
+    return tags.map((tag) => {
 
         return {
-            params: {tag},
-            props: {posts: filteredPosts},
-        };
+            params: {tag: tag.id},
+            props: {
+                posts: posts.filter((post) => {
+                    return post.data.tags.some(_tag => _tag.id === tag.id);
+                })
+            },
+        }
     });
 }
 
@@ -55,14 +51,16 @@ const {posts} = Astro.props;
 
                             return (
                                     <div class="post">
-                                        <div class="image">
-                                            <a href={`/${post.id.substring(5)}/`} title={post.data.title}>
-                                                <Image src={post.data.image.url} alt={'11'} class="image"
-                                                       width={250}
-                                                       aspectRatio={1.3333333333333333}
-                                                />
-                                            </a>
-                                        </div>
+                                        {post.data.image &&
+                                                <div class="image">
+                                                    <a href={`/${post.id.substring(5)}/`} title={post.data.title}>
+                                                        <Image src={post.data.image.url} alt={'11'} class="image"
+                                                               width={250}
+                                                               aspectRatio={1.3333333333333333}
+                                                        />
+                                                    </a>
+                                                </div>
+                                        }
                                         <div class="information">
                                             <h3>
                                                 <a href={`/${post.id.substring(5)}/`} title={post.data.title}
@@ -109,14 +107,11 @@ const {posts} = Astro.props;
   @use "../../styles/scss/functions.scss" as functions;
 
   $tag_name: (
-
       display: flex,
       width: 100%,
       justify-content: center,
       text-align: center,
-
       margin: 0 0 25px 0,
-
       _subclasses: (
           '.title' : (
               font-size: 3rem,
