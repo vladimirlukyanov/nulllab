@@ -78,39 +78,35 @@ function getFirstXWords(input, x, options = {}) {
                             if (index === 0) {
                                 return (
                                         <div class="post">
-                                            <div class="right">
-                                                <a href={`/${post.id.substring(5)}/`} class="link">
-                                                    <Image
-                                                            class="image"
-                                                            width={370}
-                                                            aspectRatio={1.3333333333333333}
-                                                            src={post.data.image.url}
-                                                            alt={post.data.image.alt}
-                                                    />
-                                                    <span class="title">{post.data.title}</span>
-                                                    <p class="date">
-                                                        <FormattedDate date={post.data.published_date}/>
-                                                    </p>
-                                                </a>
-                                            </div>
+                                            <a href={`/${post.id.substring(5)}/`} class="link" title={post.data.title}>
+                                                <Image
+                                                        class="image"
+                                                        width={370}
+                                                        aspectRatio={1.3333333333333333}
+                                                        src={post.data.image.url}
+                                                        alt={post.data.image.alt}
+                                                />
+                                                <span class="title">{post.data.title}</span>
+                                                <p class="date">
+                                                    <FormattedDate date={post.data.published_date}/>
+                                                </p>
+                                            </a>
                                         </div>
                                 );
                             } else {
                                 return (
                                         <div class="post">
-                                            <div class="right">
-                                                <a href={`/${post.id.substring(5)}/`} class="link">
-                                                    <span class="title">{post.data.title}</span>
-                                                    <span class="description">
+                                            <a href={`/${post.id.substring(5)}/`} class="link" title={post.data.title}>
+                                                <span class="title">{post.data.title}</span>
+                                                <span class="description">
                                                         {getFirstXWords(post.data.description, 30, {
                                                             appendEllipsis: true
                                                         })}
                                                     </span>
-                                                    <p class="date">
-                                                        <FormattedDate date={post.data.published_date}/>
-                                                    </p>
-                                                </a>
-                                            </div>
+                                                <p class="date">
+                                                    <FormattedDate date={post.data.published_date}/>
+                                                </p>
+                                            </a>
                                         </div>
                                 );
                             }
@@ -119,7 +115,7 @@ function getFirstXWords(input, x, options = {}) {
                 </div>
                 <div class="two">
                     <div class="featured">
-                        <a href={`/${featured_post.id.substring(5)}/`} class="link">
+                        <a href={`/${featured_post.id.substring(5)}/`} class="link" title={featured_post.data.title}>
                             <span class="image">
                                 <Image src={featured_post.data.image.url} alt={'11'} class="image"/>
                             </span>
@@ -139,7 +135,7 @@ function getFirstXWords(input, x, options = {}) {
                     {
                         posts.slice(2, 6).map((post) => {
                             return (
-                                    <div class="post">
+                                    <a href={`/${post.id.substring(5)}/`} class="post" title={post.data.title}>
                                         <div class="left">
                                             <Image
                                                     width={130}
@@ -149,14 +145,12 @@ function getFirstXWords(input, x, options = {}) {
                                             />
                                         </div>
                                         <div class="right">
-                                            <a href={`/${post.id.substring(5)}/`} class="link">
-                                                <span class="title">{post.data.title}</span>
-                                                <p class="date">
-                                                    <FormattedDate date={post.data.published_date}/>
-                                                </p>
-                                            </a>
+                                            <span class="title">{post.data.title}</span>
+                                            <p class="date">
+                                                <FormattedDate date={post.data.published_date}/>
+                                            </p>
                                         </div>
-                                    </div>
+                                    </a>
                             );
                         })
                     }
@@ -230,13 +224,15 @@ function getFirstXWords(input, x, options = {}) {
   $hot-section: (
       margin: 25px 0,
       _subclasses: (
+        /***/
           '.grid': (
+            /***/
               display: grid,
               width: 100%,
               grid-template-columns: 1fr,
               grid-auto-rows: auto,
               grid-gap: 1rem,
-
+            /***/
               _responsive: (
                   md : (
                       grid-template-columns: 1fr 1fr,
@@ -248,8 +244,9 @@ function getFirstXWords(input, x, options = {}) {
                       grid-template-columns: 1fr fit-content(51%) 1fr,
                   ),
               ),
-
+            /***/
               _subclasses: (
+                /***/
                   '.one' : (
                       _subclasses: (
                           '.post' : (
@@ -289,12 +286,17 @@ function getFirstXWords(input, x, options = {}) {
                       )
                   ),
                   '.two' : (
+                    /***/
                       _subclasses: (
+                        /***/
                           '.featured' : (
+                            /***/
                               _subclasses: (
+                                /***/
                                   '.link' : (
                                       display: block,
                                       _subclasses: (
+                                        /***/
                                           '.image' : (
                                               position: relative,
                                               display: block,
@@ -318,6 +320,7 @@ function getFirstXWords(input, x, options = {}) {
                                               display: flex,
                                               flex-direction: column,
                                               gap: 10px,
+                                            /***/
                                               _subclasses: (
                                                   '.category' : (
                                                       font-size: 0.825rem,
@@ -345,6 +348,7 @@ function getFirstXWords(input, x, options = {}) {
                       ),
                       '.link': (
                           text-decoration: none,
+                        /***/
                           _subclasses: (
                               '&:hover': (
                                   text-decoration: none,
@@ -356,7 +360,9 @@ function getFirstXWords(input, x, options = {}) {
                       ),
                   ),
                   '.three' : (
+                    /***/
                       _subclasses: (
+                        /***/
                           '.post' : (
                               display: grid,
                               width: 100%,
@@ -364,12 +370,18 @@ function getFirstXWords(input, x, options = {}) {
                               grid-auto-rows: auto,
                               grid-gap: 0,
                               margin: 0 0 10px 0,
+                            /***/
                               _responsive: (
                                   md: (
+                                      grid-template-columns: auto 1.5fr,
+                                      grid-gap: 1rem,
+                                  ),
+                                  lg: (
                                       grid-template-columns: auto 1fr,
                                       grid-gap: 1rem,
                                   ),
                               ),
+                            /***/
                               _subclasses: (
                                   '.title': (
                                       display: block,
