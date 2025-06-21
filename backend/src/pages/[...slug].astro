@@ -31,6 +31,9 @@ const {Content} = await render(post);
             <div class="grid">
                 <div class="post">
                     <div class="content">
+                        <div class="category">
+                            <a href={'/category/' + post.data.category} class="link">{post.data.category}</a>
+                        </div>
                         <h1 class="title">{post.data.title}</h1>
                         <div class="description">
                             {format_date(post.data.published_date)}
@@ -89,6 +92,14 @@ const {Content} = await render(post);
               _subclasses: (
                   '.post' : (
                       _subclasses: (
+                          '.category' : (
+                              text-transform: capitalize,
+                              _subclasses: (
+                                  '.link' : (
+                                    color: #8c602e,
+                                  )
+                              )
+                          ),
                           '.title': (),
                           '.description': (
                               display: flex,
