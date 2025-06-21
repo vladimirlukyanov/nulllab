@@ -13,13 +13,15 @@ export async function getStaticPaths({paginate}) {
 
     return categories.flatMap((category) => {
 
-        return paginate(posts, {
+        const filtered_posts = posts.filter((post) => {
+            return post.data.categories.some(cat => cat.id === category.id);
+        });
+
+        return paginate(filtered_posts, {
             params: {name: category.id},
             props: {
                 category: category,
-                posts: posts.filter((post) => {
-                    return post.data.categories.some(cat => cat.id === category.id);
-                })
+                posts: filtered_posts
             },
             pageSize: 10
         });

@@ -75,12 +75,13 @@ function getFirstXWords(input, x, options = {}) {
                 <div class="one">
                     {
                         posts.slice(0, 2).map((post, index) => {
-                            if(index === 0) {
+                            if (index === 0) {
                                 return (
                                         <div class="post">
                                             <div class="right">
                                                 <a href={`/${post.id.substring(5)}/`} class="link">
                                                     <Image
+                                                            class="image"
                                                             width={370}
                                                             aspectRatio={1.3333333333333333}
                                                             src={post.data.image.url}
@@ -101,10 +102,10 @@ function getFirstXWords(input, x, options = {}) {
                                                 <a href={`/${post.id.substring(5)}/`} class="link">
                                                     <span class="title">{post.data.title}</span>
                                                     <span class="description">
-                                                    {getFirstXWords(post.data.description, 25, {
-                                                        appendEllipsis: true
-                                                    })}
-                                                </span>
+                                                        {getFirstXWords(post.data.description, 30, {
+                                                            appendEllipsis: true
+                                                        })}
+                                                    </span>
                                                     <p class="date">
                                                         <FormattedDate date={post.data.published_date}/>
                                                     </p>
@@ -119,7 +120,7 @@ function getFirstXWords(input, x, options = {}) {
                 <div class="two">
                     <div class="featured">
                         <a href={`/${featured_post.id.substring(5)}/`} class="link">
-                            <span class="shadow">
+                            <span class="image">
                                 <Image src={featured_post.data.image.url} alt={'11'} class="image"/>
                             </span>
                             <span class="bottom">
@@ -232,7 +233,7 @@ function getFirstXWords(input, x, options = {}) {
           '.grid': (
               display: grid,
               width: 100%,
-              grid-template-columns: 1fr,
+              grid-template-columns: 1fr fit-content(51%) 1fr,
               grid-auto-rows: auto,
               grid-gap: 0,
               _responsive: (
@@ -247,22 +248,30 @@ function getFirstXWords(input, x, options = {}) {
                           '.post' : (
                               display: block,
                               width: 100%,
-                              /*grid-template-columns: 1fr,*/
-                              /*grid-auto-rows: auto,*/
-                              /*grid-gap: 0,*/
+                            /*grid-template-columns: 1fr,*/
+                            /*grid-auto-rows: auto,*/
+                            /*grid-gap: 0,*/
                               margin: 0 0 10px 0,
                               _responsive: (
                                   md: (
-                                      /*grid-template-columns: auto 1fr,*/
-                                      /*grid-gap: 1rem,*/
+                                    /*grid-template-columns: auto 1fr,*/
+                                    /*grid-gap: 1rem,*/
                                   ),
                               ),
                               _subclasses: (
+                                  '.image' : (
+                                      display: block,
+                                      margin: 0 0 10px 0,
+                                  ),
                                   '.title': (
                                       font-size: 1.25rem,
                                       display: block,
                                       margin: 0 0 10px 0,
                                       font-weight: 500,
+                                  ),
+                                  '.description': (
+                                      display: block,
+                                      margin: 0 0 10px 0,
                                   ),
                                   '.date' : (
                                       font-size: 0.825rem,
@@ -277,22 +286,27 @@ function getFirstXWords(input, x, options = {}) {
                           '.featured' : (
                               _subclasses: (
                                   '.link' : (
-                                      position: relative,
                                       display: block,
                                       _subclasses: (
-                                          '.shadow' : (
-                                              position: absolute,
+                                          '.image' : (
+                                              position: relative,
                                               display: block,
-                                              left: 0,
-                                              bottom: 0,
-                                              width: 100%,
-                                              height: 150px,
-                                              background-image: string.unquote('linear-gradient(-180deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.62) 62%, rgba(0, 0, 0, 0.82) 82%, rgba(0, 0, 0, 0.86) 86%)'),
+                                              _subclasses: (
+                                                  '.shadow' : (
+                                                      position: absolute,
+                                                      display: block,
+                                                      left: 0,
+                                                      top: 0,
+                                                      width: 100%,
+                                                      height: 100%,
+                                                      background-image: string.unquote('linear-gradient(-180deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.62) 62%, rgba(0, 0, 0, 0.82) 82%, rgba(0, 0, 0, 0.86) 86%)'),
+                                                  ),
+                                              )
                                           ),
                                           '.text' : (
-                                              /*position: absolute,*/
-                                              /*bottom: 15px,*/
-                                              /*left: 15px,*/
+                                            /*position: absolute,*/
+                                            /*bottom: 15px,*/
+                                            /*left: 15px,*/
                                               width: 100%,
                                               display: flex,
                                               flex-direction: column,
