@@ -1,6 +1,7 @@
 ---
 import {getCollection} from 'astro:content';
 import CategoryLayout from "../../layouts/category.astro";
+import {Image} from "astro:assets";
 
 export async function getStaticPaths() {
 
@@ -46,23 +47,65 @@ const {category} = Astro.params;
 ---
 
 <CategoryLayout>
-    <div class="section">
+    <div class="categories">
         <div class="container xxl">
-            <div class="wrapper">
+            <div class="category_name">
+                <div>
+                    <div>
+                        CATEGORY
+                    </div>
+                    <div class="title">
+                        {category}
+                    </div>
+                </div>
+            </div>
+            <div class="grid">
                 <div class="posts">
-                    {posts.map((post) => {
-                        return (
-                                <div class="post">
-                                    <a class="link" href={`/${post.slug.substring(5)}/`}>
-                                        <span class="title">{post.data.title}</span>
-                                        <span class="description">{post.data.description}</span>
-                                    </a>
-                                </div>
-                        )
-                    })}
+                    {
+                        posts.map((post) => {
+
+                            // @TODO fix line-height font issue
+
+                            return (
+                                    <div class="post">
+                                        {post.data.image?.url &&
+                                                <div class="image">
+                                                    <a href={`/${post.id.substring(5)}/`} title={post.data.title}>
+                                                        <Image src={post.data.image?.url} alt={'11'} class="image"
+                                                               width={250}
+                                                               fit={'cover'}
+                                                        />
+                                                    </a>
+                                                </div>
+                                        }
+                                        <div class="information">
+                                            <h3>
+                                                <a href={`/${post.id.substring(5)}/`} title={post.data.title}
+                                                   class="title">
+                                                    {post.data.title}
+                                                </a>
+                                            </h3>
+                                            <div>
+                                                <span class="description">{post.data.description}</span>
+                                                <time class="date" datetime={post.data.published_date.toISOString()}>
+                                                    {
+                                                        post.data.published_date.toLocaleDateString('en-us', {
+                                                            year: 'numeric',
+                                                            month: 'short',
+                                                            day: 'numeric',
+                                                        })
+                                                    }
+                                                </time>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                            )
+                        })
+                    }
                 </div>
                 <div class="sidebar">
-
+                    2
                 </div>
             </div>
         </div>
@@ -80,50 +123,103 @@ const {category} = Astro.params;
   @use "../../styles/scss/mixins.scss" as mixins;
   @use "../../styles/scss/functions.scss" as functions;
 
-  $category-section: (
+  $category_name: (
+
+      display: flex,
+      width: 100%,
+      justify-content: center,
+      text-align: center,
+
+      margin: 0 0 25px 0,
+
       _subclasses: (
-          '.wrapper': (
+          '.title' : (
+              font-size: 3rem,
+              text-transform: capitalize,
+              font-weight: 600,
+          )
+      )
+  );
+
+  @include mixins.generate-component(
+          $category_name,
+          'category_name',
+          app.$config,
+          app.$theme
+  );
+</style>
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "../../styles/app.scss" as app;
+
+  @use "../../styles/scss/mixins.scss" as mixins;
+  @use "../../styles/scss/functions.scss" as functions;
+
+  $categories: (
+      margin: 25px 0,
+      _subclasses: (
+          '.grid' : (
               display: grid,
               width: 100%,
-              grid-template-columns: 1fr 1fr,
+              grid-template-columns: 1fr,
               grid-auto-rows: auto,
               grid-gap: 1rem,
-
               _responsive: (
                   md: (
-                    /*grid-template-columns: 1fr 1fr 1fr 1fr,*/
-                    /*grid-gap: 1rem,*/
+                      grid-template-columns: 1.4fr 0.6fr,
+                      grid-gap: 1rem,
                   ),
               ),
-
               _subclasses: (
-                  '.posts': (
-                      display: block,
+                  '.posts' : (
                       _subclasses: (
                           '.post' : (
+                              display: grid,
+                              grid-template-columns: auto 1fr,
+                              grid-gap: 1rem,
                               margin: 0 0 15px 0,
                               _subclasses: (
-                                  '.title' : (
-                                      display: block
+                                  '&:last-child' : (
+                                      margin: 0,
                                   ),
-                                  '.description' : (
-                                      display: block
+                                  '.information' : (
+                                      _subclasses: (
+                                          '.title': (
+                                              font-size: 2rem,
+                                              line-height: 1.5rem,
+                                              margin: 0 0 15px 0,
+                                              display: inline-block,
+                                          ),
+                                          '.description': (
+                                              display: flex,
+                                              align-items: center,
+                                              margin: 0 0 10px 0,
+                                          ),
+                                          '.date': (
+                                              display: block,
+                                              color: #878181,
+                                          ),
+                                      )
                                   )
                               )
-                          )
+                          ),
                       ),
-                      '.sidebar' : (
-                          display: block
-                      )
                   ),
+                  '.sidebar': (
+                  )
               ),
           ),
       )
   );
 
   @include mixins.generate-component(
-          $category-section,
-          "section",
+          $categories,
+          'categories',
           app.$config,
           app.$theme
   );
