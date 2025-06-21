@@ -2,7 +2,7 @@
 import {Image, Picture} from "astro:assets";
 
 import {getCollection} from "astro:content";
-import LayoutBlog from "../../layouts/blog.astro";
+import LayoutTag from "../../layouts/tag.astro";
 import {format_date} from "../../lib/utils";
 
 export async function getStaticPaths() {
@@ -29,7 +29,7 @@ const {tag} = Astro.params;
 const {posts} = Astro.props;
 ---
 
-<LayoutBlog pageTitle={tag}>
+<LayoutTag title={tag} description={tag} featured_image={tag}>
     <div class="tagged_posts">
         <div class="container xxl">
             <div class="tag_name">
@@ -93,7 +93,7 @@ const {posts} = Astro.props;
             </div>
         </div>
     </div>
-</LayoutBlog>
+</LayoutTag>
 
 <style lang="scss">
   @use "sass:list";

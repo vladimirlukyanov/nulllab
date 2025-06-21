@@ -1,6 +1,6 @@
 ---
 import Head from "~/components/head/index.astro";
-import {SITE_TITLE, SITE_DESCRIPTION} from "~/consts";
+import {SITE_TITLE, SITE_DESCRIPTION} from "../consts";
 
 // Components
 import Header from "~/components/header/index.astro";
@@ -13,7 +13,7 @@ const {title, description, published_date, updated_date, featured_image} = Astro
 <html lang="en">
 <head>
     <Head
-            title={title + ' | ' + SITE_TITLE}
+            title={ title + ' | ' + SITE_TITLE + ' ' + 'tag'}
             description={description}
             featured_image={featured_image}
             published_date={published_date}
@@ -22,9 +22,9 @@ const {title, description, published_date, updated_date, featured_image} = Astro
 </head>
 <body>
 <Header/>
-<div class="main">
+<main class="main">
     <slot/>
-</div>
+</main>
 <Footer/>
 </body>
 </html>
@@ -35,8 +35,7 @@ const {title, description, published_date, updated_date, featured_image} = Astro
   @use "sass:meta";
   @use "sass:map";
 
-  @use "../styles/app.scss" as app;
-
+  @use "~/styles/app.scss" as app;
   @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
   @use "@nulllogic/scssleon/scss/functions.scss" as functions;
 
@@ -57,3 +56,4 @@ const {title, description, published_date, updated_date, featured_image} = Astro
           app.$theme
   );
 </style>
+

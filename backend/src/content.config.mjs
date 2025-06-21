@@ -15,9 +15,6 @@ const blog = defineCollection({
     type: z.string().optional(),
 
     featured: z.boolean().optional(),
-
-    cover: image().optional(),
-
     image: z
         .object({
           url: image(),
@@ -36,7 +33,13 @@ const categories = defineCollection({
   loader: glob({base: './src/content/categories', pattern: '**/*.*'}),
   schema: z.object({
     name: z.string(),
-    description: z.string().optional()
+    description: z.string().optional(),
+    image: z
+        .object({
+          url: image(),
+          alt: z.string(),
+        })
+        .optional(),
   })
 });
 
@@ -44,7 +47,13 @@ const tags = defineCollection({
   loader: glob({base: './src/content/tags', pattern: '**/*.*'}),
   schema: z.object({
     name: z.string(),
-    description: z.string().optional()
+    description: z.string().optional(),
+    image: z
+        .object({
+          url: image(),
+          alt: z.string(),
+        })
+        .optional(),
   })
 });
 
@@ -54,6 +63,12 @@ const authors = defineCollection({
     name: z.string(),
     description: z.string().optional(),
     position: z.string().optional(),
+    image: z
+        .object({
+          url: image(),
+          alt: z.string(),
+        })
+        .optional(),
   })
 });
 

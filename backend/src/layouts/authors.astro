@@ -6,12 +6,20 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 // Components
 import Header from "~/components/header/index.astro";
 import Footer from "~/components/footer/index.astro";
+
+const {title, description, published_date, updated_date, featured_image} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 <head>
-    <Head title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <Head
+            title={ title + ' | ' + SITE_TITLE + ' ' + 'author'}
+            description={description}
+            featured_image={featured_image}
+            published_date={published_date}
+            updated_date={updated_date}
+    />
 </head>
 <body>
 <Header />

@@ -28,11 +28,9 @@ const authors = post.data.authors ? await getEntries(post.data.authors) : null;
 const categories = post.data.categories ? await getEntries(post.data.categories) : null;
 const tags = post.data.tags ? await getEntries(post.data.tags) : null;
 const related_posts = post.data.related_posts ? await getEntries(post.data.related_posts) : null;
-
-console.log(post.data.categories);
 ---
 
-<LayoutBlog>
+<LayoutBlog title={post.data.title} description={post.data.description} featured_image={post.data.image.url}>
     <div class="single_post">
         <div class="container xxl">
             <div class="grid">
