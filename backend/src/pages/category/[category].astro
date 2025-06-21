@@ -5,7 +5,9 @@ import {Image} from "astro:assets";
 
 export async function getStaticPaths() {
 
-    const posts = await getCollection('blog');
+    const posts = (await getCollection('blog')).sort(
+      (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
+    );
 
     // console.log(posts);
 
