@@ -1,6 +1,6 @@
 ---
 import {getCollection} from 'astro:content';
-import CategoryLayout from "../../layouts/category.astro";
+import CategoryLayout from "../../../layouts/category.astro";
 import {Image} from "astro:assets";
 
 export async function getStaticPaths() {
@@ -14,8 +14,9 @@ export async function getStaticPaths() {
     return categories.map((category) => {
 
         return {
-            params: {category: category.id},
+            params: {name: category.id},
             props: {
+                category: category,
                 posts: posts.filter((post) => {
                     return post.data.categories.some(cat => cat.id === category.id);
                 })
@@ -24,8 +25,7 @@ export async function getStaticPaths() {
     });
 }
 
-const {posts} = Astro.props;
-const {category} = Astro.params;
+const {category, posts} = Astro.props;
 
 // console.log(posts);
 ---
@@ -39,14 +39,14 @@ const {category} = Astro.params;
                         CATEGORY
                     </div>
                     <div class="title">
-                        {category}
+                        {category.data.name}
                     </div>
                 </div>
             </div>
             <div class="grid">
                 <div class="posts">
                     {
-                        posts.map((post) => {
+                        posts.length > 9 ? posts.slice(0, 9).map((post) => {
 
                             // @TODO fix line-height font issue
 
@@ -82,10 +82,61 @@ const {category} = Astro.params;
                                                 </time>
                                             </div>
                                         </div>
+                                    </div>
+                            )
+                        }) : posts.map((post) => {
 
+                            // @TODO fix line-height font issue
+
+                            return (
+                                    <div class="post">
+                                        {post.data.image?.url &&
+                                                <div class="image">
+                                                    <a href={`/${post.id.substring(5)}/`} title={post.data.title}>
+                                                        <Image src={post.data.image?.url} alt={'11'} class="image"
+                                                               width={250}
+                                                               fit={'cover'}
+                                                        />
+                                                    </a>
+                                                </div>
+                                        }
+                                        <div class="information">
+                                            <h3>
+                                                <a href={`/${post.id.substring(5)}/`} title={post.data.title}
+                                                   class="title">
+                                                    {post.data.title}
+                                                </a>
+                                            </h3>
+                                            <div>
+                                                <span class="description">{post.data.description}</span>
+                                                <time class="date" datetime={post.data.published_date.toISOString()}>
+                                                    {
+                                                        post.data.published_date.toLocaleDateString('en-us', {
+                                                            year: 'numeric',
+                                                            month: 'short',
+                                                            day: 'numeric',
+                                                        })
+                                                    }
+                                                </time>
+                                            </div>
+                                        </div>
                                     </div>
                             )
                         })
+                    }
+                    {posts.length > 9 &&
+                            <nav class="pagination" aria-label="Pagination"
+                                 style="--xii-pagination-grid-template-columns: 100px 1fr 100px">
+                                <div class="left">
+                                    <button class="btn">Previous</button>
+                                </div>
+                                <div class="center">
+                                    <p>Showing 1 to 10 of {posts.length} results</p>
+                                </div>
+                                <div class="right">
+                                    <a href={`/category/${category.id}/2`} class="btn">Next</a>
+                                </div>
+                            </nav>
                     }
                 </div>
                 <div class="sidebar">
@@ -102,10 +153,10 @@ const {category} = Astro.params;
   @use "sass:meta";
   @use "sass:map";
 
-  @use "../../styles/app.scss" as app;
+  @use "../../../styles/app.scss" as app;
 
-  @use "../../styles/scss/mixins.scss" as mixins;
-  @use "../../styles/scss/functions.scss" as functions;
+  @use "../../../styles/scss/mixins.scss" as mixins;
+  @use "../../../styles/scss/functions.scss" as functions;
 
   $category_name: (
       display: flex,
@@ -136,10 +187,10 @@ const {category} = Astro.params;
   @use "sass:meta";
   @use "sass:map";
 
-  @use "../../styles/app.scss" as app;
+  @use "../../../styles/app.scss" as app;
 
-  @use "../../styles/scss/mixins.scss" as mixins;
-  @use "../../styles/scss/functions.scss" as functions;
+  @use "../../../styles/scss/mixins.scss" as mixins;
+  @use "../../../styles/scss/functions.scss" as functions;
 
   $categories: (
       margin: 25px 0,
@@ -158,6 +209,7 @@ const {category} = Astro.params;
               ),
               _subclasses: (
                   '.posts' : (
+
                       _subclasses: (
                           '.post' : (
                               display: grid,
@@ -203,5 +255,20 @@ const {category} = Astro.params;
           'categories',
           app.$config,
           app.$theme
+  );
+</style>
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:meta";
+
+  @use "~/styles/app.scss" as app;
+
+  $config: app.$config;
+  $theme: app.$theme;
+
+  @use "~/styles/scss/components/pagination" with (
+    $config: $config,
+    $theme: $theme
   );
 </style>
