@@ -21,7 +21,50 @@ const quotes = posts.filter((post) => {
 });
 
 const featured_post = posts.filter((post) => post.data.featured).at(0);
-// console.log(featured_post);
+
+function getFirstXWords(input, x, options = {}) {
+    // Default options
+    const {
+        appendEllipsis = false,  // Add "..." if string was truncated
+        preservePunctuation = true,  // Keep punctuation attached to words
+        strictWordCount = false  // Count hyphenated words as one word
+    } = options;
+
+    // Validation
+    if (!input || typeof input !== 'string' || x <= 0) return '';
+
+    // Split into words with different strategies
+    let words;
+    if (preservePunctuation) {
+        words = input.trim().match(/(\S+)\s*/g) || [];
+    } else {
+        words = input.trim().split(/\s+/) || [];
+    }
+
+    // Handle hyphenated words if strictWordCount is true
+    if (strictWordCount) {
+        words = words.slice(0, x);
+    } else {
+        // Count each hyphenated part as separate words
+        let count = 0;
+        words = words.filter(word => {
+            if (count >= x) return false;
+            const subWords = word.split(/[-\/]/);
+            count += subWords.length;
+            return true;
+        });
+    }
+
+    // Join the words
+    let result = words.join(' ').trim();
+
+    // Add ellipsis if needed
+    if (appendEllipsis && input.trim().split(/\s+/).length > x) {
+        result += '...';
+    }
+
+    return result;
+}
 ---
 
 <LayoutIndex>
@@ -30,13 +73,55 @@ const featured_post = posts.filter((post) => post.data.featured).at(0);
             <div>Hot</div>
             <div class="grid">
                 <div class="one">
-                    1
+                    {
+                        posts.slice(0, 2).map((post, index) => {
+                            if(index === 0) {
+                                return (
+                                        <div class="post">
+                                            <div class="right">
+                                                <a href={`/${post.id.substring(5)}/`} class="link">
+                                                    <Image
+                                                            width={370}
+                                                            aspectRatio={1.3333333333333333}
+                                                            src={post.data.image.url}
+                                                            alt={post.data.image.alt}
+                                                    />
+                                                    <span class="title">{post.data.title}</span>
+                                                    <p class="date">
+                                                        <FormattedDate date={post.data.published_date}/>
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                );
+                            } else {
+                                return (
+                                        <div class="post">
+                                            <div class="right">
+                                                <a href={`/${post.id.substring(5)}/`} class="link">
+                                                    <span class="title">{post.data.title}</span>
+                                                    <span class="description">
+                                                    {getFirstXWords(post.data.description, 25, {
+                                                        appendEllipsis: true
+                                                    })}
+                                                </span>
+                                                    <p class="date">
+                                                        <FormattedDate date={post.data.published_date}/>
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                );
+                            }
+                        })
+                    }
                 </div>
                 <div class="two">
                     <div class="featured">
                         <a href={`/${featured_post.id.substring(5)}/`} class="link">
-                            <Image src={featured_post.data.image.url} alt={'11'} class="image"/>
-                            <span class="overlay"/>
+                            <span class="shadow">
+                                <Image src={featured_post.data.image.url} alt={'11'} class="image"/>
+                            </span>
                             <span class="bottom">
                                 <span class="text">
                                     <span class="category">{featured_post.data.category}</span>
@@ -51,15 +136,25 @@ const featured_post = posts.filter((post) => post.data.featured).at(0);
                 </div>
                 <div class="three">
                     {
-                        posts.slice(1).map((post) => {
+                        posts.slice(2, 6).map((post) => {
                             return (
-                                    <div>
-                                        <a href={`/${post.id.substring(5)}/`} class="link">
-                                            <span class="title">{post.data.title}</span>
-                                            <p class="date">
-                                                <FormattedDate date={post.data.published_date}/>
-                                            </p>
-                                        </a>
+                                    <div class="post">
+                                        <div class="left">
+                                            <Image
+                                                    width={130}
+                                                    aspectRatio={1.3333333333333333}
+                                                    src={post.data.image.url}
+                                                    alt={post.data.image.alt}
+                                            />
+                                        </div>
+                                        <div class="right">
+                                            <a href={`/${post.id.substring(5)}/`} class="link">
+                                                <span class="title">{post.data.title}</span>
+                                                <p class="date">
+                                                    <FormattedDate date={post.data.published_date}/>
+                                                </p>
+                                            </a>
+                                        </div>
                                     </div>
                             );
                         })
@@ -142,12 +237,40 @@ const featured_post = posts.filter((post) => post.data.featured).at(0);
               grid-gap: 0,
               _responsive: (
                   md: (
-                      grid-template-columns: 1fr fit-content(40%) 1fr,
+                      grid-template-columns: 1fr fit-content(51%) 1fr,
                       grid-gap: 1rem,
                   ),
               ),
               _subclasses: (
                   '.one' : (
+                      _subclasses: (
+                          '.post' : (
+                              display: block,
+                              width: 100%,
+                              /*grid-template-columns: 1fr,*/
+                              /*grid-auto-rows: auto,*/
+                              /*grid-gap: 0,*/
+                              margin: 0 0 10px 0,
+                              _responsive: (
+                                  md: (
+                                      /*grid-template-columns: auto 1fr,*/
+                                      /*grid-gap: 1rem,*/
+                                  ),
+                              ),
+                              _subclasses: (
+                                  '.title': (
+                                      font-size: 1.25rem,
+                                      display: block,
+                                      margin: 0 0 10px 0,
+                                      font-weight: 500,
+                                  ),
+                                  '.date' : (
+                                      font-size: 0.825rem,
+                                      color: #959595,
+                                  )
+                              )
+                          )
+                      )
                   ),
                   '.two' : (
                       _subclasses: (
@@ -157,7 +280,7 @@ const featured_post = posts.filter((post) => post.data.featured).at(0);
                                       position: relative,
                                       display: block,
                                       _subclasses: (
-                                          '.overlay' : (
+                                          '.shadow' : (
                                               position: absolute,
                                               display: block,
                                               left: 0,
@@ -167,9 +290,9 @@ const featured_post = posts.filter((post) => post.data.featured).at(0);
                                               background-image: string.unquote('linear-gradient(-180deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.62) 62%, rgba(0, 0, 0, 0.82) 82%, rgba(0, 0, 0, 0.86) 86%)'),
                                           ),
                                           '.text' : (
-                                              position: absolute,
-                                              bottom: 15px,
-                                              left: 15px,
+                                              /*position: absolute,*/
+                                              /*bottom: 15px,*/
+                                              /*left: 15px,*/
                                               width: 100%,
                                               display: flex,
                                               flex-direction: column,
@@ -195,8 +318,6 @@ const featured_post = posts.filter((post) => post.data.featured).at(0);
                               ),
                           ),
                       ),
-                      '.three' : (
-                      ),
                       '.hot_image' : (
                           display: block,
                           height: 400px,
@@ -212,6 +333,34 @@ const featured_post = posts.filter((post) => post.data.featured).at(0);
                               ),
                           ),
                       ),
+                  ),
+                  '.three' : (
+                      _subclasses: (
+                          '.post' : (
+                              display: grid,
+                              width: 100%,
+                              grid-template-columns: 1fr,
+                              grid-auto-rows: auto,
+                              grid-gap: 0,
+                              margin: 0 0 10px 0,
+                              _responsive: (
+                                  md: (
+                                      grid-template-columns: auto 1fr,
+                                      grid-gap: 1rem,
+                                  ),
+                              ),
+                              _subclasses: (
+                                  '.title': (
+                                      display: block,
+                                      margin: 0 0 10px 0,
+                                  ),
+                                  '.date' : (
+                                      font-size: 0.825rem,
+                                      color: #959595,
+                                  )
+                              )
+                          )
+                      )
                   ),
               ),
           ),
