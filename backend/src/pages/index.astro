@@ -12,8 +12,6 @@ const posts = (await getCollection('blog')).sort(
     (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
 );
 
-
-
 const arts = posts.filter((post) => {
     return post.data.category === 'images';
 });

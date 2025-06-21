@@ -1,44 +1,100 @@
 ---
+import {Image, Picture} from "astro:assets";
+
+import {getCollection} from "astro:content";
 import LayoutBlog from "../../layouts/blog.astro";
+import {format_date} from "../../lib/utils";
 
 export async function getStaticPaths() {
-  const allPosts = await Astro.glob("../../content/blog/**/*.mdx");
-
-  // await console.log(allPosts);
-
-  const uniqueTags = [
-    ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),
-  ];
-
-  return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post) =>
-      post.frontmatter.tags.includes(tag),
+    const posts = (await getCollection('blog')).sort(
+        (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
     );
-    return {
-      params: { tag },
-      props: { posts: filteredPosts },
-    };
-  });
+
+    // await console.log(allPosts);
+
+    const uniqueTags = [
+        ...new Set(posts.map((post) => post.data.tags).flat()),
+    ];
+
+    return uniqueTags.map((tag) => {
+
+        const filteredPosts = posts.filter((post) =>
+            post.data.tags.includes(tag),
+        );
+
+        return {
+            params: {tag},
+            props: {posts: filteredPosts},
+        };
+    });
 }
 
-const { tag } = Astro.params;
-const { posts } = Astro.props;
+const {tag} = Astro.params;
+const {posts} = Astro.props;
 ---
 
 <LayoutBlog pageTitle={tag}>
-  <section class="posts">
-    <div class="container xxl">
-      <p>Posts tagged with {tag}</p>
-      <ul>
-        {
-          false &&
-            posts.map((post) => (
-              <a href={post.url} title={post.frontmatter.title} />
-            ))
-        }
-      </ul>
+    <div class="tagged_posts">
+        <div class="container xxl">
+            <div class="tag_name">
+                <div>
+                    <div>
+                        TAG
+                    </div>
+                    <div class="title">
+                        {tag}
+                    </div>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="posts">
+                    {
+                        posts.map((post) => {
+
+                            // @TODO fix line-height font issue
+
+                            return (
+                                    <div class="post">
+                                        <div class="image">
+                                            <a href={`/${post.id.substring(5)}/`} title={post.data.title}>
+                                                <Image src={post.data.image.url} alt={'11'} class="image"
+                                                       width={250}
+                                                       aspectRatio={1.3333333333333333}
+                                                />
+                                            </a>
+                                        </div>
+                                        <div class="information">
+                                            <h3>
+                                                <a href={`/${post.id.substring(5)}/`} title={post.data.title}
+                                                   class="title">
+                                                    {post.data.title}
+                                                </a>
+                                            </h3>
+                                            <div>
+                                                <span class="description">{post.data.description}</span>
+                                                <time class="date" datetime={post.data.published_date.toISOString()}>
+                                                    {
+                                                        post.data.published_date.toLocaleDateString('en-us', {
+                                                            year: 'numeric',
+                                                            month: 'short',
+                                                            day: 'numeric',
+                                                        })
+                                                    }
+                                                </time>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                            )
+                        })
+                    }
+                </div>
+                <div class="sidebar">
+                    2
+                </div>
+            </div>
+        </div>
     </div>
-  </section>
 </LayoutBlog>
 
 <style lang="scss">
@@ -48,24 +104,112 @@ const { posts } = Astro.props;
   @use "sass:map";
 
   @use "../../styles/app.scss" as app;
-  @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
-  @use "@nulllogic/scssleon/scss/functions.scss" as functions;
 
-  $posts-section: (
-    margin: 15px 0,
-    padding: 0 15px,
-    responsive: (
-      md: (
-        padding: 0,
-      ),
-    ),
+  @use "../../styles/scss/mixins.scss" as mixins;
+  @use "../../styles/scss/functions.scss" as functions;
+
+  $tag_name: (
+
+      display: flex,
+      width: 100%,
+      justify-content: center,
+      text-align: center,
+
+      _subclasses: (
+          '.title' : (
+              font-size: 3rem,
+              text-transform: capitalize,
+              font-weight: 600,
+              margin: 0 0 15px 0,
+          )
+      )
   );
 
   @include mixins.generate-component(
-    $posts-section,
-    "posts",
-    app.$config,
-    app.$theme
+          $tag_name,
+          'tag_name',
+          app.$config,
+          app.$theme
+  );
+</style>
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "../../styles/app.scss" as app;
+
+  @use "../../styles/scss/mixins.scss" as mixins;
+  @use "../../styles/scss/functions.scss" as functions;
+
+  $tagged_posts: (
+      margin: 25px 0,
+      _subclasses: (
+          '.grid' : (
+              display: grid,
+              width: 100%,
+              grid-template-columns: 1fr,
+              grid-auto-rows: auto,
+              grid-gap: 1rem,
+              _responsive: (
+                  md: (
+                      grid-template-columns: 1.4fr 0.6fr,
+                      grid-gap: 1rem,
+                  ),
+              ),
+              _subclasses: (
+                  '.posts' : (
+                      _subclasses: (
+                          '.post' : (
+                              display: grid,
+                              grid-template-columns: auto 1fr,
+                              grid-gap: 1rem,
+                              margin: 0 0 15px 0,
+                              _subclasses: (
+                                  '&:last-child' : (
+                                      margin: 0,
+                                  ),
+                                  '.information' : (
+                                      _subclasses: (
+                                          '.title': (
+                                              font-size: 2rem,
+                                              line-height: 1.5rem,
+                                              margin: 0 0 15px 0,
+                                              display: inline-block,
+                                          ),
+                                          '.description': (
+                                              display: flex,
+                                              align-items: center,
+                                              margin: 0 0 10px 0,
+                                              _subclasses: (
+                                                  '.tags': (
+                                                      margin: 0 10px,
+                                                      display: flex,
+                                                      gap: 10px,
+                                                      text-transform: capitalize,
+                                                  ),
+                                              ),
+                                          ),
+                                      )
+                                  )
+                              )
+                          ),
+                      ),
+                  ),
+                  '.sidebar': (
+                  )
+              ),
+          ),
+      )
+  );
+
+  @include mixins.generate-component(
+          $tagged_posts,
+          'tagged_posts',
+          app.$config,
+          app.$theme
   );
 </style>
 
