@@ -46,7 +46,7 @@ const categories = defineCollection({
 const tags = defineCollection({
   loader: glob({base: './src/content/tags', pattern: '**/*.*'}),
   schema: z.object({
-    name: z.string(),
+    title: z.string(),
     description: z.string().optional(),
     image: z
         .object({
@@ -60,7 +60,7 @@ const tags = defineCollection({
 const authors = defineCollection({
   loader: glob({base: './src/content/authors', pattern: '**/*.*'}),
   schema: z.object({
-    name: z.string(),
+    title: z.string(),
     description: z.string().optional(),
     position: z.string().optional(),
     image: z

@@ -2,31 +2,35 @@
 import {Image, Picture} from "astro:assets";
 
 import {getCollection} from "astro:content";
-import LayoutTag from "../../layouts/tag.astro";
-import {format_date} from "../../lib/utils";
+import LayoutTag from "../../../layouts/tag.astro";
+import {format_date} from "../../../lib/utils";
 
-export async function getStaticPaths() {
+export async function getStaticPaths({paginate}) {
+
     const posts = (await getCollection('blog')).sort(
         (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
     );
 
     const tags = await getCollection('tags');
 
-    return tags.map((tag) => {
+    return tags.flatMap((tag) => {
 
-        return {
-            params: {tag: tag.id},
+        const filtered_posts = posts.filter((post) => {
+            return post.data.tags.some(_tag => tag.id === _tag.id);
+        });
+
+        return paginate(filtered_posts, {
+            params: {name: tag.id},
             props: {
-                posts: posts.filter((post) => {
-                    return post.data.tags.some(_tag => _tag.id === tag.id);
-                })
+                tag: tag,
+                posts: filtered_posts
             },
-        }
+            pageSize: 10
+        });
     });
 }
 
-const {tag} = Astro.params;
-const {posts} = Astro.props;
+const {posts, tag, page} = Astro.props;
 ---
 
 <LayoutTag title={tag} description={tag} featured_image={tag}>
@@ -38,25 +42,24 @@ const {posts} = Astro.props;
                         TAG
                     </div>
                     <div class="title">
-                        {tag}
+                        {tag.data.name}
                     </div>
                 </div>
             </div>
             <div class="grid">
                 <div class="posts">
                     {
-                        posts.map((post) => {
-
+                        page.data.map((post) => {
                             // @TODO fix line-height font issue
 
                             return (
                                     <div class="post">
-                                        {post.data.image &&
+                                        {post.data.image?.url &&
                                                 <div class="image">
                                                     <a href={`/${post.id.substring(5)}/`} title={post.data.title}>
-                                                        <Image src={post.data.image.url} alt={'11'} class="image"
+                                                        <Image src={post.data.image?.url} alt={'11'} class="image"
                                                                width={250}
-                                                               aspectRatio={1.3333333333333333}
+                                                               fit={'cover'}
                                                         />
                                                     </a>
                                                 </div>
@@ -86,6 +89,19 @@ const {posts} = Astro.props;
                             )
                         })
                     }
+
+                    <nav class="pagination" aria-label="Pagination"
+                         style="--xii-pagination-grid-template-columns: 100px 1fr 100px">
+                        <div class="left">
+                            <a href={page.url.prev} class="btn">Previous</a>
+                        </div>
+                        <div class="center">
+                            <p>Showing {page.start} to {page.end} of {page.total} results</p>
+                        </div>
+                        <div class="right">
+                            <a href={page.url.next} class="btn">Next</a>
+                        </div>
+                    </nav>
                 </div>
                 <div class="sidebar">
                     2
@@ -101,10 +117,10 @@ const {posts} = Astro.props;
   @use "sass:meta";
   @use "sass:map";
 
-  @use "../../styles/app.scss" as app;
+  @use "../../../styles/app.scss" as app;
 
-  @use "../../styles/scss/mixins.scss" as mixins;
-  @use "../../styles/scss/functions.scss" as functions;
+  @use "../../../styles/scss/mixins.scss" as mixins;
+  @use "../../../styles/scss/functions.scss" as functions;
 
   $tag_name: (
       display: flex,
@@ -135,10 +151,10 @@ const {posts} = Astro.props;
   @use "sass:meta";
   @use "sass:map";
 
-  @use "../../styles/app.scss" as app;
+  @use "../../../styles/app.scss" as app;
 
-  @use "../../styles/scss/mixins.scss" as mixins;
-  @use "../../styles/scss/functions.scss" as functions;
+  @use "../../../styles/scss/mixins.scss" as mixins;
+  @use "../../../styles/scss/functions.scss" as functions;
 
   $tagged_posts: (
       margin: 25px 0,
@@ -205,3 +221,17 @@ const {posts} = Astro.props;
   );
 </style>
 
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:meta";
+
+  @use "~/styles/app.scss" as app;
+
+  $config: app.$config;
+  $theme: app.$theme;
+
+  @use "~/styles/scss/components/pagination" with (
+    $config: $config,
+    $theme: $theme
+  );
+</style>
