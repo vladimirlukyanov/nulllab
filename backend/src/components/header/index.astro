@@ -290,7 +290,6 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     const nav_bottom = document.querySelector('.header.bottom')
 
     const stickyNavigation = () => {
-      console.log(nav_top.height);
         if (window.scrollY > nav_top.offsetHeight) {
             // nav offsetHeight = height of nav
             nav_top.classList.add('modify');
