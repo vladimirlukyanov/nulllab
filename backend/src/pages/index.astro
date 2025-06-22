@@ -138,6 +138,7 @@ function getFirstXWords(input, x, options = {}) {
                                     <a href={`/${post.id.substring(5)}/`} class="post" title={post.data.title}>
                                         <div class="left">
                                             <Image
+                                                    class="image"
                                                     width={130}
                                                     aspectRatio={1.3333333333333333}
                                                     src={post.data.image.url}
@@ -266,6 +267,8 @@ function getFirstXWords(input, x, options = {}) {
                                   '.image' : (
                                       display: block,
                                       margin: 0 0 10px 0,
+                                      border-radius: 0.5rem,
+                                      box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
                                   ),
                                   '.title': (
                                       font-size: 1.25rem,
@@ -300,6 +303,8 @@ function getFirstXWords(input, x, options = {}) {
                                           '.image' : (
                                               position: relative,
                                               display: block,
+                                              border-radius: 0.5rem,
+                                              box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
                                               _subclasses: (
                                                   '.shadow' : (
                                                       position: absolute,
@@ -386,6 +391,10 @@ function getFirstXWords(input, x, options = {}) {
                                   '.title': (
                                       display: block,
                                       margin: 0 0 10px 0,
+                                  ),
+                                  '.image' : (
+                                      border-radius: 0.5rem,
+                                      box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
                                   ),
                                   '.date' : (
                                       font-size: 0.825rem,
