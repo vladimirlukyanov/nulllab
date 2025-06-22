@@ -76,16 +76,17 @@ const related_posts = post.data.related_posts ? await getEntries(post.data.relat
                     </article>
 
                     {related_posts &&
-                            <div class="related_posts">
+                            <div class="related">
                                 <h2 class="title">Read Next:</h2>
                                 <div class="posts">
                                     {related_posts.map((related_post) => {
                                         return (
                                                 <div class="post">
                                                     {related_post.data.image &&
-                                                            <a href={`/${related_post.id.substring(5)}/`} class="image">
+                                                            <a href={`/${related_post.id.substring(5)}/`}>
 
                                                                 <Image
+                                                                        class="image"
                                                                         width={330}
                                                                         aspectRatio={1.3333333333333333}
                                                                         src={related_post.data.image.url}
@@ -196,8 +197,9 @@ const related_posts = post.data.related_posts ? await getEntries(post.data.relat
   $single_post: (
       margin: 25px 0,
       _subclasses: (
-          '.related_posts' : (
+          '.related' : (
               margin: 15px 0 0 0,
+            /***/
               _subclasses: (
                   '> .title' : (
                       font-size: 2rem,
@@ -216,11 +218,16 @@ const related_posts = post.data.related_posts ? await getEntries(post.data.relat
                           ),
                       ),
                       _subclasses: (
+                        /***/
                           '.post' : (
+                            /***/
                               _subclasses: (
+                                /***/
                                   '.image' : (
                                       margin: 0 0 15px 0,
                                       display: inline-block,
+                                      border-radius: 0.5rem,
+                                      box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
                                   ),
                                   '.category' : (
                                       text-transform: capitalize,

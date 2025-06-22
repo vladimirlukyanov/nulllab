@@ -54,7 +54,7 @@ const {page, posts, category} = Astro.props;
                             return (
                                     <div class="post">
                                         {post.data.image?.url &&
-                                                <div class="image">
+                                                <div class="left">
                                                     <a href={`/${post.id.substring(5)}/`} title={post.data.title}>
                                                         <Image src={post.data.image?.url} alt={'11'} class="image"
                                                                width={250}
@@ -63,7 +63,7 @@ const {page, posts, category} = Astro.props;
                                                     </a>
                                                 </div>
                                         }
-                                        <div class="information">
+                                        <div class="right">
                                             <h3>
                                                 <a href={`/${post.id.substring(5)}/`} title={post.data.title}
                                                    class="title">
@@ -173,17 +173,32 @@ const {page, posts, category} = Astro.props;
               _subclasses: (
                   '.posts' : (
                       _subclasses: (
+                        /***/
                           '.post' : (
                               display: grid,
                               grid-template-columns: auto 1fr,
                               grid-gap: 1rem,
                               margin: 0 0 15px 0,
+                            /***/
                               _subclasses: (
+                                /***/
                                   '&:last-child' : (
                                       margin: 0,
                                   ),
-                                  '.information' : (
+                                  '.left' : (
+                                    /***/
                                       _subclasses: (
+                                        /***/
+                                          '.image' : (
+                                              border-radius: 0.5rem,
+                                              box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
+                                          )
+                                      )
+                                  ),
+                                  '.right' : (
+                                    /***/
+                                      _subclasses: (
+                                        /***/
                                           '.title': (
                                               font-size: 2rem,
                                               line-height: 1.5rem,

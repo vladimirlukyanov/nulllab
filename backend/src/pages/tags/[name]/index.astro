@@ -52,7 +52,7 @@ const {posts} = Astro.props;
                             return (
                                     <div class="post">
                                         {post.data.image?.url &&
-                                                <div class="image">
+                                                <div class="left">
                                                     <a href={`/${post.id.substring(5)}/`} title={post.data.title}>
                                                         <Image src={post.data.image?.url} alt={'11'} class="image"
                                                                width={250}
@@ -61,7 +61,7 @@ const {posts} = Astro.props;
                                                     </a>
                                                 </div>
                                         }
-                                        <div class="information">
+                                        <div class="right">
                                             <h3>
                                                 <a href={`/${post.id.substring(5)}/`} title={post.data.title}
                                                    class="title">
@@ -90,7 +90,7 @@ const {posts} = Astro.props;
                             return (
                                     <div class="post">
                                         {post.data.image?.url &&
-                                                <div class="image">
+                                                <div class="left">
                                                     <a href={`/${post.id.substring(5)}/`} title={post.data.title}>
                                                         <Image src={post.data.image?.url} alt={'11'} class="image"
                                                                width={250}
@@ -99,7 +99,7 @@ const {posts} = Astro.props;
                                                     </a>
                                                 </div>
                                         }
-                                        <div class="information">
+                                        <div class="right">
                                             <h3>
                                                 <a href={`/${post.id.substring(5)}/`} title={post.data.title}
                                                    class="title">
@@ -218,7 +218,15 @@ const {posts} = Astro.props;
                                   '&:last-child' : (
                                       margin: 0,
                                   ),
-                                  '.information' : (
+                                  '.left' : (
+                                      _subclasses: (
+                                          '.image' : (
+                                              border-radius: 0.5rem,
+                                              box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
+                                          )
+                                      )
+                                  ),
+                                  '.right' : (
                                       _subclasses: (
                                           '.title': (
                                               font-size: 2rem,

@@ -27,69 +27,67 @@ const categories = (await getCollection('categories')).sort((a, b) => {
   <slot />
 </a>
 -->
-<header class="header">
-    <div class="top">
-        <div class="container xxl">
-            <nav class="navbar">
-                <div class="left">
-                    <ul class="nav">
-                        <li class="item">
+<div class="header top">
+    <div class="container xxl">
+        <nav class="navbar">
+            <div class="left">
+                <ul class="nav">
+                    <li class="item">
 
-                        </li>
-                        <li class="item">
+                    </li>
+                    <li class="item">
 
-                        </li>
-                    </ul>
-                </div>
-                <div class="center">
-                    <a href="/" class="link">
+                    </li>
+                </ul>
+            </div>
+            <div class="center">
+                <a href="/" class="link">
                     <span class="logo-wrapper">
                         <Logo/>
                         <span class="slogan">development & research</span>
                     </span>
-                    </a>
-                </div>
-                <div class="right">
-                    <ul class="nav">
-                        <li class="item">
+                </a>
+            </div>
+            <div class="right">
+                <ul class="nav">
+                    <li class="item">
 
-                        </li>
-                        <li class="item">
+                    </li>
+                    <li class="item">
 
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
-    <div class="bottom">
-        <div class="container xxl">
-            <nav class="navbar">
-                <div class="left">
-                    <Logo class="logo"/>
-                </div>
-                <div class="center">
-                    <ul class="nav">
-                        {categories.length > 0 &&
-                            categories.map((category) => {
-                                return (
-                                        <li class="item">
-                                            <a href={`/category/${category.id}/`} class="link">
-                                                {category.data.name}
-                                            </a>
-                                        </li>
-                                )
-                            })
-                        }
-                    </ul>
-                </div>
-                <div class="right">
+</div>
 
-                </div>
-            </nav>
-        </div>
+<header class="header bottom">
+    <div class="container xxl">
+        <nav class="navbar">
+            <div class="left">
+                <Logo class="logo"/>
+            </div>
+            <div class="center">
+                <ul class="nav">
+                    {categories.length > 0 &&
+                        categories.map((category) => {
+                            return (
+                                    <li class="item">
+                                        <a href={`/category/${category.id}/`} class="link">
+                                            {category.data.name}
+                                        </a>
+                                    </li>
+                            )
+                        })
+                    }
+                </ul>
+            </div>
+            <div class="right">
+
+            </div>
+        </nav>
     </div>
-
 </header>
 
 <svg width={15} height={15} class="transition-all relative top-[1px]  h-4 w-0 group-hover/uptime:w-4 inline"
@@ -129,7 +127,6 @@ const categories = (await getCollection('categories')).sort((a, b) => {
 
   $header-section: (
     /*padding: 10px 5px,*/
-      background: var(--background),
       border-bottom: var(--border),
       box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px"),
       top: 0,
@@ -138,28 +135,29 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     /***/
       _colors: (
           dark: (
-              background:
-              string.unquote(
-                      "linear-gradient(rgba(0, 95, 94, 0.85) 0%, rgba(23, 59, 86, 0.55) 100%)"
-              ),
+              background: rgba(23, 59, 86, 1),
               border: 1px solid #173b56,
           ),
       ),
       _subclasses: (
         /***/
-          '.top' : (
+          '&.top' : (
               opacity: 1,
               display: inherit,
               _subclasses: (
                 /***/
+                  '&.modify': (
+                    opacity: 0,
+                  ),
                   '.navbar' : (
                       border-bottom: 1px solid rgba(255, 255, 255, 0.4),
                       padding: 0 0 10px 0,
                       margin: 0 0 5px 0,
-                  )
+                  ),
               ),
           ),
-          '.bottom' : (
+          '&.bottom' : (
+              background: var(--background),
               _subclasses: (
                 /***/
                   '.navbar' : (
@@ -222,6 +220,24 @@ const categories = (await getCollection('categories')).sort((a, b) => {
           ),
           '&.modify': (
               _subclasses : (
+                  '.navbar' : (
+                      --navbar-grid-template-columns: auto auto 1fr,
+                      _subclasses : (
+                          '.logo' : (
+                              width: 100px,
+                              height: auto,
+                              display: block,
+
+                              transition: string.unquote('opacity 0.25s ease-out, display 0.25s ease-out allow-discrete'),
+                            /***/
+                              _atrule : (
+                                  '@starting-style' : (
+                                      opacity: 1,
+                                  )
+                              ),
+                          )
+                      )
+                  ),
                 /***/
                   '.top' : (
                       display: none,
@@ -233,29 +249,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
                           )
                       ),*/
                   ),
-                  '.bottom' : (
-                      _subclasses : (
-                        /***/
-                          '.navbar' : (
-                              --navbar-grid-template-columns: auto auto 1fr,
-                              _subclasses : (
-                                  '.logo' : (
-                                      width: 100px,
-                                      height: auto,
-                                      display: block,
 
-                                      transition: string.unquote('opacity 0.25s ease-out, display 0.25s ease-out allow-discrete'),
-                                    /***/
-                                      _atrule : (
-                                          '@starting-style' : (
-                                              opacity: 1,
-                                          )
-                                      ),
-                                  )
-                              )
-                          )
-                      )
-                  ),
                 /***/
               )
           ),
@@ -292,22 +286,18 @@ const categories = (await getCollection('categories')).sort((a, b) => {
 </style>
 
 <script type="text/javascript">
-    const nav = document.querySelector('.header')
-    const nav_top = nav.offsetTop;
-
+    const nav_top = document.querySelector('.header.top')
+    const nav_bottom = document.querySelector('.header.bottom')
 
     const stickyNavigation = () => {
-        if (window.scrollY > nav_top) {
+      console.log(nav_top.height);
+        if (window.scrollY > nav_top.offsetHeight) {
             // nav offsetHeight = height of nav
-            nav.classList.add('sticky')
+            nav_top.classList.add('modify');
+            nav_bottom.classList.add('sticky', 'modify');
         } else {
-            nav.classList.remove('sticky')
-        }
-
-        if (window.scrollY > 60) {
-            nav.classList.add('modify')
-        } else {
-            nav.classList.remove('modify')
+            nav_top.classList.remove('modify');
+            nav_bottom.classList.remove('sticky', 'modify');
         }
     }
 
