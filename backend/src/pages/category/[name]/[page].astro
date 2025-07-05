@@ -98,7 +98,7 @@ const {page, posts, category} = Astro.props;
                             <a href={page.url.prev} class="btn">Previous</a>
                         </div>
                         <div class="center">
-                            <p>Showing {page.start} to {page.end} of {page.total} results</p>
+                            <p>Showing {page.start + 1} to {page.end + 1} of {page.total} results</p>
                         </div>
                         <div class="right">
                             <a href={page.url.next} class="btn">Next</a>
