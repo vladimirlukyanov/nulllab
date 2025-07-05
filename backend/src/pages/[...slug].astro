@@ -34,7 +34,7 @@ const related_posts = post.data.related_posts ? await getEntries(
 ---
 
 <LayoutBlog title={post.data.title} description={post.data.description}
-            featured_image={post.data.image.url}>
+            featured_image={post.data?.image?.url}>
     <div class="single_post">
         <div class="container xxl">
             <div class="grid">

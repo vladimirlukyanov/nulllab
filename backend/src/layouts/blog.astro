@@ -41,19 +41,19 @@ const {title, description, published_date, updated_date, featured_image} = Astro
   @use "@nulllogic/scssleon/scss/functions.scss" as functions;
 
   $main-section: (
-      margin: 0 0 15px 0,
-      padding: 0 15px,
-      responsive: (
-          md: (
-              padding: 0,
-          ),
+    margin: 0 0 15px 0,
+    padding: 0 1rem,
+    _responsive: (
+      md: (
+        padding: 0,
       ),
+    ),
   );
 
   @include mixins.generate-component(
-          $main-section,
-          "main",
-          app.$config,
-          app.$theme
+      $main-section,
+      "main",
+      app.$config,
+      app.$theme
   );
 </style>

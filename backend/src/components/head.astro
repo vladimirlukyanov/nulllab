@@ -49,19 +49,66 @@ const {title, description, featured_image = "/blog-placeholder-1.jpg"} = Astro.p
 <style lang="scss" is:global>
   @use "sass:list";
   @use "sass:meta";
-  @use "../styles/app.scss" as app;
 
-  @use "@nulllogic/scssleon/scss/functions.scss" as functions;
+  @use "sass:list";
+  @use "sass:meta";
 
-  $modules: ("root", "reset", "base", "content");
-  $components: ("navbar", "nav", "button", "container");
+  // ↓ Config
+  @use "~/styles/app.scss" as app;
 
-  $modules: list.join($modules, functions.add_components($components));
+  // ↓ Root
+  @use "~/styles/scss/root" with (
+    $config: app.$config,
+    $theme: app.$theme
+  );
 
-  @each $module in $modules {
-    @include meta.load-css(
-            "@nulllogic/scssleon/scss/#{$module}",
-        $with: (config: app.$config, theme: app.$theme)
-    );
-  }
+  // Great reset
+  @use "~/styles/scss/reset" with (
+    $config: app.$config,
+    $theme: app.$theme
+  );
+
+  // Base
+  // Special utility, that will dynamically generate CSS
+  // properties for HTML tags, specified in theme
+  @use "~/styles/scss/base" with (
+    $config: app.$config,
+    $theme: app.$theme
+  );
+
+  // ↓ Amazing content
+  @use "~/styles/scss/content" with (
+    $config: app.$config,
+    $theme: app.$theme
+  );
+
+  // ↓ Container
+  @use "~/styles/scss/components/container" with (
+    $config: app.$config,
+    $theme: app.$theme
+  );
+
+  // ↓ Navigation bar
+  @use "~/styles/scss/components/navbar" with (
+    $config: app.$config,
+    $theme: app.$theme
+  );
+
+  // ↓ Nav
+  @use "~/styles/scss/components/nav" with (
+    $config: app.$config,
+    $theme: app.$theme
+  );
+
+  // ↓ Card
+  @use "~/styles/scss/components/card" with (
+    $config: app.$config,
+    $theme: app.$theme
+  );
+
+  // ↓ Badge
+  @use "~/styles/scss/components/badge" with (
+    $config: app.$config,
+    $theme: app.$theme
+  );
 </style>
