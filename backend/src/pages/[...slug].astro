@@ -1,66 +1,75 @@
 ---
-import {Image} from "astro:assets";
+import { Image } from 'astro:assets'
 
-import LayoutBlog from "../layouts/blog.astro";
-import {getEntries, getCollection} from "astro:content";
-import {render} from 'astro:content';
+import LayoutBlog from '../layouts/blog.astro'
+import { getEntries, getCollection } from 'astro:content'
+import { render } from 'astro:content'
 
-import {format_date} from "../lib/utils";
+import { format_date } from '../lib/utils'
 
-export async function getStaticPaths() {
-    const posts = await getCollection("blog");
+export async function getStaticPaths () {
+  const posts = await getCollection('blog')
 
-    return posts.map((post) => {
-        const [year, slug] = post.id.split("/");
-        return {
-            params: {
-                slug: slug.toString(),
-            },
-            props: post,
-        };
-    });
+  return posts.map((post) => {
+    const [year, slug] = post.id.split('/')
+    return {
+      params: {
+        slug: slug.toString(),
+      },
+      props: post,
+    }
+  })
 }
 
-const post = Astro.props;
-const {Content} = await render(post);
+const post = Astro.props
+const { Content } = await render(post)
 
-const authors = post.data.authors ? await getEntries(post.data.authors) : null;
-const categories = post.data.categories ? await getEntries(post.data.categories) : null;
-const tags = post.data.tags ? await getEntries(post.data.tags) : null;
-const related_posts = post.data.related_posts ? await getEntries(post.data.related_posts) : null;
+const authors = post.data.authors ? await getEntries(post.data.authors) : null
+const categories = post.data.categories
+  ? await getEntries(post.data.categories)
+  : null
+const tags = post.data.tags ? await getEntries(post.data.tags) : null
+const related_posts = post.data.related_posts ? await getEntries(
+  post.data.related_posts) : null
 ---
 
-<LayoutBlog title={post.data.title} description={post.data.description} featured_image={post.data.image.url}>
+<LayoutBlog title={post.data.title} description={post.data.description}
+            featured_image={post.data.image.url}>
     <div class="single_post">
         <div class="container xxl">
             <div class="grid">
                 <div class="post">
-                    <article class="content" itemscope itemtype="https://schema.org/Article">
+                    <article class="content" itemscope
+                             itemtype="https://schema.org/Article">
                         <div class="category">
-                            {post.data.categories.map((category) => {
-                                return (
-                                    <a href={'/category/' + category.id} class="link">{category.id}</a>
-                                )
-                            })}
+                          {post.data.categories.map((category) => {
+                            return (
+                                    <a href={'/category/' + category.id}
+                                       class="link">{category.id}</a>
+                            )
+                          })}
                         </div>
-                        <h1 class="title" itemprop="headline">{post.data.title}</h1>
+                        <h1 class="title"
+                            itemprop="headline">{post.data.title}</h1>
                         <div class="description" itemprop="description">
-                            {format_date(post.data.published_date)}
+                          {format_date(post.data.published_date)}
                             —
                             <div class="tags">
-                                {
-                                    post.data.tags.map((tag) => {
-                                        return (
-                                                <a href={"/tags/" + tag.id} target="_self" title={tag.id}>
-                                                    <span class="badge">{tag.id}</span>
-                                                </a>
-                                        );
-                                    })
-                                }
+                              {
+                                post.data.tags.map((tag) => {
+                                  return (
+                                          <a href={'/tags/' + tag.id}
+                                             target="_self" title={tag.id}>
+                                              <span class="badge">{tag.id}</span>
+                                          </a>
+                                  )
+                                })
+                              }
                             </div>
                             —&nbsp;{authors.map((author) => {
-                            return (
-                                    <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                          return (
+                                  <span itemprop="author" itemscope
+                                        itemtype="https://schema.org/Person">
                                         <a href={'/authors/' + author.id}
                                            title={author.data.title}
                                            itemprop="url"
@@ -68,44 +77,48 @@ const related_posts = post.data.related_posts ? await getEntries(post.data.relat
                                             {author.data.title}
                                         </span></a>
                                     </span>
-                            )
+                          )
                         })}
                         </div>
                         <p>{post.data.description}</p>
                         <Content/>
                     </article>
 
-                    {related_posts &&
-                            <div class="related">
-                                <h2 class="title">Read Next:</h2>
-                                <div class="posts">
-                                    {related_posts.map((related_post) => {
-                                        return (
-                                                <div class="post">
-                                                    {related_post.data.image &&
-                                                            <a href={`/${related_post.id.substring(5)}/`}>
+                  {related_posts &&
+                          <div class="related">
+                              <h2 class="title">Read Next:</h2>
+                              <div class="posts">
+                                {related_posts.map((related_post) => {
+                                  if(typeof(related_post) === 'undefined') return;
+                                  return (
+                                          <div class="post">
+                                            {related_post?.data?.image &&
+                                                    <a href={`/${related_post.id.substring(
+                                                      5)}/`}>
 
-                                                                <Image
-                                                                        class="image"
-                                                                        width={330}
-                                                                        aspectRatio={1.3333333333333333}
-                                                                        src={related_post.data.image.url}
-                                                                        alt={related_post.data.image.alt}
-                                                                />
-                                                            </a>
-                                                    }
-                                                    <div class="category">
-                                                        <a href={'#'} class="link">{related_post.data.category}</a>
-                                                    </div>
-                                                    <a href={`/${related_post.id.substring(5)}/`} class="title">
-                                                        {related_post.data.title}
+                                                        <Image
+                                                                class="image"
+                                                                width={330}
+                                                                aspectRatio={1.3333333333333333}
+                                                                src={related_post.data.image.url}
+                                                                alt={related_post.data.image.alt}
+                                                        />
                                                     </a>
-                                                </div>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                    }
+                                            }
+                                              <div class="category">
+                                                  <a href={'#'}
+                                                     class="link">{related_post?.data?.category}</a>
+                                              </div>
+                                              <a href={`/${related_post.id.substring(
+                                                5)}/`} class="title">
+                                                {related_post.data.title}
+                                              </a>
+                                          </div>
+                                  )
+                                })}
+                              </div>
+                          </div>
+                  }
                 </div>
                 <div class="sidebar">
                     2
@@ -127,59 +140,59 @@ const related_posts = post.data.related_posts ? await getEntries(post.data.relat
   @use "../styles/scss/functions.scss" as functions;
 
   $single_post: (
-      margin: 25px 0,
-      _subclasses: (
-          '.grid' : (
-              display: grid,
-              width: 100%,
-              grid-template-columns: 1fr,
-              grid-auto-rows: auto,
-              grid-gap: 1rem,
-              _responsive: (
-                  md: (
-                      grid-template-columns: 1.4fr 0.6fr,
-                      grid-gap: 1rem,
-                  ),
-              ),
-              _subclasses: (
-                  '.post' : (
-                      _subclasses: (
-                          '.category' : (
-                              text-transform: capitalize,
-                              _subclasses: (
-                                  '.link' : (
-                                      color: #8c602e,
-                                  )
-                              )
-                          ),
-                          '.title': (),
-                          '.description': (
-                              display: flex,
-                              align-items: center,
-                              margin: 0 0 10px 0,
-                              _subclasses: (
-                                  '.tags': (
-                                      margin: 0 10px,
-                                      display: flex,
-                                      gap: 10px,
-                                      text-transform: capitalize,
-                                  ),
-                              ),
-                          ),
-                      )
-                  ),
-                  '.sidebar': (
-                  )
-              )
+    margin: 25px 0,
+    _subclasses: (
+      '.grid' : (
+        display: grid,
+        width: 100%,
+        grid-template-columns: 1fr,
+        grid-auto-rows: auto,
+        grid-gap: 1rem,
+        _responsive: (
+          md: (
+            grid-template-columns: 1.4fr 0.6fr,
+            grid-gap: 1rem,
           ),
+        ),
+        _subclasses: (
+          '.post' : (
+            _subclasses: (
+              '.category' : (
+                text-transform: capitalize,
+                _subclasses: (
+                  '.link' : (
+                    color: #8c602e,
+                  )
+                )
+              ),
+              '.title': (),
+              '.description': (
+                display: flex,
+                align-items: center,
+                margin: 0 0 10px 0,
+                _subclasses: (
+                  '.tags': (
+                    margin: 0 10px,
+                    display: flex,
+                    gap: 10px,
+                    text-transform: capitalize,
+                  ),
+                ),
+              ),
+            )
+          ),
+          '.sidebar': (
+          )
+        )
       ),
+    ),
   );
 
   @include mixins.generate-component(
-          $single_post,
-          'single_post',
-          app.$config,
-          app.$theme
+      $single_post,
+      'single_post',
+      app.$config,
+      app.$theme
   );
 </style>
 
@@ -195,65 +208,65 @@ const related_posts = post.data.related_posts ? await getEntries(post.data.relat
   @use "../styles/scss/functions.scss" as functions;
 
   $single_post: (
-      margin: 25px 0,
-      _subclasses: (
-          '.related' : (
-              margin: 15px 0 0 0,
-            /***/
-              _subclasses: (
-                  '> .title' : (
-                      font-size: 2rem,
-                      margin: 0 0 15px 0,
-                  ),
-                  '.posts' : (
-                      display: grid,
-                      width: 100%,
-                      grid-template-columns: 1fr,
-                      grid-auto-rows: auto,
-                      grid-gap: 1rem,
-                      _responsive: (
-                          md: (
-                              grid-template-columns: 1fr 1fr 1fr,
-                              grid-gap: 1rem,
-                          ),
-                      ),
-                      _subclasses: (
-                        /***/
-                          '.post' : (
-                            /***/
-                              _subclasses: (
-                                /***/
-                                  '.image' : (
-                                      margin: 0 0 15px 0,
-                                      display: inline-block,
-                                      border-radius: 0.5rem,
-                                      box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
-                                  ),
-                                  '.category' : (
-                                      text-transform: capitalize,
-                                      margin: 0 0 10px 0,
-                                      _subclasses: (
-                                          '.link' : (
-                                              color: #8c602e,
-                                          )
-                                      )
-                                  ),
-                                  '.title' : (
-                                      font-size: 1.5rem,
-                                  )
-                              )
-                          ),
-                      )
-                  ),
-              )
+    margin: 25px 0,
+    _subclasses: (
+      '.related' : (
+        margin: 15px 0 0 0,
+        /***/
+        _subclasses: (
+          '> .title' : (
+            font-size: 2rem,
+            margin: 0 0 15px 0,
           ),
+          '.posts' : (
+            display: grid,
+            width: 100%,
+            grid-template-columns: 1fr,
+            grid-auto-rows: auto,
+            grid-gap: 1rem,
+            _responsive: (
+              md: (
+                grid-template-columns: 1fr 1fr 1fr,
+                grid-gap: 1rem,
+              ),
+            ),
+            _subclasses: (
+              /***/
+              '.post' : (
+                /***/
+                _subclasses: (
+                  /***/
+                  '.image' : (
+                    margin: 0 0 15px 0,
+                    display: inline-block,
+                    border-radius: 0.5rem,
+                    box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
+                  ),
+                  '.category' : (
+                    text-transform: capitalize,
+                    margin: 0 0 10px 0,
+                    _subclasses: (
+                      '.link' : (
+                        color: #8c602e,
+                      )
+                    )
+                  ),
+                  '.title' : (
+                    font-size: 1.5rem,
+                  )
+                )
+              ),
+            )
+          ),
+        )
       ),
+    ),
   );
 
   @include mixins.generate-component(
-          $single_post,
-          'single_post',
-          app.$config,
-          app.$theme
+      $single_post,
+      'single_post',
+      app.$config,
+      app.$theme
   );
 </style>
