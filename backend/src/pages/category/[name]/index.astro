@@ -54,7 +54,7 @@ const { category, posts } = Astro.props
             <div class="grid">
                 <div class="posts">
                   {
-                    posts.length > 9 ? posts.slice(0, 9).map((post) => {
+                    posts.length > 10 ? posts.slice(0, 9).map((post) => {
 
                       // @TODO fix line-height font issue
 
@@ -142,7 +142,7 @@ const { category, posts } = Astro.props
                       )
                     })
                   }
-                  {posts.length > 9 &&
+                  {posts.length > 10 &&
                           <nav class="pagination" aria-label="Pagination"
                                style="--xii-pagination-grid-template-columns: 100px 1fr 100px">
                               <div class="left">
