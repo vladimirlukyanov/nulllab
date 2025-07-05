@@ -28,10 +28,10 @@ export async function getStaticPaths() {
 
 const {category, posts} = Astro.props;
 
-// console.log(category);
+console.log(category);
 ---
 
-<CategoryLayout title={category.data.name} description={category.data.description}
+<CategoryLayout title={category.data.title} description={category.data.description}
                 featured_image={category.data?.image?.url}>
     <div class="categories">
         <div class="container xxl">
@@ -41,7 +41,7 @@ const {category, posts} = Astro.props;
                         CATEGORY
                     </div>
                     <div class="title">
-                        {category.data.name}
+                        {category.data.title}
                     </div>
                 </div>
             </div>

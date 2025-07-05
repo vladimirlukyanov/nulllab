@@ -75,7 +75,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
                             return (
                                     <li class="item">
                                         <a href={`/category/${category.id}/`} class="link">
-                                            {category.data.name}
+                                            {category.data.title}
                                         </a>
                                     </li>
                             )
@@ -272,7 +272,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
           "header",
           app.$config,
           app.$theme,
-          (add_pseudo_tag: false)
+          (add_variable_prefix: false)
   );
 </style>
 

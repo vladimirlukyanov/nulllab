@@ -62,10 +62,10 @@ const related_posts = post.data.related_posts ? await getEntries(post.data.relat
                             return (
                                     <span itemprop="author" itemscope itemtype="https://schema.org/Person">
                                         <a href={'/authors/' + author.id}
-                                           title={author.data.name}
+                                           title={author.data.title}
                                            itemprop="url"
                                         ><span itemprop="name">
-                                            {author.data.name}
+                                            {author.data.title}
                                         </span></a>
                                     </span>
                             )

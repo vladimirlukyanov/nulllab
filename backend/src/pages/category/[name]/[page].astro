@@ -2,6 +2,7 @@
 import {getCollection} from 'astro:content';
 import CategoryLayout from "../../../layouts/category.astro";
 import {Image} from "astro:assets";
+import LayoutBlog from "../../../layouts/blog.astro";
 
 export async function getStaticPaths({paginate}) {
 
@@ -29,10 +30,10 @@ export async function getStaticPaths({paginate}) {
 }
 
 const {page, posts, category} = Astro.props;
-// console.log(page);
 ---
 
-<CategoryLayout>
+<CategoryLayout title={category.data.title} description={category.data.description}
+                featured_image={category.data?.image?.url}>
     <div class="categories">
         <div class="container xxl">
             <div class="category_name">
@@ -41,7 +42,7 @@ const {page, posts, category} = Astro.props;
                         CATEGORY
                     </div>
                     <div class="title">
-                        {category.data.name}
+                        {category.data.title}
                     </div>
                 </div>
             </div>
