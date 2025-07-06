@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content'
 import CategoryLayout from '../../../layouts/category.astro'
 import { Image } from 'astro:assets'
 import LayoutBlog from '../../../layouts/blog.astro'
+import {words_limit} from "~/utils/text";
 
 export async function getStaticPaths () {
 
@@ -66,7 +67,7 @@ const { category, posts } = Astro.props
                                               5)}/`} title={post.data.title}>
                                                 <Image src={post.data.image?.url}
                                                        alt={'11'} class="image"
-                                                       width={250}
+                                                       width={390}
                                                        fit={'cover'}
                                                 />
                                             </a>
@@ -81,7 +82,9 @@ const { category, posts } = Astro.props
                                           </a>
                                       </h3>
                                       <div>
-                                          <span class="description">{post.data.description}</span>
+                                          <span class="description">{words_limit(post.data.description, 60, {
+                                              appendEllipsis: true
+                                          })}</span>
                                           <time class="date"
                                                 datetime={post.data.published_date.toISOString()}>
                                             {
@@ -109,7 +112,7 @@ const { category, posts } = Astro.props
                                               5)}/`} title={post.data.title}>
                                                 <Image src={post.data.image?.url}
                                                        alt={'11'} class="image"
-                                                       width={250}
+                                                       width={390}
                                                        fit={'cover'}
                                                 />
                                             </a>
@@ -124,7 +127,9 @@ const { category, posts } = Astro.props
                                           </a>
                                       </h3>
                                       <div>
-                                          <span class="description">{post.data.description}</span>
+                                          <span class="description">{words_limit(post.data.description, 60, {
+                                              appendEllipsis: true
+                                          })}</span>
                                           <time class="date"
                                                 datetime={post.data.published_date.toISOString()}>
                                             {
@@ -245,9 +250,16 @@ const { category, posts } = Astro.props
               /***/
               '.post' : (
                 display: grid,
-                grid-template-columns: auto 1fr,
+                grid-template-columns: 1fr,
                 grid-gap: 1rem,
                 margin: 0 0 2rem 0,
+                /***/
+                _responsive : (
+                    md: (
+                      grid-template-columns: minmax(250px, 350px) 1fr,
+                      grid-gap: 1rem,
+                    )
+                ),
                 /***/
                 _subclasses: (
                   /***/
@@ -276,6 +288,7 @@ const { category, posts } = Astro.props
                         display: flex,
                         align-items: center,
                         margin: 0 0 10px 0,
+                        line-height: clamp(1.25em, 4vw, 1.5em),
                       ),
                       '.date': (
                         display: block,
