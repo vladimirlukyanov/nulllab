@@ -3,6 +3,9 @@ import {Image} from 'astro:assets'
 
 import LayoutBlog from '~/layouts/blog.astro'
 import Sidebar from '~/components/single/sidebar/index.astro'
+import AuthorProfile from '~/components/author/profile/index.astro'
+import RelatedPosts from '~/components/related/index.astro'
+
 import {getEntries, getCollection} from 'astro:content'
 import {render} from 'astro:content'
 
@@ -37,7 +40,7 @@ const related_posts = post.data.related_posts ? await getEntries(
 const sidebar_posts = posts.filter((_post) => {
     return _post.id !== post.id
 }).filter((_post) => {
-    if (post.data?.related_posts.length > 0) {
+    if (post.data?.related_posts && post.data?.related_posts.length > 0) {
         return !post.data?.related_posts.some(related_post => _post?.id.includes(related_post?.id));
     }
     return false;
@@ -64,7 +67,7 @@ const sidebar_posts = posts.filter((_post) => {
                         </div>
                         <h1 class="title"
                             itemprop="headline">{post.data.title}</h1>
-                        <div class="description" itemprop="description">
+                        <div class="information" itemprop="description">
                             {format_date(post.data.published_date)}
                             —
                             <div class="tags">
@@ -81,59 +84,19 @@ const sidebar_posts = posts.filter((_post) => {
                             </div>
                             —&nbsp;{authors.map((author) => {
                             return (
-                                    <span itemprop="author" itemscope
-                                          itemtype="https://schema.org/Person">
-                                        <a href={'/authors/' + author.id}
-                                           title={author.data.title}
-                                           itemprop="url"
-                                        ><span itemprop="name">
-                                            {author.data.title}
-                                        </span></a>
-                                    </span>
+                                    <AuthorProfile author={author} key={author.id}/>
                             )
                         })}
                         </div>
-                        <p>{post.data.description}</p>
+                        <p class="description">{post.data.description}</p>
                         <Content/>
                     </article>
 
                     {related_posts &&
-                            <div class="related">
-                                <h2 class="title">You might also enjoy:</h2>
-                                <div class="posts">
-                                    {related_posts.map((related_post) => {
-                                        if (typeof (related_post) === 'undefined') return;
-                                        return (
-                                                <div class="post">
-                                                    {related_post?.data?.image &&
-                                                            <a href={`/${related_post.id.substring(
-                                                                5)}/`}>
-
-                                                                <Image
-                                                                        class="image"
-                                                                        width={330}
-                                                                        aspectRatio={1.3333333333333333}
-                                                                        src={related_post.data.image.url}
-                                                                        alt={related_post.data.image.alt}
-                                                                />
-                                                            </a>
-                                                    }
-                                                    <div class="category">
-                                                        <a href={'#'}
-                                                           class="link">{related_post?.data?.category}</a>
-                                                    </div>
-                                                    <a href={`/${related_post.id.substring(
-                                                        5)}/`} class="title">
-                                                        {related_post.data.title}
-                                                    </a>
-                                                </div>
-                                        )
-                                    })}
-                                </div>
-                            </div>
+                            <RelatedPosts posts={related_posts} title={'You might also enjoy:'}/>
                     }
                 </div>
-                <Sidebar posts={sidebar_posts} />
+                <Sidebar posts={sidebar_posts}/>
             </div>
         </div>
     </div>
@@ -164,7 +127,7 @@ const sidebar_posts = posts.filter((_post) => {
         _responsive: (
           md: (
             grid-template-columns: 1.4fr 0.6fr,
-            grid-gap: 1rem,
+            grid-gap: 2rem,
           ),
         ),
         /***/
@@ -181,7 +144,7 @@ const sidebar_posts = posts.filter((_post) => {
                 )
               ),
               '.title': (),
-              '.description': (
+              '.information': (
                 display: flex,
                 align-items: center,
                 margin: 0 0 10px 0,
@@ -195,84 +158,14 @@ const sidebar_posts = posts.filter((_post) => {
                   ),
                 ),
               ),
+              '.description': (
+                font-size: 1.25rem,
+                color: #ccc,
+              ),
             )
           ),
           '.sidebar': (
           )
-        )
-      ),
-    ),
-  );
-
-  @include mixins.generate-component(
-      $single_post,
-      'single_post',
-      app.$config,
-      app.$theme
-  );
-</style>
-
-<style lang="scss">
-  @use "sass:list";
-  @use "sass:string";
-  @use "sass:meta";
-  @use "sass:map";
-
-  @use "../styles/app.scss" as app;
-
-  @use "../styles/scss/mixins.scss" as mixins;
-  @use "../styles/scss/functions.scss" as functions;
-
-  $single_post: (
-    _subclasses: (
-      '.related' : (
-        margin: 15px 0 0 0,
-        /***/
-        _subclasses: (
-          '> .title' : (
-            font-size: 2rem,
-            margin: 0 0 15px 0,
-          ),
-          '.posts' : (
-            display: grid,
-            width: 100%,
-            grid-template-columns: 1fr,
-            grid-auto-rows: auto,
-            grid-gap: 1rem,
-            _responsive: (
-              md: (
-                grid-template-columns: 1fr 1fr 1fr,
-                grid-gap: 1rem,
-              ),
-            ),
-            _subclasses: (
-              /***/
-              '.post' : (
-                /***/
-                _subclasses: (
-                  /***/
-                  '.image' : (
-                    margin: 0 0 15px 0,
-                    display: inline-block,
-                    border-radius: 0.5rem,
-                    box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
-                  ),
-                  '.category' : (
-                    text-transform: capitalize,
-                    margin: 0 0 10px 0,
-                    _subclasses: (
-                      '.link' : (
-                        color: #8c602e,
-                      )
-                    )
-                  ),
-                  '.title' : (
-                    font-size: 1.5rem,
-                  )
-                )
-              ),
-            )
-          ),
         )
       ),
     ),

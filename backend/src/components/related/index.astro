@@ -1,0 +1,108 @@
+---
+import {Image} from 'astro:assets';
+const {posts, title} = Astro?.props;
+---
+{posts.length > 0 &&
+<div class="related">
+    {title &&
+            <h2 class="title">{title}</h2>
+    }
+    <div class="posts">
+        {posts.map((post) => {
+            if (typeof (post) === 'undefined') return;
+            return (
+                    <div class="post">
+                        {post?.data?.image &&
+                                <a href={`/${post.id.substring(
+                                    5)}/`}>
+
+                                    <Image
+                                            class="image"
+                                            width={330}
+                                            aspectRatio={1.3333333333333333}
+                                            src={post.data.image.url}
+                                            alt={post.data.image.alt}
+                                    />
+                                </a>
+                        }
+                        <div class="category">
+                            <a href={'#'}
+                               class="link">{post?.data?.category}</a>
+                        </div>
+                        <a href={`/${post.id.substring(
+                            5)}/`} class="title">
+                            {post.data.title}
+                        </a>
+                    </div>
+            )
+        })}
+    </div>
+</div>
+    }
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "~/styles/app.scss" as app;
+
+  $related: (
+    margin: 15px 0 0 0,
+    /***/
+    _subclasses: (
+      '> .title' : (
+        font-size: 2rem,
+        margin: 0 0 15px 0,
+      ),
+      '.posts' : (
+        display: grid,
+        width: 100%,
+        grid-template-columns: 1fr,
+        grid-auto-rows: auto,
+        grid-gap: 1rem,
+        _responsive: (
+          md: (
+            grid-template-columns: 1fr 1fr 1fr,
+            grid-gap: 1rem,
+          ),
+        ),
+        _subclasses: (
+          /***/
+          '.post' : (
+            /***/
+            _subclasses: (
+              /***/
+              '.image' : (
+                margin: 0 0 15px 0,
+                display: inline-block,
+                border-radius: 0.5rem,
+                box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
+              ),
+              '.category' : (
+                text-transform: capitalize,
+                margin: 0 0 10px 0,
+                _subclasses: (
+                  '.link' : (
+                    color: #8c602e,
+                  )
+                )
+              ),
+              '.title' : (
+                font-size: 1.5rem,
+              )
+            )
+          ),
+        )
+      ),
+    )
+  );
+
+  @include app.generate-component(
+      $related,
+      'related',
+      app.$config,
+      app.$theme
+  );
+</style>

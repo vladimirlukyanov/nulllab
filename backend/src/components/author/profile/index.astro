@@ -1,0 +1,65 @@
+---
+import {Image} from 'astro:assets';
+const {author} = Astro?.props;
+---
+{author &&
+<span itemprop="author" itemscope
+      itemtype="https://schema.org/Person">
+    <a href={'/authors/' + author.id}
+       title={author.data.title}
+       itemprop="url"
+       class="profile"
+    >
+        {author.data?.image?.url &&
+                <Image
+                        width={30}
+                        src={author.data?.image?.url}
+                        alt={author.data?.image?.alt}
+                        class="image"
+                        itemprop="image"
+                />
+        }
+        <span itemprop="name">
+        {author.data.title}
+        </span>
+    </a>
+</span>
+    }
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:string";
+  @use "sass:meta";
+  @use "sass:map";
+
+  @use "~/styles/app.scss" as app;
+
+  $profile: (
+    display: flex,
+    align-items: center,
+    gap: .5rem,
+    /***/
+    _subclasses: (
+      '&:hover' : (
+        text-decoration: underline,
+        _subclasses: (
+          '.image' : (
+            transform: scale(1.15),
+          )
+        )
+      ),
+      '.image' : (
+        border-radius: 50%,
+        border: 1px solid #ccc,
+        transition: transform .25s ease-in-out,
+      )
+    ),
+  );
+
+  @include app.generate-component(
+      $profile,
+      'profile',
+      app.$config,
+      app.$theme
+  );
+</style>
