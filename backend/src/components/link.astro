@@ -6,7 +6,7 @@ const domain = import.meta.env.site // pulls from astro.config.mjs
 let attr: { target?: string; rel?: string } = {}
 
 // check if the link is external
-const is_external = (!href.includes(domain) && !href.startsWith('/') &&
+const is_external = (href && !href.includes(domain) && !href.startsWith('/') &&
   !href.startsWith('#'))
 if (is_external) {
   // if it is, add target="_blank" and rel="noopener noreferrer"
