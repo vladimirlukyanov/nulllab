@@ -115,15 +115,12 @@ const categories = (await getCollection('categories')).sort((a, b) => {
 
   @use "~/styles/app.scss" as app;
 
-  @use "~/styles/scss/mixins.scss" as mixins;
-  @use "~/styles/scss/functions.scss" as functions;
-
   $header-section: (
     border-bottom: var(--border),
     box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px"),
     top: 0,
     position: relative,
-    z-index: functions.get-config(app.$config, "z-index.header"),
+    z-index: app.get-config(app.$config, "z-index.header"),
     /***/
     _colors: (
       dark: (
@@ -273,7 +270,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     ),
   );
 
-  @include mixins.generate-component(
+  @include app.generate-component(
       $header-section,
       "header",
       app.$config,
