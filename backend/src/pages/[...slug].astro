@@ -5,6 +5,7 @@ import LayoutBlog from '~/layouts/blog.astro'
 import Sidebar from '~/components/single/sidebar/index.astro'
 import AuthorProfile from '~/components/author/profile/index.astro'
 import RelatedPosts from '~/components/related/index.astro'
+import Link from '~/components/link.astro'
 
 import {getEntries, getCollection} from 'astro:content'
 import {render} from 'astro:content'
@@ -89,7 +90,7 @@ const sidebar_posts = posts.filter((_post) => {
                         })}
                         </div>
                         <p class="description">{post.data.description}</p>
-                        <Content/>
+                        <Content components={{ p: Link, a: Link, ul: Link }}/>
                     </article>
 
                     {related_posts &&
