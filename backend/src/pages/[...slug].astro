@@ -1,36 +1,49 @@
 ---
-import { Image } from 'astro:assets'
+import {Image} from 'astro:assets'
 
-import LayoutBlog from '../layouts/blog.astro'
-import { getEntries, getCollection } from 'astro:content'
-import { render } from 'astro:content'
+import LayoutBlog from '~/layouts/blog.astro'
+import Sidebar from '~/components/single/sidebar/index.astro'
+import {getEntries, getCollection} from 'astro:content'
+import {render} from 'astro:content'
 
-import { format_date } from '../lib/utils'
+import {format_date} from '../lib/utils'
 
-export async function getStaticPaths () {
-  const posts = await getCollection('blog')
+export async function getStaticPaths() {
+    const posts = await getCollection('blog')
 
-  return posts.map((post) => {
-    const [year, slug] = post.id.split('/')
-    return {
-      params: {
-        slug: slug.toString(),
-      },
-      props: post,
-    }
-  })
+    return posts.map((post) => {
+        const [year, slug] = post.id.split('/')
+        return {
+            params: {
+                slug: slug.toString(),
+            },
+            props: post,
+        }
+    })
 }
 
 const post = Astro.props
-const { Content } = await render(post)
+const {Content} = await render(post)
 
+const posts = await getCollection('blog');
 const authors = post.data.authors ? await getEntries(post.data.authors) : null
 const categories = post.data.categories
-  ? await getEntries(post.data.categories)
-  : null
+    ? await getEntries(post.data.categories)
+    : null
 const tags = post.data.tags ? await getEntries(post.data.tags) : null
 const related_posts = post.data.related_posts ? await getEntries(
-  post.data.related_posts) : null
+    post.data.related_posts) : null
+
+const sidebar_posts = posts.filter((_post) => {
+    return _post.id !== post.id
+}).filter((_post) => {
+    if (post.data?.related_posts.length > 0) {
+        return !post.data?.related_posts.some(related_post => _post?.id.includes(related_post?.id));
+    }
+    return false;
+}).sort(
+    (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
+).slice(0, 10);
 ---
 
 <LayoutBlog title={post.data.title} description={post.data.description}
@@ -42,34 +55,34 @@ const related_posts = post.data.related_posts ? await getEntries(
                     <article class="content" itemscope
                              itemtype="https://schema.org/Article">
                         <div class="category">
-                          {post.data.categories.map((category) => {
-                            return (
-                                    <a href={'/category/' + category.id}
-                                       class="link">{category.id}</a>
-                            )
-                          })}
+                            {post.data.categories.map((category) => {
+                                return (
+                                        <a href={'/category/' + category.id}
+                                           class="link">{category.id}</a>
+                                )
+                            })}
                         </div>
                         <h1 class="title"
                             itemprop="headline">{post.data.title}</h1>
                         <div class="description" itemprop="description">
-                          {format_date(post.data.published_date)}
+                            {format_date(post.data.published_date)}
                             —
                             <div class="tags">
-                              {
-                                post.data.tags.map((tag) => {
-                                  return (
-                                          <a href={'/tags/' + tag.id}
-                                             target="_self" title={tag.id}>
-                                              <span class="badge">{tag.id}</span>
-                                          </a>
-                                  )
-                                })
-                              }
+                                {
+                                    post.data.tags.map((tag) => {
+                                        return (
+                                                <a href={'/tags/' + tag.id}
+                                                   target="_self" title={tag.id}>
+                                                    <span class="badge">{tag.id}</span>
+                                                </a>
+                                        )
+                                    })
+                                }
                             </div>
                             —&nbsp;{authors.map((author) => {
-                          return (
-                                  <span itemprop="author" itemscope
-                                        itemtype="https://schema.org/Person">
+                            return (
+                                    <span itemprop="author" itemscope
+                                          itemtype="https://schema.org/Person">
                                         <a href={'/authors/' + author.id}
                                            title={author.data.title}
                                            itemprop="url"
@@ -77,52 +90,50 @@ const related_posts = post.data.related_posts ? await getEntries(
                                             {author.data.title}
                                         </span></a>
                                     </span>
-                          )
+                            )
                         })}
                         </div>
                         <p>{post.data.description}</p>
                         <Content/>
                     </article>
 
-                  {related_posts &&
-                          <div class="related">
-                              <h2 class="title">Read Next:</h2>
-                              <div class="posts">
-                                {related_posts.map((related_post) => {
-                                  if(typeof(related_post) === 'undefined') return;
-                                  return (
-                                          <div class="post">
-                                            {related_post?.data?.image &&
-                                                    <a href={`/${related_post.id.substring(
-                                                      5)}/`}>
+                    {related_posts &&
+                            <div class="related">
+                                <h2 class="title">You might also enjoy:</h2>
+                                <div class="posts">
+                                    {related_posts.map((related_post) => {
+                                        if (typeof (related_post) === 'undefined') return;
+                                        return (
+                                                <div class="post">
+                                                    {related_post?.data?.image &&
+                                                            <a href={`/${related_post.id.substring(
+                                                                5)}/`}>
 
-                                                        <Image
-                                                                class="image"
-                                                                width={330}
-                                                                aspectRatio={1.3333333333333333}
-                                                                src={related_post.data.image.url}
-                                                                alt={related_post.data.image.alt}
-                                                        />
+                                                                <Image
+                                                                        class="image"
+                                                                        width={330}
+                                                                        aspectRatio={1.3333333333333333}
+                                                                        src={related_post.data.image.url}
+                                                                        alt={related_post.data.image.alt}
+                                                                />
+                                                            </a>
+                                                    }
+                                                    <div class="category">
+                                                        <a href={'#'}
+                                                           class="link">{related_post?.data?.category}</a>
+                                                    </div>
+                                                    <a href={`/${related_post.id.substring(
+                                                        5)}/`} class="title">
+                                                        {related_post.data.title}
                                                     </a>
-                                            }
-                                              <div class="category">
-                                                  <a href={'#'}
-                                                     class="link">{related_post?.data?.category}</a>
-                                              </div>
-                                              <a href={`/${related_post.id.substring(
-                                                5)}/`} class="title">
-                                                {related_post.data.title}
-                                              </a>
-                                          </div>
-                                  )
-                                })}
-                              </div>
-                          </div>
-                  }
+                                                </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                    }
                 </div>
-                <div class="sidebar">
-                    2
-                </div>
+                <Sidebar posts={sidebar_posts} />
             </div>
         </div>
     </div>
@@ -134,13 +145,14 @@ const related_posts = post.data.related_posts ? await getEntries(
   @use "sass:meta";
   @use "sass:map";
 
-  @use "../styles/app.scss" as app;
+  @use "~/styles/app.scss" as app;
 
-  @use "../styles/scss/mixins.scss" as mixins;
-  @use "../styles/scss/functions.scss" as functions;
+  @use "~/styles/scss/mixins.scss" as mixins;
+  @use "~/styles/scss/functions.scss" as functions;
 
   $single_post: (
     margin: 25px 0,
+    /***/
     _subclasses: (
       '.grid' : (
         display: grid,
@@ -148,14 +160,17 @@ const related_posts = post.data.related_posts ? await getEntries(
         grid-template-columns: 1fr,
         grid-auto-rows: auto,
         grid-gap: 1rem,
+        /***/
         _responsive: (
           md: (
             grid-template-columns: 1.4fr 0.6fr,
             grid-gap: 1rem,
           ),
         ),
+        /***/
         _subclasses: (
           '.post' : (
+            /***/
             _subclasses: (
               '.category' : (
                 text-transform: capitalize,
@@ -170,6 +185,7 @@ const related_posts = post.data.related_posts ? await getEntries(
                 display: flex,
                 align-items: center,
                 margin: 0 0 10px 0,
+                /***/
                 _subclasses: (
                   '.tags': (
                     margin: 0 10px,
@@ -208,7 +224,6 @@ const related_posts = post.data.related_posts ? await getEntries(
   @use "../styles/scss/functions.scss" as functions;
 
   $single_post: (
-    margin: 25px 0,
     _subclasses: (
       '.related' : (
         margin: 15px 0 0 0,
