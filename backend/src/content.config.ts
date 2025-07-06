@@ -23,6 +23,11 @@ const blog = defineCollection({
 
     related_posts: z.array(reference('blog')).optional(),
 
+    layout_options: z.object({
+      show_featured_image: z.boolean().default(true),
+    })
+    .optional(),
+
     published_date: z.date(),
     updated_date: z.date().optional(),
   }),
