@@ -120,7 +120,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px"),
     top: 0,
     position: relative,
-    z-index: app.get-config(app.$config, "z-index.header"),
+    z-index: app.get-config(app.$config, 'z-index.header'),
     /***/
     _colors: (
       dark: (
