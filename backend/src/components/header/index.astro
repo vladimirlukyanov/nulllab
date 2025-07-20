@@ -272,10 +272,10 @@ const categories = (await getCollection('categories')).sort((a, b) => {
 
   @include app.generate-component(
       $header-section,
-      "header",
+      'header',
       app.$config,
       app.$theme,
-      (add_variable_prefix: false)
+      ( variable: (exclude : ('nav', 'navbar')) )
   );
 </style>
 
