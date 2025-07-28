@@ -7,9 +7,7 @@ services:
       dockerfile: watch.Dockerfile
     working_dir: "/opt/app"
     volumes:
-      - type: bind
-        source: ./backend
-        target: /opt/app
+      - "./backend:/opt/app"
       - "~/Developer/my/scssleon/scss:/opt/app/src/styles/scss"
     ports:
       - "8080:4321"
