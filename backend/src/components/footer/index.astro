@@ -96,6 +96,7 @@ import Logo from '~/components/logo/index.astro'
           )
         )
       ),
+
       '.disclaimer' : (
         display: flex,
         margin: 0 auto,
@@ -112,7 +113,7 @@ import Logo from '~/components/logo/index.astro'
 
   @include mixins.generate-component(
       $footer-component,
-      "footer",
+      'footer',
       app.$config,
       app.$theme
   );
