@@ -45,14 +45,6 @@ import Logo from '~/components/logo/index.astro'
 
     box-shadow: string.unquote('0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset'),
 
-    _responsive: (
-      md: (
-        --padding: 35px 5px,
-      ),
-      lg: (
-        --padding: 35px 5px,
-      ),
-    ),
     _colors: (
       light : (
         background: rgb(241, 241, 249),
@@ -62,6 +54,15 @@ import Logo from '~/components/logo/index.astro'
         background : string.unquote('linear-gradient(oklab(0.551 -0.002652 -0.026869 / 0.2) 0px, rgba(0, 0, 0, 0) 125%)'),
         border : 1px solid rgb(40, 79, 49),
       )
+    ),
+
+    _responsive: (
+      md: (
+        --padding: 35px 5px,
+      ),
+      lg: (
+        --padding: 35px 5px,
+      ),
     ),
 
     _subclasses: (
