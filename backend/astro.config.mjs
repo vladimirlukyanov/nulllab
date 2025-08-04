@@ -22,13 +22,14 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
-    sitemap(),
+    sitemap()
   ],
 
   // scopedStyleStrategy: 'where',
   image: {
     service: imageService(),
   },
+  scopedStyleStrategy: 'where',
   server: {
     host: true,
   },
