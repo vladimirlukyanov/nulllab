@@ -2,6 +2,7 @@
 
 CURRENT_DIR := $(PWD)
 SCSSLEON_DIR := ~/Developer/my/scssleon
+CLOUDFRONT_ID := $(shell docker container run -it --rm -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/cloud:/tf --workdir /tf hashicorp/terraform:latest output -raw cloudfront_id)
 
 cloud:
 	@echo "[Applying TerraForm]"
@@ -29,7 +30,7 @@ sync :
     		nulllab npm run build
 	docker run --rm -it -v ~/.aws:/root/.aws public.ecr.aws/aws-cli/aws-cli:latest s3 rm s3://nulllab.net --recursive
 	docker run --rm -it -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/frontend:/dist public.ecr.aws/aws-cli/aws-cli:latest s3 cp /dist s3://nulllab.net --recursive
-	docker run --rm -it -v ~/.aws:/root/.aws public.ecr.aws/aws-cli/aws-cli:latest cloudfront create-invalidation --distribution-id E3ONXJXS0O5775 --paths '/*'
+	docker run --rm -it -v ~/.aws:/root/.aws public.ecr.aws/aws-cli/aws-cli:latest cloudfront create-invalidation --distribution-id ${CLOUDFRONT_ID} --paths '/*'
 
 clean :
 	docker compose down --rmi all -v --remove-orphans
