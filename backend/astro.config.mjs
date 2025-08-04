@@ -15,18 +15,17 @@ import sitemap from '@astrojs/sitemap'
 // https://astro.build/config
 export default defineConfig({
   compressHTML: true,
-  outDir: '../frontend/',
-  site: 'https://nulllwab.net',
+  outDir: './dist/',
+  site: 'https://nulllab.net',
   markdown: {
     syntaxHighlight: false,
   },
   integrations: [
     mdx(),
     sitemap(),
-    add_csh_nonce(),
-    sitemap(),
   ],
-  scopedStyleStrategy: 'where',
+
+  // scopedStyleStrategy: 'where',
   image: {
     service: imageService(),
   },

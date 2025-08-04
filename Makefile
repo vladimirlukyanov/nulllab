@@ -1,13 +1,13 @@
-prony: build clean cloud sync watch
-
-# aws configure export-credentials --profile aws-dev --format env-no-export > .env.docker
-# go mod tidy
+.PHONY: cloud build clean sync watch
 
 CURRENT_DIR := $(PWD)
 SCSSLEON_DIR := ~/Developer/my/scssleon
 
 cloud:
-	docker container run -it --rm -v $PWD/cloud:/tf --workdir /tf hashicorp/terraform:latest 
+	@echo "[Applying TerraForm]"
+	docker container run -it --rm -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/cloud:/tf --workdir /tf hashicorp/terraform:latest init
+	docker container run -it --rm -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/cloud:/tf --workdir /tf hashicorp/terraform:latest plan
+	docker container run -it --rm -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/cloud:/tf --workdir /tf hashicorp/terraform:latest apply
 
 build:
 	@echo "[Building Docker image]"
@@ -22,10 +22,14 @@ watch:
     		-p 4321:4321 nulllab npm run dev
 
 sync :
-	npm run build --prefix=./backend/
-	aws s3 rm s3://nulllab.net --recursive
-	aws s3 cp frontend/ s3://nulllab.net --recursive
-	aws cloudfront create-invalidation --distribution-id E3ONXJXS0O5775 --paths '/*'
+	docker run --rm -it \
+    		-v ${CURRENT_DIR}/backend:/app \
+    		-v ${CURRENT_DIR}/frontend:/app/dist \
+    		-v ${SCSSLEON_DIR}/scss:/app/src/styles/scss \
+    		nulllab npm run build
+	docker run --rm -it -v ~/.aws:/root/.aws public.ecr.aws/aws-cli/aws-cli:latest s3 rm s3://nulllab.net --recursive
+	docker run --rm -it -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/frontend:/dist public.ecr.aws/aws-cli/aws-cli:latest s3 cp /dist s3://nulllab.net --recursive
+	docker run --rm -it -v ~/.aws:/root/.aws public.ecr.aws/aws-cli/aws-cli:latest cloudfront create-invalidation --distribution-id E3ONXJXS0O5775 --paths '/*'
 
 clean :
 	docker compose down --rmi all -v --remove-orphans

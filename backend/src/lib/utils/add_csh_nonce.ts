@@ -1,7 +1,7 @@
 import type { AstroIntegration } from "astro";
 import * as fs from "fs";
 
-export default function add_csh_nonce(): AstroIntegration {
+export default function  add_csh_nonce(): AstroIntegration {
   return {
     name: "add-csh-nonce",
     hooks: {
