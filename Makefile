@@ -3,7 +3,7 @@
 CURRENT_DIR := $(PWD)
 SCSSLEON_DIR := ~/Developer/my/scssleon
 CLOUDFRONT_ID := $(shell docker container run -it --rm -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/cloud:/tf --workdir /tf hashicorp/terraform:latest output -raw cloudfront_id)
-CACHE_CONTROL := 3600
+CACHE_CONTROL := 86400 # 24 hours
 
 cloud:
 	@echo "[Applying TerraForm]"
