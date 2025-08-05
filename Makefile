@@ -30,9 +30,12 @@ sync :
     		-v ${SCSSLEON_DIR}/scss:/app/src/styles/scss \
     		nulllab npm run build
 	docker run --rm -it -v ~/.aws:/root/.aws public.ecr.aws/aws-cli/aws-cli:latest s3 rm s3://nulllab.net --recursive
-	docker run --rm -it -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/frontend:/dist public.ecr.aws/aws-cli/aws-cli:latest s3 cp /dist s3://nulllab.net --recursive --exclude "_astro/*"
-	docker run --rm -it -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/frontend:/dist public.ecr.aws/aws-cli/aws-cli:latest s3 cp /dist/_astro s3://nulllab.net/_astro --recursive --cache-control "max-age=${CACHE_CONTROL}"
-	docker run --rm -it -v ~/.aws:/root/.aws public.ecr.aws/aws-cli/aws-cli:latest cloudfront create-invalidation --distribution-id ${CLOUDFRONT_ID} --paths '/*'
+	docker run --rm -it -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/frontend:/dist public.ecr.aws/aws-cli/aws-cli:latest \
+			s3 cp /dist s3://nulllab.net --recursive --exclude "_astro/*"
+	docker run --rm -it -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/frontend:/dist public.ecr.aws/aws-cli/aws-cli:latest \
+			s3 cp /dist/_astro s3://nulllab.net/_astro --recursive --cache-control "max-age=${CACHE_CONTROL}"
+	docker run --rm -it -v ~/.aws:/root/.aws public.ecr.aws/aws-cli/aws-cli:latest cloudfront \
+			create-invalidation --distribution-id ${CLOUDFRONT_ID} --paths '/*'
 
 clean :
 	docker compose down --rmi all -v --remove-orphans
