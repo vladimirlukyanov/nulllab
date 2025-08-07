@@ -149,11 +149,11 @@ const categories = (await getCollection('categories')).sort((a, b) => {
       '&.bottom' : (
         background: var(--background),
         min-height: 41px,
-        padding: 0 1rem,
+	padding-block: 0,
         /***/
         _responsive : (
           md : (
-            padding: 0,
+	    padding-inline: var(global(--padding-inline)),
           )
         ),
         _subclasses: (
