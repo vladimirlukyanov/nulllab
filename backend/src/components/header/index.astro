@@ -149,17 +149,26 @@ const categories = (await getCollection('categories')).sort((a, b) => {
       '&.bottom' : (
         background: var(--background),
         min-height: 41px,
-	padding-block: 0,
+	padding-inline: var(global(--padding-inline)),
         /***/
         _responsive : (
-          md : (
-	    padding-inline: var(global(--padding-inline)),
+		xxl : (
+	padding-block: 0,
           )
         ),
         _subclasses: (
           /***/
           '&.modify': (
-            _subclasses : (
+		  _subclasses : (
+			  '.center' : (
+		  display: none,
+		  _responsive : (
+			  xl : (
+		  display: inherit,
+			)
+		)
+				  ),
+
               '.navbar' : (
                 --navbar-grid-template-columns: auto auto 1fr,
                 _subclasses : (
@@ -180,13 +189,12 @@ const categories = (await getCollection('categories')).sort((a, b) => {
               /***/
               '.top' : (
                 display: none,
-                /*transition: string.unquote('opacity 0.25s ease-out, display 0.25s ease-out allow-discrete'),
-              !***!
-                _atrule : (
+		/*transition: string.unquote('opacity 0.25s ease-out, display 0.25s ease-out allow-discrete'),
+        	_atrule : (
                     '@starting-style' : (
                         opacity: 1,
                     )
-                ),*/
+	    ),*/
               ),
               /***/
             )
