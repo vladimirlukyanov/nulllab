@@ -135,10 +135,10 @@ const featured_post = posts.filter((post) => post.data.featured).at(0);
             grid-template-rows: 1fr,
           ),
           lg : (
-            grid-template-columns: 1fr fit-content(45%) 1fr,
+  		grid-template-columns: minmax(200px, 277px) 1fr minmax(200px, 277px)
           ),
           xl: (
-            grid-template-columns: 1fr fit-content(51%) 1fr,
+  		grid-template-columns: minmax(200px, 277px) 1fr minmax(200px, 277px)
           )
         ),
         /***/
