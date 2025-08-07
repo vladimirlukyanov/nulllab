@@ -1,6 +1,6 @@
 module "website-static-cloudfront-s3" {
   source  = "nulllogic/website-static-cloudfront-s3/aws"
-  version = "0.5.73"
+  version = "v0.5.76"
 
   enable = {
     s3 = {
