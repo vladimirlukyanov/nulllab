@@ -1,10 +1,10 @@
 @use 'sass:map';
-@use "sass:string";
+@use 'sass:string';
 
-@forward "./scss/mixins";
-@forward "./scss/functions";
+@forward '@nulllogic/scssleon/scss/mixins';
+@forward '@nulllogic/scssleon/scss/functions';
 
-@use "./scss/config.scss" as config with (
+@use '@nulllogic/scssleon/scss/config.scss' as config with (
   $config: (
     prefix: "xii",
     enable: (
@@ -13,13 +13,23 @@
   )
 );
 
-@use "./scss/themes/default.scss" as theme with (
+@use '@nulllogic/scssleon/scss/themes/default.scss' as theme with (
+  $config : config.$config,
   $theme: (
+    root : (
+      scroll-timeline: --page-scroll y,
+      --padding-inline: 1rem 1rem,
+      _responsive : (
+        xxl: (
+          --padding-inline: 0,
+        )
+      )
+    ),
     html : (
       body : (
         _colors: (
           light : (
-            background : rgba(246, 239, 233, 1),
+            background : rgb(244, 244, 244),
             color: rgb(28, 29, 31),
           ),
           dark : (

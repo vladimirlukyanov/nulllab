@@ -42,12 +42,7 @@ const {title, description, published_date, updated_date, featured_image} = Astro
 
   $main-section: (
     margin: 0 0 15px 0,
-    padding: 0 1rem,
-    _responsive: (
-      md: (
-        padding: 0,
-      ),
-    ),
+    padding-inline: var(global(--padding-inline)),
   );
 
   @include mixins.generate-component(

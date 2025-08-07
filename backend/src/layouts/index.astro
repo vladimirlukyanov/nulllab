@@ -28,17 +28,13 @@ import Footer from "~/components/footer/index.astro";
   @use "sass:map";
 
   @use "~/styles/app.scss" as app;
+
   @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
   @use "@nulllogic/scssleon/scss/functions.scss" as functions;
 
   $main-section: (
       margin: 0 0 15px 0,
-      padding: 0 15px,
-      responsive: (
-          md: (
-              padding: 0,
-          ),
-      ),
+      padding-inline: var(global(--padding-inline)),
   );
 
   @include mixins.generate-component(
