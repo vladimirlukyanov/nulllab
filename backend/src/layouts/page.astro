@@ -1,9 +1,9 @@
 ---
-import Head from "~/components/head.astro";
+import Head from "~/components/head/index.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
 // Components
-import Header from "~/components/header/index.astro";
+import { Header } from "~/components/header";
 import Footer from "~/components/footer/index.astro";
 
 const {title, description, published_date, updated_date, featured_image} = Astro.props;
@@ -34,9 +34,10 @@ const {title, description, published_date, updated_date, featured_image} = Astro
     @use "sass:meta";
     @use "sass:map";
 
-    @use "../styles/app.scss" as app;
-    @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
-    @use "@nulllogic/scssleon/scss/functions.scss" as functions;
+    @use '../styles/app.scss' as app;
+
+    @use '@nulllogic/scssleon/scss/mixins.scss' as mixins;
+    @use '@nulllogic/scssleon/scss/functions.scss' as functions;
 
     $page-section: (
       margin: 25px 0,
@@ -50,7 +51,7 @@ const {title, description, published_date, updated_date, featured_image} = Astro
 
     @include mixins.generate-component(
       $page-section,
-      "page",
+      'page',
       app.$config,
       app.$theme
     );

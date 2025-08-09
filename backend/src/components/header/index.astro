@@ -86,7 +86,16 @@ const categories = (await getCollection('categories')).sort((a, b) => {
                 </ul>
             </div>
             <div class="right">
-
+                <a href="#" class="link toggle mainmenu">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.5"
+                         data-slot="icon" aria-hidden="true"
+                         width="24px">
+                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </a>
             </div>
         </nav>
     </div>
@@ -177,23 +186,15 @@ const categories = (await getCollection('categories')).sort((a, b) => {
               )
             )
           ),
-          /***/
-          '.top' : (
-            display: none,
-            /*transition: string.unquote('opacity 0.25s ease-out, display 0.25s ease-out allow-discrete'),
-                  _atrule : (
-                            '@starting-style' : (
-                                opacity: 1,
-                            )
-              ),*/
-          ),
-          /***/
         )
       ),
       '.navbar' : (
         padding: 10px 0,
         --navbar-grid-template-columns: 1fr auto 1fr,
         _subclasses: (
+          '.right' : (
+            text-align: right,
+          ),
           /***/
           '.logo' : (
             display: none,
