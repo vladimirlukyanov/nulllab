@@ -108,6 +108,11 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     border-bottom: var(--border-bottom),
     background: var(--background),
     //
+    _colors : (
+      dark : (
+        background: linear-gradient(rgba(0, 0, 0, 0) 0px, oklch(0.52 0.08 187.39 / 0.2) 125%),
+      )
+    ),
     _subclasses: (
       '.navbar' : (
         padding: 0 0 10px 0,
@@ -250,8 +255,8 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     /***/
     _colors: (
       dark: (
-        background: rgba(40, 79, 49, 0.1),
-        border-bottom: 1px solid rgba(52, 70, 56, 0.5),
+        background: oklch(0.52 0.08 187.39 / 0.2),
+        border-bottom: 1px solid oklch(0.37 0.03 210.45 / 0.5),
       ),
     ),
     /***/
