@@ -46,9 +46,6 @@ const { class: className, ...rest } = Astro.props
     width: 170px,
     height: 50px,
     display: inline-flex,
-    _colors: (
-      dark: (),
-    ),
     _responsive: (
       md: (
         padding: 0,
@@ -63,7 +60,7 @@ const { class: className, ...rest } = Astro.props
 
   @include mixins.generate-component(
       $logo-section,
-      "logo",
+      'logo',
       app.$config,
       app.$theme
   );
