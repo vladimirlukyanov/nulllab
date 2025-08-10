@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content'
+import { generate_rel_link } from '../../utils/links.ts'
+
+const categories = (await getCollection('categories')).sort((a, b) => {
+  if (a.id < b.id) {
+    return -1
+  }
+  if (a.id > b.id) {
+    return 1
+  }
+  return 0
+})
+---
+
+<ul class="nav menu vertical">
+  {categories.length > 0 &&
+    categories.map((category) => {
+      return (
+              <li class="item">
+                  <a href={`/category/${category.id}/`}
+                     class="link">
+                    {category.data.title}
+                  </a>
+              </li>
+      )
+    })
+  }
+</ul>
+
+<style lang="scss">
+  @use "sass:list";
+  @use "sass:meta";
+
+  @use '~/styles/app.scss' as app;
+
+  $menu: (
+    _subclasses : (
+      '.item' : (
+        _subclasses : (
+          '.link' : (
+            padding-block: 1rem,
+            font-size: 1.125rem,
+          )
+        )
+      ),
+    )
+  );
+
+  @include app.generate-component(
+      $menu,
+      'menu',
+      app.$config,
+      app.$theme,
+      (variable: (exclude : 'nav'))
+  );
+</style>

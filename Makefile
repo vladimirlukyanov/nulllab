@@ -19,6 +19,7 @@ watch:
 	@echo "[Running Docker nulllab container]"
 	docker run --rm -it -v ${CURRENT_DIR}/backend:/app nulllab npm i
 	docker run --rm -it \
+			-e ASTRO_TELEMETRY_DISABLED=1 \
     		-v ${CURRENT_DIR}/backend:/app \
     		-v ${SCSSLEON_DIR}/scss:/app/src/styles/scss \
     		-p 4321:4321 nulllab npm run dev

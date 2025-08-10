@@ -1,21 +1,21 @@
 ---
-import type {HTMLAttributes} from 'astro/types'
+import type { HTMLAttributes } from 'astro/types'
 import Logo from '~/components/logo/index.astro'
-import {getCollection} from 'astro:content'
+import { getCollection } from 'astro:content'
 
-const {href, class: className, ...props} = Astro.props
+const { href, class: className, ...props } = Astro.props
 
-const {pathname} = Astro.url
+const { pathname } = Astro.url
 
 const isActive = href === pathname || href === pathname.replace(/\/$/, '')
 const categories = (await getCollection('categories')).sort((a, b) => {
-    if (a.id < b.id) {
-        return -1
-    }
-    if (a.id > b.id) {
-        return 1
-    }
-    return 0
+  if (a.id < b.id) {
+    return -1
+  }
+  if (a.id > b.id) {
+    return 1
+  }
+  return 0
 })
 
 // development & research
@@ -71,18 +71,18 @@ const categories = (await getCollection('categories')).sort((a, b) => {
             </div>
             <div class="center">
                 <ul class="nav">
-                    {categories.length > 0 &&
-                        categories.map((category) => {
-                            return (
-                                    <li class="item">
-                                        <a href={`/category/${category.id}/`}
-                                           class="link">
-                                            {category.data.title}
-                                        </a>
-                                    </li>
-                            )
-                        })
-                    }
+                  {categories.length > 0 &&
+                    categories.map((category) => {
+                      return (
+                              <li class="item">
+                                  <a href={`/category/${category.id}/`}
+                                     class="link">
+                                    {category.data.title}
+                                  </a>
+                              </li>
+                      )
+                    })
+                  }
                 </ul>
             </div>
             <div class="right">
@@ -157,58 +157,29 @@ const categories = (await getCollection('categories')).sort((a, b) => {
         padding-block: 0,
       )
     ),
+    /***/
     _subclasses: (
-      /***/
-      '&.modify': (
-        _subclasses : (
-          '.center' : (
-            display: none,
-            _responsive : (
-              xl : (
-                display: inherit,
-              )
-            )
-          ),
-          '.navbar' : (
-            --navbar-grid-template-columns: auto auto 1fr,
-            _subclasses : (
-              '.logo' : (
-                width: 100px,
-                height: auto,
-                display: block,
-                transition: string.unquote('opacity 0.25s ease-out, display 0.25s ease-out allow-discrete'),
-                /***/
-                _atrule : (
-                  '@starting-style' : (
-                    opacity: 1,
-                  )
-                ),
-              )
-            )
-          ),
-        )
-      ),
       '.navbar' : (
-        padding: 10px 0,
         --navbar-grid-template-columns: 1fr auto 1fr,
+        padding: 10px 0,
+        /***/
         _subclasses: (
           '.right' : (
+            display: none,
             text-align: right,
           ),
-          /***/
           '.logo' : (
             display: none,
           ),
           '.nav' : (
+            /***/
             _subclasses: (
-              /***/
               '.item' : (
                 _subclasses: (
-                  /***/
                   '.link' : (
                     padding: 0 5px,
+                    /***/
                     _subclasses: (
-                      /***/
                       '&:hover' : (
                         text-decoration: underline,
                       )
@@ -223,30 +194,47 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     )
   );
 
+  $header-bottom-modify: (
+    _subclasses : (
+      '.navbar' : (
+        --navbar-grid-template-columns: auto 1fr,
+        _subclasses : (
+          '.left' : (
+            display: inherit,
+          ),
+          '.center' : (
+            display: none,
+            _responsive : (
+              xl : (
+                display: inherit,
+              )
+            )
+          ),
+          '.right' : (
+            display: inherit,
+          ),
+          '.logo' : (
+            width: 100px,
+            height: auto,
+            display: block,
+            transition: string.unquote('opacity 0.25s ease-out, display 0.25s ease-out allow-discrete'),
+            /***/
+            _atrule : (
+              '@starting-style' : (
+                opacity: 1,
+              )
+            ),
+          )
+        )
+      ),
+    )
+  );
+
   $header-sticky: (
     position: sticky,
     -webkit-backdrop-filter: blur(10px),
     backdrop-filter: blur(10px),
-    box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px"),
-    _subclasses : (
-      /***/
-      '.logo-wrapper' : (
-        _subclasses : (
-          /***/
-          /*  '.slogan' : (*/
-          /*      display: none,*/
-          /*      opacity: 0,*/
-          /*      transition: string.unquote('opacity 0.15s ease-out, display 0.15s ease-out allow-discrete'),*/
-          /*    !***!*/
-          /*      _atrule : (*/
-          /*          '@starting-style' : (*/
-          /*              opacity: 1,*/
-          /*          )*/
-          /*      ),*/
-          /*  )*/
-        )
-      ),
-    )
+    box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px")
   );
 
   $header-section: (
@@ -265,6 +253,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
       '&.top' : $header-top,
       '&.bottom' : $header-bottom,
       '&.sticky': $header-sticky,
+      '&.bottom.modify': $header-bottom-modify,
     ),
   );
 
@@ -277,20 +266,62 @@ const categories = (await getCollection('categories')).sort((a, b) => {
   );
 </style>
 
-<script type="text/javascript">
-    const nav_top = document.querySelector('.header.top')
-    const nav_bottom = document.querySelector('.header.bottom')
+<script>
+  const nav_top = document.querySelector('.header.top')
+  const nav_bottom = document.querySelector('.header.bottom')
 
-    const stickyNavigation = () => {
-        if (window.scrollY > nav_top.offsetHeight) {
-            // nav offsetHeight = height of nav
-            nav_top.classList.add('modify')
-            nav_bottom.classList.add('sticky', 'modify')
-        } else {
-            nav_top.classList.remove('modify')
-            nav_bottom.classList.remove('sticky', 'modify')
-        }
+  const stickyNavigation = () => {
+    if (window.scrollY > nav_top.offsetHeight) {
+      // nav offsetHeight = height of nav
+      nav_top.classList.add('modify')
+      nav_bottom.classList.add('sticky', 'modify')
+    } else {
+      nav_top.classList.remove('modify')
+      nav_bottom.classList.remove('sticky', 'modify')
     }
+  }
 
-    window.addEventListener('scroll', stickyNavigation)
+  window.addEventListener('scroll', stickyNavigation)
+</script>
+
+<script>
+
+  const light_dark_toggler = document.querySelector('.toggle.dark_mode');
+
+  if (light_dark_toggler) {
+    light_dark_toggler.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      light_dark_toggler.classList.add('clicked');
+
+      const current_theme = document.documentElement.getAttribute('data-theme')
+      const new_theme = current_theme === 'dark' ? 'light' : 'dark'
+      document.documentElement.setAttribute('data-theme', new_theme)
+
+      document.body.classList.add('preload');
+      localStorage.setItem('theme', new_theme)
+      setTimeout(() => {
+        document.body.classList.remove('preload');
+      }, 200)
+      const event = new CustomEvent('theme_change', {
+        detail: {
+          theme: new_theme,
+        },
+      })
+      document.dispatchEvent(event);
+    })
+  }
+
+  const nav = document.querySelector('.header.bottom');
+  const buttons = nav.querySelectorAll('.link.toggle');
+
+  buttons.forEach(button => button.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if (button.classList.contains('mainmenu')) {
+      document.getElementById('main_mobile_menu').classList.toggle('show');
+      document.body.toggleAttribute('scroll-lock');
+    }
+  }))
+
 </script>
