@@ -47,11 +47,11 @@ const { Content } = await render(author)
                             AUTHOR
                         </span>
                     </div>
-                    <h1 class="title">{author.data.title}</h1>
-                    <p>{author.data.position}</p>
                 </div>
             </div>
             <div class="content">
+                <h1 class="title">{author.data.title}</h1>
+                <p>{author.data.position}</p>
                 <Content components={{ a: Link }}/>
             </div>
             <RelatedPosts posts={author_posts} title={'Author posts:'}/>
