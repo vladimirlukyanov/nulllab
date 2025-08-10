@@ -212,6 +212,11 @@ const categories = (await getCollection('categories')).sort((a, b) => {
           ),
           '.right' : (
             display: inherit,
+            _responsive : (
+              lg : (
+                display: none,
+              )
+            )
           ),
           '.logo' : (
             width: 100px,
