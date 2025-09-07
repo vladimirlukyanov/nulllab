@@ -19,6 +19,6 @@
     "@nulllogic/scssleon": "^1.1.2"
   },
   "devDependencies": {
-    "sass": "^1.91.0"
+    "sass": "^1.92.1"
   }
 }
