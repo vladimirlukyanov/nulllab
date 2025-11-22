@@ -10,15 +10,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.15.9",
-    "@astrojs/mdx": "^4.3.11",
-    "@astrojs/rss": "^4.0.13",
+    "astro": "^5.16.0",
+    "@astrojs/mdx": "^4.3.12",
+    "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "sharp": "^0.34.5",
     "@unpic/astro": "^1.0.1",
     "@nulllogic/scssleon": "^1.2.29"
   },
   "devDependencies": {
-    "sass": "^1.94.1"
+    "sass": "^1.94.2"
   }
 }
