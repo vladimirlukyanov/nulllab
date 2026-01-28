@@ -5,10 +5,12 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 // Components
 import Header from "~/components/header/index.astro";
 import Footer from "~/components/footer/index.astro";
+const { title, description, lang = 'en', noindex, nofollow } = Astro.props;
+
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang={lang} data-theme="dark">
   <head>
     <Head title={SITE_TITLE + ' | ' + SITE_DESCRIPTION} description={SITE_DESCRIPTION} />
   </head>
