@@ -56,28 +56,18 @@ const featured_post = posts.filter((post) => post.data.featured).at(0)
                     {
                         posts.slice(2, 6).map((post) => {
                             return (
-                                    <a href={`/${post.id.substring(5)}/`} class="post"
-                                       title={post.data.title}>
-                                        <div class="left">
+                                    <div class="post">
+                                        <a href={`/${post.id.substring(5)}/`}
+                                           class="link" title={post.data.title}>
                                             <Image
                                                     class="image"
-                                                    width={130}
+                                                    width={370}
                                                     src={post.data.image.url}
                                                     alt={post.data.image.alt}
                                             />
-                                        </div>
-                                        <div class="right">
                                             <span class="title">{post.data.title}</span>
-                                            <span class="description">{words_limit(
-                                                post.data.description, 10, {
-                                                    appendEllipsis: true,
-                                                })}</span>
-                                            <span class="date">
-                                                <FormattedDate
-                                                        date={post.data.published_date}/>
-                                            </span>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                             )
                         })
                     }
