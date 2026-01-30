@@ -52,26 +52,24 @@ const featured_post = posts.filter((post) => post.data.featured).at(0)
                 </div>
             </div>
             <div class="three">
-                <div class="grid">
-                    {
-                        posts.slice(2, 6).map((post) => {
-                            return (
-                                    <div class="post">
-                                        <a href={`/${post.id.substring(5)}/`}
-                                           class="link" title={post.data.title}>
-                                            <Image
-                                                    class="image"
-                                                    width={370}
-                                                    src={post.data.image.url}
-                                                    alt={post.data.image.alt}
-                                            />
-                                            <span class="title">{post.data.title}</span>
-                                        </a>
-                                    </div>
-                            )
-                        })
-                    }
-                </div>
+                {
+                    posts.slice(2, 4).map((post) => {
+                        return (
+                                <div class="post">
+                                    <a href={`/${post.id.substring(5)}/`}
+                                       class="link" title={post.data.title}>
+                                        <Image
+                                                class="image"
+                                                width={370}
+                                                src={post.data.image.url}
+                                                alt={post.data.image.alt}
+                                        />
+                                        <span class="title">{post.data.title}</span>
+                                    </a>
+                                </div>
+                        )
+                    })
+                }
             </div>
         </div>
     </div>
@@ -113,6 +111,7 @@ const featured_post = posts.filter((post) => post.data.featured).at(0)
             display: block,
             margin: 0 0 10px 0,
             font-weight: 500,
+            line-height: 1.25,
           ),
           '.description': (
             display: block,
@@ -150,10 +149,11 @@ const featured_post = posts.filter((post) => post.data.featured).at(0)
                 text-decoration-thickness: from-font,
               ),
               '.title' : (
-                font-size: 1.5rem,
+                font-size: 1.725rem,
                 display: block,
                 text-align: center,
                 margin: 0 0 12px 0,
+                line-height: 1.1,
               ),
               '.image' : (
                 position: relative,
@@ -222,53 +222,38 @@ const featured_post = posts.filter((post) => post.data.featured).at(0)
     ),
     /***/
     _subclasses: (
-      /***/
-      '.grid' : (
-        display: grid,
-        grid-template-columns: 1fr 1fr,
-        _responsive: (
-          lg: (
-            grid-template-columns: 1fr,
-          ),
-        ),
+      '.post' : (
+        display: block,
+        width: 100%,
+        /*grid-template-columns: 1fr,*/
+        /*grid-auto-rows: auto,*/
+        /*grid-gap: 0,*/
+        margin: 0 0 15px 0,
         _subclasses: (
-          '.post' : (
-            display: grid,
-            width: 100%,
-            grid-template-columns: 1fr,
-            grid-auto-rows: auto,
-            grid-gap: 0,
+          /***/
+          '.image' : (
+            display: block,
             margin: 0 0 10px 0,
-            /***/
-            _responsive: (
-              md: (
-                grid-template-columns: auto 1.5fr,
-                grid-gap: 1rem,
-              ),
-              lg: (
-                grid-template-columns: minmax(100px, 130px) auto,
-                grid-gap: 1rem,
-              ),
-            ),
-            /***/
-            _subclasses: (
-              '.title': (
-                display: block,
-                margin: 0 0 10px 0,
-              ),
-              '.image' : (
-                border-radius: 0.5rem,
-                box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
-              ),
-              '.date' : (
-                font-size: 0.825rem,
-                color: #959595,
-              )
-            )
+            border-radius: 0.5rem,
+            box-shadow: string.unquote('rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px'),
+          ),
+          '.title': (
+            font-size: 1.25rem,
+            display: block,
+            margin: 0 0 15px 0,
+            font-weight: 500,
+          ),
+          '.description': (
+            display: block,
+            margin: 0 0 10px 0,
+          ),
+          '.date' : (
+            font-size: 0.825rem,
+            color: #959595,
           )
-        ),
-      ),
-    )
+        )
+      )
+    ),
   );
 
   $hot-section: (
