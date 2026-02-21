@@ -5,7 +5,9 @@ const blog = defineCollection({
     loader: glob({base: './src/content/blog', pattern: '**/*.mdx'}),
     schema: ({image}) => z.object({
         title: z.string(),
+
         description: z.string().optional(),
+        short_description: z.string().optional(),
 
         authors: z.array(reference('authors')),
         categories: z.array(reference('categories')),
@@ -23,8 +25,11 @@ const blog = defineCollection({
 
         related_posts: z.array(reference('blog')).optional(),
 
-        layout: z.object({
-            featured_image: z.boolean().default(true),
+        composition: z.object({
+            news: z.object({
+                column: z.number(),
+                block: z.enum(['small', 'medium', 'big']),
+            }),
         }).optional(),
 
         published_date: z.date(),
