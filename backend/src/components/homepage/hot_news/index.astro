@@ -6,6 +6,7 @@ import {words_limit} from '~/utils/text'
 const {posts} = Astro.props
 const featured_post = posts.filter((post) => post.data.featured).at(0)
 const posts_column_1 = posts.filter((post) => post.data?.composition?.news?.column === 1);
+const posts_column_2 = posts.filter((post) => post.data?.composition?.news?.column === 2);
 const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.column === 3);
 ---
 <section class="hot">
