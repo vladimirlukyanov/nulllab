@@ -30,7 +30,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                             </a>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <span class="title">{post.data.title}</span>
+                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
                                             </a>
                                         </div>
                                 );
@@ -48,7 +48,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                             </a>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <span class="title">{post.data.title}</span>
+                                                <span class="title">{post.data.short_description ?? post.data.title }</span>
                                             </a>
                                         </div>
                                 );
@@ -57,7 +57,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                         <div class="post short">
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <span class="title">{post.data.short_description ?? post.data.title }</span>
+                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
                                             </a>
                                         </div>
                                 );
@@ -124,7 +124,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                             </a>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <span class="title">{post.data.title}</span>
+                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
                                             </a>
                                         </div>
                                 );
@@ -142,7 +142,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                             </a>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <span class="title">{post.data.title}</span>
+                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
                                             </a>
                                         </div>
                                 );
@@ -151,7 +151,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                         <div class="post short">
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <span class="title">{post.data.title}</span>
+                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
                                             </a>
                                         </div>
                                 );
@@ -214,7 +214,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
           '&.medium' : (
             display: grid,
             grid-template-columns: 140px 1fr,
-            gap: 15px,
+            gap: 1rem,
             _subclasses: (
                 '.title' : (
                   font-size: 1rem,
@@ -246,7 +246,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
             font-size: 1.25rem,
             display: block,
             font-weight: 400,
-            line-height: 1.25,
+            line-height: 1.5rem,
             _subclasses : (
               '&:hover' : (
                 text-decoration: underline,
@@ -381,7 +381,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
           '&.medium' : (
             display: grid,
             grid-template-columns: 130px 1fr,
-            gap: 15px,
+            gap: 1rem,
             _subclasses: (
               '.title' : (
                 font-size: 1rem,
@@ -391,7 +391,13 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
             )
           ),
           '&.short' : (
-
+            _subclasses: (
+              '.title' : (
+                font-size: 1rem,
+                font-weight: 400,
+                line-height: 1.25rem,
+              )
+            )
           ),
           '&:last-child' : (
             margin: 0,
@@ -407,6 +413,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
             font-size: 1.25rem,
             display: block,
             font-weight: 500,
+            line-height: 1.55rem,
             _subclasses : (
               '&:hover' : (
                 text-decoration: underline,
