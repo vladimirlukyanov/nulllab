@@ -23,56 +23,7 @@ const quotes = posts.filter((post) => {
 ---
 
 <LayoutIndex>
-
     <HotNews posts={posts} />
-
-    <section class="art">
-        <div class="container xxl">
-            <div>Images</div>
-            <div class="grid">
-                {
-                    arts.map((post) => {
-                        if (post.data?.image) {
-                            return (
-                                    <div>
-                                        <a href={`/${post.id.substring(5)}/`} class="link">
-                                            <Image
-                                                    width={330}
-                                                    height={250}
-                                                    aspectRatio={1.3333333333333333}
-                                                    src={post.data.image.url}
-                                                    alt={post.data.image.alt}
-                                            />
-                                        </a>
-                                    </div>
-                            );
-                        }
-                    })
-                }
-            </div>
-        </div>
-    </section>
-
-    <section class="quotes">
-        <div class="container xxl">
-            <div>Quotes</div>
-            <div class="grid">
-                {
-                    quotes.map((post) => {
-                        if (post.data?.description) {
-                            return (
-                                    <div>
-                                        <a href={`/${post.id.substring(5)}/`} class="link">
-                                            123
-                                        </a>
-                                    </div>
-                            );
-                        }
-                    })
-                }
-            </div>
-        </div>
-    </section>
 </LayoutIndex>
 
 <style lang="scss">

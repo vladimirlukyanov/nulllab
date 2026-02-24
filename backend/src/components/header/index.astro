@@ -239,7 +239,8 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     position: sticky,
     -webkit-backdrop-filter: blur(10px),
     backdrop-filter: blur(10px),
-    box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px")
+    box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px"),
+    background: var(--sticky-background),
   );
 
   $header-section: (
@@ -249,6 +250,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     /***/
     _colors: (
       dark: (
+        --sticky-background: oklch(0.29 0.04 188 / 0.86),
         background: oklch(0.52 0.08 187.39 / 0.2),
         border-bottom: 1px solid oklch(0.37 0.03 210.45 / 0.5),
       ),
