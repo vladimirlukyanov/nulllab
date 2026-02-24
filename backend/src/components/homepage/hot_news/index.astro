@@ -49,7 +49,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                             </a>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <span class="title">{post.data.short_description ?? post.data.title }</span>
+                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
                                             </a>
                                         </div>
                                 );
@@ -85,6 +85,100 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                 }
             </div>
             <div class="two">
+                {
+                    posts_column_2.slice(0, 4).map((post, index) => {
+                        if (index === 0) {
+                            return (
+                                    <div class="featured">
+                                        <a href={`/${post.id.substring(5)}/`} class="link"
+                                           title={post.data.title}>
+                                            <span class="title">{post.data.title}</span>
+                                        </a>
+                                        <a href={`/${post.id.substring(5)}/`} class="link"
+                                           title={post.data.title}>
+                                            <span class="image">
+                                                <Image src={post.data.image.url}
+                                                       alt={'11'} class="image"/>
+                                                <span class="text">
+                                                    <span class="category">{post.data.category}</span>
+                                                    <span class="date">
+                                                        <FormattedDate
+                                                                date={post.data.published_date}/>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </div>
+                            )
+                        } else {
+                            switch (post.data?.composition?.news?.block) {
+                                case 'big':
+                                    return (
+                                            <div class="post big">
+                                                <a href={`/${post.id.substring(5)}/`}
+                                                   class="link" title={post.data.title}>
+                                                    <Image
+                                                            class="image"
+                                                            width={370}
+                                                            src={post.data.image.url}
+                                                            alt={post.data.image.alt}
+                                                    />
+                                                </a>
+                                                <a href={`/${post.id.substring(5)}/`}
+                                                   class="link" title={post.data.title}>
+                                                    <span class="title">{post.data.short_description ?? post.data.title}</span>
+                                                </a>
+                                            </div>
+                                    );
+                                case 'medium':
+                                    return (
+                                            <div class="post medium">
+                                                <a href={`/${post.id.substring(5)}/`}
+                                                   class="link" title={post.data.title}>
+                                                    <Image
+                                                            class="image"
+                                                            width={370}
+                                                            src={post.data.image.url}
+                                                            alt={post.data.image.alt}
+                                                    />
+                                                </a>
+                                                <a href={`/${post.id.substring(5)}/`}
+                                                   class="link" title={post.data.title}>
+                                                    <span class="title">{post.data.short_description ?? post.data.title}</span>
+                                                </a>
+                                            </div>
+                                    );
+                                case 'small':
+                                    return (
+                                            <div class="post short">
+                                                <a href={`/${post.id.substring(5)}/`}
+                                                   class="link" title={post.data.title}>
+                                                    <span class="title">{post.data.short_description ?? post.data.title}</span>
+                                                </a>
+                                            </div>
+                                    );
+                                default:
+                                    return (
+                                            <div class="post">
+                                                <a href={`/${post.id.substring(5)}/`}
+                                                   class="link" title={post.data.title}>
+                                                    <Image
+                                                            class="image"
+                                                            width={370}
+                                                            src={post.data.image.url}
+                                                            alt={post.data.image.alt}
+                                                    />
+                                                </a>
+                                                <a href={`/${post.id.substring(5)}/`}
+                                                   class="link" title={post.data.title}>
+                                                    <span class="title">{post.data.title}</span>
+                                                </a>
+                                            </div>
+                                    )
+                            }
+                        }
+                    })
+                }
                 <div class="featured">
                     <a href={`/${featured_post.id.substring(5)}/`} class="link"
                        title={featured_post.data.title}>
@@ -210,18 +304,17 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
         _subclasses: (
           /***/
           '&.big' : (
-
           ),
           '&.medium' : (
             display: grid,
             grid-template-columns: 140px 1fr,
             gap: 1rem,
             _subclasses: (
-                '.title' : (
-                  font-size: 1rem,
-                  font-weight: 400,
-                  line-height: 1.25rem,
-                )
+              '.title' : (
+                font-size: 1rem,
+                font-weight: 400,
+                line-height: 1.25rem,
+              )
             )
           ),
           '&.short' : (
@@ -377,7 +470,6 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
         _subclasses: (
           /***/
           '&.big' : (
-
           ),
           '&.medium' : (
             display: grid,
