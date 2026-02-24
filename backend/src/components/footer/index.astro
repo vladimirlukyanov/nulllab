@@ -3,7 +3,7 @@ import Logo from '~/components/logo/index.astro'
 import Link from '~/components/link.astro'
 import Modal from '~/components/modal/index.astro';
 ---
-<Modal />
+<Modal/>
 <div class="footer">
     <div class="container xxl">
         <div class="grid">
@@ -13,19 +13,19 @@ import Modal from '~/components/modal/index.astro';
             <div class="column">
                 <ul class="list">
                     <li class="item">
-                        <Link href={'/privacy-policy'} class="link">
+                        <a href={'/privacy-policy'} class="link">
                             Privacy Policy
-                        </Link>
+                        </a>
                     </li>
                     <li class="item">
-                        <Link href={'/terms-and-conditions'} class="link">
+                        <a href={'/terms-and-conditions'} class="link">
                             Terms and conditions
-                        </Link>
+                        </a>
                     </li>
                     <li class="item">
-                        <Link href={'/rss.xml'} class="link">
+                        <a href={'/rss.xml'} class="link">
                             RSS
-                        </Link>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -81,11 +81,23 @@ import Modal from '~/components/modal/index.astro';
                 display: inline-flex,
                 flex-direction: column,
                 gap: 15px,
+                _subclasses : (
+                  '.link' : (
+                    text-decoration: none,
+                    _subclasses : (
+                      '&:hover' : (
+                        text-decoration: underline,
+                        text-underline-offset: 3px,
+                        text-decoration-thickness: 1px,
+                      )
+                    )
+                  )
+                ),
                 _responsive : (
-                    md : (
-                      flex-direction: row,
-                      gap: 9px,
-                    ),
+                  md : (
+                    flex-direction: row,
+                    gap: 9px,
+                  ),
                 ),
               )
             )
@@ -93,9 +105,9 @@ import Modal from '~/components/modal/index.astro';
           '.column:last-child' : (
             text-align: left,
             _responsive : (
-                md: (
-                    text-align: right,
-                )
+              md: (
+                text-align: right,
+              )
             )
           )
         )
