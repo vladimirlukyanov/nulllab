@@ -373,6 +373,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
           ),
           '.image-link' : (
             position: relative,
+            display: block,
             _subclasses: (
               '.image' : (
                 position: relative,
@@ -383,7 +384,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                 _subclasses: (
                   '&:after' : (
                     content: '',
-                    background-image: string.unquote('linear-gradient(-180deg, rgba(0, 0, 0, 0.01) 65%, rgba(0, 0, 0, 0.5) 82%, rgba(0, 0, 0, 0.85) 86%)'),
+                    background-image: string.unquote('linear-gradient(-180deg, rgba(0, 0, 0, 0.01) 65%, rgba(0, 0, 0, 0.75) 82%, rgba(0, 0, 0, 0.85) 100%)'),
                     position: absolute,
                     inset: 0,
                     display: block,
