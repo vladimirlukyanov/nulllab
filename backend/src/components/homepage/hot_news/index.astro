@@ -1,6 +1,6 @@
 ---
 import FormattedDate from '../../FormattedDate.astro'
-import {Image} from 'astro:assets'
+import {Picture} from 'astro:assets'
 import {words_limit} from '~/utils/text'
 
 const {posts} = Astro.props
@@ -22,9 +22,11 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                         <div class="post big">
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <Image
+                                                <Picture
                                                         class="image"
                                                         width={370}
+                                                        breakpoints={[370]}
+                                                        formats={['webp']}
                                                         src={post.data.image.url}
                                                         alt={post.data.image.alt}
                                                 />
@@ -40,9 +42,11 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                         <div class="post medium">
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <Image
+                                                <Picture
                                                         class="image"
                                                         width={370}
+                                                        breakpoints={[370]}
+                                                        formats={['webp']}
                                                         src={post.data.image.url}
                                                         alt={post.data.image.alt}
                                                 />
@@ -67,9 +71,11 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                         <div class="post">
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <Image
+                                                <Picture
                                                         class="image"
                                                         width={370}
+                                                        breakpoints={[370]}
+                                                        formats={['webp']}
                                                         src={post.data.image.url}
                                                         alt={post.data.image.alt}
                                                 />
@@ -97,8 +103,10 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                         <a href={`/${post.id.substring(5)}/`} class="image-link"
                                            title={post.data.title}>
                                             <span class="image">
-                                                <Image src={post.data.image.url}
-                                                       alt={'11'} class="img"/>
+                                                <Picture src={post.data.image.url}
+                                                         formats={['webp']}
+                                                         breakpoints={[370, 640, 960]}
+                                                         alt={'11'} class="img"/>
                                             </span>
                                             <span class="text">
                                                 <span class="subtitle">{post.data.short_description}</span>
@@ -113,9 +121,10 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                             <div class="post big">
                                                 <a href={`/${post.id.substring(5)}/`}
                                                    class="link" title={post.data.title}>
-                                                    <Image
+                                                    <Picture
                                                             class="image"
                                                             width={370}
+                                                            formats={['webp']}
                                                             src={post.data.image.url}
                                                             alt={post.data.image.alt}
                                                     />
@@ -131,9 +140,10 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                             <div class="post medium">
                                                 <a href={`/${post.id.substring(5)}/`}
                                                    class="link" title={post.data.title}>
-                                                    <Image
+                                                    <Picture
                                                             class="image"
                                                             width={370}
+                                                            formats={['webp']}
                                                             src={post.data.image.url}
                                                             alt={post.data.image.alt}
                                                     />
@@ -158,9 +168,10 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                             <div class="post">
                                                 <a href={`/${post.id.substring(5)}/`}
                                                    class="link" title={post.data.title}>
-                                                    <Image
+                                                    <Picture
                                                             class="image"
                                                             width={370}
+                                                            formats={['webp']}
                                                             src={post.data.image.url}
                                                             alt={post.data.image.alt}
                                                     />
@@ -186,9 +197,10 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                         <div class="post big">
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <Image
+                                                <Picture
                                                         class="image"
                                                         width={370}
+                                                        formats={['webp']}
                                                         src={post.data.image.url}
                                                         alt={post.data.image.alt}
                                                 />
@@ -204,9 +216,10 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                         <div class="post medium">
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <Image
+                                                <Picture
                                                         class="image"
                                                         width={370}
+                                                        formats={['webp']}
                                                         src={post.data.image.url}
                                                         alt={post.data.image.alt}
                                                 />
@@ -231,9 +244,10 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                         <div class="post">
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
-                                                <Image
+                                                <Picture
                                                         class="image"
                                                         width={370}
+                                                        formats={['webp']}
                                                         src={post.data.image.url}
                                                         alt={post.data.image.alt}
                                                 />
