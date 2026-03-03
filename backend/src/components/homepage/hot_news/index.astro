@@ -111,7 +111,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                             <span class="image">
                                                 <Picture src={post.data.image.url}
                                                          formats={['webp']}
-                                                         breakpoints={[370, 640, 960]}
+                                                         breakpoints={[370, 640, 960, 1280]}
                                                          alt={'11'} class="img"/>
                                             </span>
                                             <span class="text">
@@ -382,14 +382,15 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
       )
     ),
     _responsive: (
-      md: (
-        order: 1,
+      lg: (
+        /*order: 1,*/
       ),
     ),
   );
 
   $hot-news-section-grid-column-2: (
     order: 1,
+    grid-column: span 3 / span 3,
     _subclasses: (
       /***/
       '.featured' : (
@@ -550,6 +551,12 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
         )
       )
     ),
+    _responsive: (
+      xl: (
+        order: 2,
+        grid-column: auto,
+      ),
+    ),
   );
 
   $hot-news-section-grid-column-3: (
@@ -664,7 +671,8 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
             grid-template-rows: 1fr,
           ),
           lg : (
-            grid-template-columns: minmax(280px, 320px) 1fr minmax(280px, 320px)
+            grid-template-columns: 1fr 1fr,
+            grid-template-rows: 1fr,
           ),
           xl: (
             grid-template-columns: minmax(280px, 320px) 1fr minmax(280px, 320px)
