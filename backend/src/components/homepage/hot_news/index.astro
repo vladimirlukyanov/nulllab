@@ -25,8 +25,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                 <span class="image">
                                                     <Picture
                                                             class="img"
-                                                            width={370}
-                                                            breakpoints={[370]}
+                                                            width={410}
+                                                            breakpoints={[370, 410, 820]}
+                                                            layout={'full-width'}
                                                             formats={['webp']}
                                                             src={post.data.image.url}
                                                             alt={post.data.image.alt}
@@ -127,13 +128,17 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                             <div class="post big">
                                                 <a href={`/${post.id.substring(5)}/`}
                                                    class="link" title={post.data.title}>
-                                                    <Picture
-                                                            class="image"
-                                                            width={370}
-                                                            formats={['webp']}
-                                                            src={post.data.image.url}
-                                                            alt={post.data.image.alt}
-                                                    />
+                                                    <span class="image">
+                                                        <Picture
+                                                                class="img"
+                                                                width={410}
+                                                                breakpoints={[370, 410, 820]}
+                                                                layout={'full-width'}
+                                                                formats={['webp']}
+                                                                src={post.data.image.url}
+                                                                alt={post.data.image.alt}
+                                                        />
+                                                    </span>
                                                 </a>
                                                 <a href={`/${post.id.substring(5)}/`}
                                                    class="link" title={post.data.title}>
@@ -210,7 +215,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                 <span class="image">
                                                     <Picture
                                                             class="img"
-                                                            width={370}
+                                                            width={410}
+                                                            breakpoints={[370, 410, 820]}
+                                                            layout={'full-width'}
                                                             formats={['webp']}
                                                             src={post.data.image.url}
                                                             alt={post.data.image.alt}
@@ -311,6 +318,11 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
         _subclasses: (
           /***/
           '&.big' : (
+            _subclasses: (
+              '.img' : (
+
+              )
+            )
           ),
           '&.medium' : (
             display: grid,
@@ -325,7 +337,15 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
               '.image' : (
                 margin: 0 auto,
               )
-            )
+            ),
+            _responsive: (
+              md : (
+                grid-template-columns: 300px 1fr,
+              ),
+              lg : (
+                grid-template-columns: 130px 1fr,
+              )
+            ),
           ),
           '&.short' : (
             _subclasses: (
@@ -495,7 +515,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
           ),
           '&.medium' : (
             display: grid,
-            grid-template-columns: 130px 1fr,
+            grid-template-columns: 150px 1fr,
             gap: 1rem,
             _subclasses: (
               '.title' : (
@@ -506,7 +526,15 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
               '.image' : (
                 margin: 0 auto,
               )
-            )
+            ),
+            _responsive: (
+              md : (
+                grid-template-columns: 300px 1fr,
+              ),
+              lg : (
+                grid-template-columns: 130px 1fr,
+              )
+            ),
           ),
           '&.short' : (
             _subclasses: (
@@ -604,7 +632,15 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
               '.image' : (
                 margin: 0 auto,
               )
-            )
+            ),
+            _responsive: (
+              md : (
+                grid-template-columns: 300px 1fr,
+              ),
+              lg : (
+                grid-template-columns: 130px 1fr,
+              )
+            ),
           ),
           '&.short' : (
             _subclasses: (
