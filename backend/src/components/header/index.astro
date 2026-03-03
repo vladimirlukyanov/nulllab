@@ -1,21 +1,21 @@
 ---
-import type { HTMLAttributes } from 'astro/types'
+import type {HTMLAttributes} from 'astro/types'
 import Logo from '~/components/logo/index.astro'
-import { getCollection } from 'astro:content'
+import {getCollection} from 'astro:content'
 
-const { href, class: className, ...props } = Astro.props
+const {href, class: className, ...props} = Astro.props
 
-const { pathname } = Astro.url
+const {pathname} = Astro.url
 
 const isActive = href === pathname || href === pathname.replace(/\/$/, '')
 const categories = (await getCollection('categories')).sort((a, b) => {
-  if (a.id < b.id) {
-    return -1
-  }
-  if (a.id > b.id) {
-    return 1
-  }
-  return 0
+    if (a.id < b.id) {
+        return -1
+    }
+    if (a.id > b.id) {
+        return 1
+    }
+    return 0
 })
 
 // development & research
@@ -71,18 +71,18 @@ const categories = (await getCollection('categories')).sort((a, b) => {
             </div>
             <div class="center">
                 <ul class="nav">
-                  {categories.length > 0 &&
-                    categories.map((category) => {
-                      return (
-                              <li class="item">
-                                  <a href={`/category/${category.id}/`}
-                                     class="link">
-                                    {category.data.title}
-                                  </a>
-                              </li>
-                      )
-                    })
-                  }
+                    {categories.length > 0 &&
+                        categories.map((category) => {
+                            return (
+                                    <li class="item">
+                                        <a href={`/category/${category.id}/`}
+                                           class="link">
+                                            {category.data.title}
+                                        </a>
+                                    </li>
+                            )
+                        })
+                    }
                 </ul>
             </div>
             <div class="right">
@@ -274,61 +274,67 @@ const categories = (await getCollection('categories')).sort((a, b) => {
 </style>
 
 <script>
-  const nav_top = document.querySelector('.header.top')
-  const nav_bottom = document.querySelector('.header.bottom')
+    const nav_top = document.querySelector('.header.top');
+    const nav_bottom = document.querySelector('.header.bottom');
 
-  const stickyNavigation = () => {
-    if (window.scrollY > nav_top.offsetHeight) {
-      // nav offsetHeight = height of nav
-      nav_top.classList.add('modify')
-      nav_bottom.classList.add('sticky', 'modify')
-    } else {
-      nav_top.classList.remove('modify')
-      nav_bottom.classList.remove('sticky', 'modify')
+    const stickyNavigation = () => {
+        if (window.scrollY > nav_top.offsetHeight) {
+            // nav offsetHeight = height of nav
+            nav_top.classList.add('modify');
+            nav_bottom.classList.add('sticky', 'modify');
+        } else {
+            nav_top.classList.remove('modify');
+            nav_bottom.classList.remove('sticky', 'modify');
+        }
     }
-  }
 
-  window.addEventListener('scroll', stickyNavigation)
+    window.addEventListener('scroll', stickyNavigation);
+
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            console.log(123);
+        }
+    });
 </script>
 
 <script>
 
-  const light_dark_toggler = document.querySelector('.toggle.dark_mode');
+    const light_dark_toggler = document.querySelector('.toggle.dark_mode');
 
-  if (light_dark_toggler) {
-    light_dark_toggler.addEventListener('click', (e) => {
-      e.preventDefault();
+    if (light_dark_toggler) {
+        light_dark_toggler.addEventListener('click', (e) => {
+            e.preventDefault();
 
-      light_dark_toggler.classList.add('clicked');
+            light_dark_toggler.classList.add('clicked');
 
-      const current_theme = document.documentElement.getAttribute('data-theme')
-      const new_theme = current_theme === 'dark' ? 'light' : 'dark'
-      document.documentElement.setAttribute('data-theme', new_theme)
+            const current_theme = document.documentElement.getAttribute('data-theme')
+            const new_theme = current_theme === 'dark' ? 'light' : 'dark'
+            document.documentElement.setAttribute('data-theme', new_theme)
 
-      document.body.classList.add('preload');
-      localStorage.setItem('theme', new_theme)
-      setTimeout(() => {
-        document.body.classList.remove('preload');
-      }, 200)
-      const event = new CustomEvent('theme_change', {
-        detail: {
-          theme: new_theme,
-        },
-      })
-      document.dispatchEvent(event);
-    })
-  }
-
-  const nav = document.querySelector('.header.bottom');
-  const buttons = nav.querySelectorAll('.link.toggle');
-
-  buttons.forEach(button => button.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    if (button.classList.contains('mainmenu')) {
-      document.getElementById('main_mobile_menu').classList.toggle('show');
-      document.body.toggleAttribute('scroll-lock');
+            document.body.classList.add('preload');
+            localStorage.setItem('theme', new_theme)
+            setTimeout(() => {
+                document.body.classList.remove('preload');
+            }, 200)
+            const event = new CustomEvent('theme_change', {
+                detail: {
+                    theme: new_theme,
+                },
+            })
+            document.dispatchEvent(event);
+        })
     }
-  }))
+
+    const nav = document.querySelector('.header.bottom');
+    const buttons = nav.querySelectorAll('.link.toggle');
+
+    buttons.forEach(button => button.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        if (button.classList.contains('mainmenu')) {
+            document.getElementById('main_mobile_menu').classList.toggle('show');
+            document.body.toggleAttribute('scroll-lock');
+        }
+    }))
 
 </script>
