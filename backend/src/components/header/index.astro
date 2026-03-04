@@ -117,6 +117,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     border-bottom: var(--border-bottom),
     background: var(--background),
     //
+    z-index : app.get-config(app.$config, 'z-index.header'),
     _colors : (
       dark : (
         background: linear-gradient(rgba(0, 0, 0, 0) 0px, oklch(0.52 0.08 187.39 / 0.2) 125%),
