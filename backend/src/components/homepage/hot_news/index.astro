@@ -33,9 +33,6 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                             alt={post.data.image.alt}
                                                     />
                                                 </span>
-                                            </a>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
                                                 <span class="title">{post.data.short_description ?? post.data.title}</span>
                                             </a>
                                         </div>
@@ -223,9 +220,6 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                             alt={post.data.image.alt}
                                                     />
                                                 </span>
-                                            </a>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
                                                 <span class="title">{post.data.short_description ?? post.data.title}</span>
                                             </a>
                                         </div>
