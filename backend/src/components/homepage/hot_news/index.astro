@@ -314,7 +314,6 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
           '&.big' : (
             _subclasses: (
               '.img' : (
-
               )
             )
           ),
@@ -351,8 +350,12 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
             )
           ),
           '&:last-child' : (
-            margin: 0,
-            border-bottom: none,
+            _responsive : (
+              md : (
+                margin: 0,
+                border-bottom: none,
+              )
+            )
           ),
           '.image' : (
             position: relative,
@@ -395,7 +398,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
             font-size: 0.825rem,
             color: #959595,
           )
-        )
+        ),
       )
     ),
     _responsive: (
@@ -540,8 +543,12 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
             )
           ),
           '&:last-child' : (
-            margin: 0,
-            border-bottom: none,
+            _responsive : (
+              md : (
+                margin: 0,
+                border-bottom: none,
+              )
+            )
           ),
           '.image' : (
             position: relative,
@@ -646,8 +653,12 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
             )
           ),
           '&:last-child' : (
-            margin: 0,
-            border-bottom: none,
+            _responsive : (
+              md : (
+                margin: 0,
+                border-bottom: none,
+              )
+            )
           ),
           '.image' : (
             position: relative,
@@ -711,10 +722,11 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
         grid-template-columns: 1fr,
         grid-auto-rows: auto,
         grid-template-rows: 1fr,
-        grid-gap: 1.25rem,
+        grid-gap: 0,
         /***/
         _responsive: (
           md : (
+            grid-gap: 1.25rem,
             grid-template-columns: 1fr 1fr,
             grid-template-rows: 1fr,
           ),
