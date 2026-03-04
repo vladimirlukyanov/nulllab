@@ -69,27 +69,7 @@ const sidebar_posts = posts.filter((_post) => {
                         </div>
                         <h1 class="title"
                             itemprop="headline">{post.data.title}</h1>
-                        <div class="information" itemprop="description">
-                            {format_date(post.data.published_date)}
-                            —
-                            <div class="tags">
-                                {
-                                    post.data.tags.map((tag) => {
-                                        return (
-                                                <a href={'/tags/' + tag.id}
-                                                   target="_self" title={tag.id}>
-                                                    <span class="badge">{tag.id}</span>
-                                                </a>
-                                        )
-                                    })
-                                }
-                            </div>
-                            — By &nbsp;{authors.map((author) => {
-                            return (
-                                    <AuthorProfile author={author} key={author.id}/>
-                            )
-                        })}
-                        </div>
+
                         <p class="description">{post.data.description}</p>
                         <Content components={{ a: Link }}/>
                     </article>

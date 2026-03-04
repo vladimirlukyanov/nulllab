@@ -24,9 +24,13 @@ related_posts :
 - 2025/attack-on-titan
 ---
 
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 
 import image from './ghost-in-the-shell.jpg'
 
-<Image src={image} alt="Ghost in the Shell" />
+<Picture
+  formats={['webp']}
+  breakpoints={[370, 640, 960, 1280]}
+  src={image} alt="Ghost in the Shell"
+/>
 

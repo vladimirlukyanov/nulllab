@@ -5,32 +5,12 @@ import { Image } from 'astro:assets'
 import LayoutBlog from '../../layouts/blog.astro'
 import {words_limit} from "~/utils/text";
 
-export async function getStaticPaths () {
+const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
+);
 
-    const posts = (await getCollection('blog')).sort(
-        (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
-    );
+const categories = await getCollection('categories');
 
-    const categories = await getCollection('categories');
-
-    return categories.map((category) => {
-        console.log(category);
-
-        return {
-            params: { name: category.id },
-            props: {
-                category: category,
-                posts: posts.filter((post) => {
-                    return post.data.categories.some(cat => cat.id === category.id)
-                }),
-            },
-        }
-    })
-}
-
-const { category, posts } = Astro.props
-
-console.log(category);
 ---
 
 <CategoryLayout>
@@ -55,7 +35,7 @@ console.log(category);
             </div>
             <div class="grid">
                 <div class="posts">
-                    1
+
                 </div>
             </div>
         </div>

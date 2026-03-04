@@ -22,9 +22,12 @@ related_posts :
 - 2025/spirited-away
 ---
 
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 
 import image from './the-wind-rises.jpg'
 
-<Image src={image} alt="The Wind Rises" />
+<Picture
+  formats={['webp']}
+  breakpoints={[370, 640, 960, 1280]}
+  src={image} alt="The Wind Rises" />
 

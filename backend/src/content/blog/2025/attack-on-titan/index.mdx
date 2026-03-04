@@ -24,9 +24,11 @@ related_posts :
 - 2025/straight-jacket
 ---
 
-import { Image } from 'astro:assets';
+import {Picture} from 'astro:assets';
 
 import image from './attack-on-titan.jpg'
 
-<Image src={image} alt="Attack on Titan" />
-
+<Picture formats={['webp']}
+         breakpoints={[370, 640, 960, 1280]}
+         src={image} alt="Attack on Titan"
+/>

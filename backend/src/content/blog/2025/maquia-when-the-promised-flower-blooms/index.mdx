@@ -25,11 +25,14 @@ related_posts :
 - 2025/attack-on-titan
 ---
 
-import { Image } from 'astro:assets';
+import {Picture} from 'astro:assets';
 
 import image from './maquia-when-the-promised-flower-blooms.jpg'
 
-<Image src={image} alt="Maquia: When the Promised Flower Blooms" />
+<Picture
+  formats={['webp']}
+  breakpoints={[370, 640, 960, 1280]}
+  src={image} alt="Maquia: When the Promised Flower Blooms" />
 
 > "I won’t cry. Because I’m a mother now."
 

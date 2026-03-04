@@ -1,5 +1,5 @@
 ---
-import {Image} from 'astro:assets';
+import {Picture} from 'astro:assets';
 const {posts, title} = Astro?.props;
 ---
 {posts.length > 0 &&
@@ -16,9 +16,11 @@ const {posts, title} = Astro?.props;
                                 <a href={`/${post.id.substring(
                                     5)}/`}>
 
-                                    <Image
+                                    <Picture
                                             class="image"
                                             width={330}
+                                            formats={['webp']}
+                                            breakpoints={[370]}
                                             aspectRatio={1.3333333333333333}
                                             src={post.data.image.url}
                                             alt={post.data.image.alt}
