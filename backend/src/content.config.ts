@@ -42,6 +42,7 @@ const categories = defineCollection({
     schema: ({image}) => z.object({
         title: z.string(),
         description: z.string().optional(),
+        hidden: z.boolean().optional().default(false),
         image: z
             .object({
                 url: image(),
