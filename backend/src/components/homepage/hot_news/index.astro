@@ -110,6 +110,8 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                 <Picture src={post.data.image.url}
                                                          formats={['webp']}
                                                          breakpoints={[370, 640, 960, 1280]}
+                                                         fetchpriority={'high'}
+                                                         loading={'lazy'}
                                                          alt={'11'} class="img"/>
                                             </span>
                                             <span class="text">
@@ -313,7 +315,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
           /***/
           '&.big' : (
             _subclasses: (
-              '.img' : (
+              '.image > picture' : (
+                min-height: 160px,
+                display: block,
               )
             )
           ),
@@ -509,6 +513,12 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
         _subclasses: (
           /***/
           '&.big' : (
+            _subclasses: (
+              '.image > picture' : (
+                min-height: 160px,
+                display: block,
+              )
+            )
           ),
           '&.medium' : (
             display: grid,
@@ -619,6 +629,12 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
         _subclasses: (
           /***/
           '&.big' : (
+            _subclasses: (
+              '.image > picture' : (
+                min-height: 160px,
+                display: block,
+              )
+            )
           ),
           '&.medium' : (
             display: grid,
