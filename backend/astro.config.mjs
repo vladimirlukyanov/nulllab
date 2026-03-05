@@ -22,7 +22,10 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
-    sitemap()
+    sitemap(),
+    (await import("astro-compress")).default({
+      // Image: false,
+    })
   ],
 
   // scopedStyleStrategy: 'where',

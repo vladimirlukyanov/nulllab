@@ -16,7 +16,8 @@
     "@astrojs/sitemap": "^3.7.0",
     "sharp": "^0.34.5",
     "@nulllogic/scssleon": "^1.2.9",
-    "@unpic/astro" : "^1.0.2"
+    "@unpic/astro" : "^1.0.2",
+    "astro-compress" : "^2.3.9"
   },
   "devDependencies": {
     "sass": "^1.97.3"
