@@ -109,6 +109,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                             <span class="image">
                                                 <Picture src={post.data.image.url}
                                                          formats={['webp']}
+                                                         width={960}
                                                          breakpoints={[370, 640, 960, 1280]}
                                                          fetchpriority={'high'}
                                                          loading={'lazy'}

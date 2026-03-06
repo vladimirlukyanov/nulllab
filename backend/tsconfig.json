@@ -10,6 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "removeComments": true,
     "allowJs": true,
+    "checkJs": true,
     "module": "ES2020",
     "outDir": ".",
     "target": "ES2020",
