@@ -2,4 +2,4 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const SITE_TITLE = 'NullLab';
-export const SITE_DESCRIPTION = 'development & research';
+export const SITE_DESCRIPTION = 'Development & Research';
