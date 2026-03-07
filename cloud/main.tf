@@ -1,6 +1,6 @@
 module "website-static-cloudfront-s3" {
   source  = "nulllogic/website-static-cloudfront-s3/aws"
-  version = "v0.5.76"
+  version = "v0.6.2"
 
   enable = {
     s3 = {
@@ -14,6 +14,7 @@ module "website-static-cloudfront-s3" {
 
   route53 = {
     domain = "nulllab.net"
+    txt_record_multiple = ["google-site-verification=7SfCmEH9fVtJqtd9qskJ-BdqpS3Q-LaJ4eXqBMf5CoI"]
   }
 
   providers = {
