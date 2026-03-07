@@ -12,12 +12,12 @@ tags:
 type: "post"
 featured : false
 composition :
-  news :
-    column : 3
-    block : "big"
+news :
+column : 3
+block : "big"
 image:
-  url : "./attack-on-titan.jpg"
-  alt : "Attack on Titan"
+url : "./attack-on-titan.jpg"
+alt : "Attack on Titan"
 related_posts :
 - 2025/blue-eye-samurai
 - 2025/ghost-in-the-shell
@@ -28,9 +28,10 @@ import {Picture} from 'astro:assets';
 
 import image from './attack-on-titan.jpg'
 
-<Picture formats={['webp']}
-         breakpoints={[370, 640, 960, 1280]}
-         src={image} alt="Attack on Titan"
+<Picture
+  formats={['webp']}
+  breakpoints={[370, 640, 960, 1280]}
+  src={image} alt="Attack on Titan"
 />
 
 ## Introduction

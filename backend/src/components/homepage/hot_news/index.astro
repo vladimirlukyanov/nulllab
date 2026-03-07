@@ -113,7 +113,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                          breakpoints={[370, 640, 960, 1280]}
                                                          fetchpriority={'high'}
                                                          loading={'lazy'}
-                                                         alt={'11'} class="img"/>
+                                                         alt={post.data.image.alt} class="img"/>
                                             </span>
                                             <span class="text">
                                                 <span class="subtitle">{post.data.short_description}</span>
@@ -763,10 +763,10 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
   );
 
   @include mixins.generate-component(
-      $hot-section,
-      'hot',
-      app.$config,
-      app.$theme
+    $hot-section,
+    'hot',
+    app.$config,
+    app.$theme
   );
 
 </style>
