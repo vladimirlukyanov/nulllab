@@ -3,7 +3,7 @@ import social_image from '../../../public/placeholder-social.jpg';
 const { title, description, image = social_image } = Astro.props
 ---
 
-<!-- |–––––––––––––––––––– NullLab ⚡ development & research | made with ❤️ ––––-––––––––––––––––––––-| -->
+<!-- |–––––––––––––––––––– NullLab ⚡ Development & Research | made with ❤️ ––––-––––––––––––––––––––-| -->
 <!-- Global Metadata -->
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -12,10 +12,13 @@ const { title, description, image = social_image } = Astro.props
 <slot/>
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.icon" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
 <meta name="generator" content={Astro.generator}/>
 
 <!-- Sitemap -->
-<link rel="sitemap" href="/sitemap.xml"/>
+<link rel="sitemap" href="/sitemap-index.xml"/>
 
 <!-- Primary Meta Tags -->
 <meta name="title" content={title}/>
