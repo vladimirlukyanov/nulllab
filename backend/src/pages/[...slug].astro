@@ -49,6 +49,8 @@ const sidebar_posts = posts.filter((_post) => {
 }).sort(
     (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
 ).slice(0, 10);
+
+console.log(process.env.INDEXNOW_KEY)
 ---
 
 <LayoutBlog title={post.data.title} description={post.data.description}

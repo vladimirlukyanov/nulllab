@@ -8,6 +8,7 @@ import { defineConfig } from 'astro/config'
 import { imageService } from '@unpic/astro/service'
 
 import add_csh_nonce from './src/lib/utils/add_csh_nonce.ts'
+import {indexNow} from './src/lib/integration'
 
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
@@ -23,6 +24,10 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap(),
+    indexNow({
+      key: process.env.INDEXNOW_KEY,
+      location : 'indexnow'
+    }),
     (await import("astro-compress")).default({
       // Image: false,
     })

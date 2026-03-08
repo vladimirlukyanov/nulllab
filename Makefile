@@ -5,6 +5,8 @@ SCSSLEON_DIR := ~/Developer/my/scssleon
 CLOUDFRONT_ID := $(shell docker container run -it --rm -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/cloud:/tf --workdir /tf hashicorp/terraform:latest output -raw cloudfront_id)
 CACHE_CONTROL := 31536000 # 1 year
 
+include .env
+
 cloud:
 	@echo "[Applying TerraForm]"
 	docker container run -it --rm -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/cloud:/tf --workdir /tf hashicorp/terraform:latest init
@@ -20,12 +22,14 @@ watch:
 	docker run --rm -it -v ${CURRENT_DIR}/backend:/app nulllab npm i
 	docker run --rm -it \
 			-e ASTRO_TELEMETRY_DISABLED=1 \
+			-e INDEXNOW_KEY=$(INDEXNOW_KEY) \
     		-v ${CURRENT_DIR}/backend:/app \
     		-v ${SCSSLEON_DIR}/scss:/app/src/styles/scss \
     		-p 4321:4321 nulllab npm run dev
 
 sync :
 	docker run --rm -it \
+			-e INDEXNOW_KEY=$(INDEXNOW_KEY) \
     		-v ${CURRENT_DIR}/backend:/app \
     		-v ${CURRENT_DIR}/frontend:/app/dist \
     		-v ${SCSSLEON_DIR}/scss:/app/src/styles/scss \

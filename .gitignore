@@ -24,6 +24,8 @@ backend/pnpm-debug.log*
 # package lock
 backend/package-lock.json
 
+backend/.astro-indexnow-cache.json
+
 # environment variables
 .env
 .env.production
