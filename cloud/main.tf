@@ -14,7 +14,7 @@ module "website-static-cloudfront-s3" {
 
   route53 = {
     domain = "nulllab.net"
-    txt_record_multiple = ["google-site-verification=7SfCmEH9fVtJqtd9qskJ-BdqpS3Q-LaJ4eXqBMf5CoI"]
+    txt_record_multiple = [var.google_site_verification]
   }
 
   cloudfront = {

@@ -11,7 +11,10 @@ cloud:
 	@echo "[Applying TerraForm]"
 	docker container run -it --rm -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/cloud:/tf --workdir /tf hashicorp/terraform:latest init
 	docker container run -it --rm -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/cloud:/tf --workdir /tf hashicorp/terraform:latest plan
-	docker container run -it --rm -v ~/.aws:/root/.aws -v ${CURRENT_DIR}/cloud:/tf --workdir /tf hashicorp/terraform:latest apply
+	docker container run -it --rm -v ~/.aws:/root/.aws \
+			-e TF_VAR_google_site_verification=$(TF_VAR_google_site_verification) \
+			-v ${CURRENT_DIR}/cloud:/tf \
+			--workdir /tf hashicorp/terraform:latest apply
 
 build:
 	@echo "[Building Docker image]"

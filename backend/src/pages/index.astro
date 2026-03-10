@@ -23,7 +23,7 @@ const quotes = posts.filter((post) => {
 ---
 
 <LayoutIndex>
-    <HotNews posts={posts} />
+    <HotNews posts={posts}/>
 </LayoutIndex>
 
 <style lang="scss">
@@ -32,41 +32,41 @@ const quotes = posts.filter((post) => {
   @use "sass:meta";
   @use "sass:map";
 
-  @use "../styles/app.scss" as app;
+  @use "~/styles/app.scss" as app;
 
-  @use "../styles/scss/mixins.scss" as mixins;
-  @use "../styles/scss/functions.scss" as functions;
+  @use "~/styles/scss/mixins.scss" as mixins;
+  @use "~/styles/scss/functions.scss" as functions;
 
   // --- art section --- //
 
   $art-section: (
-      margin: 25px 0,
-      _subclasses: (
-          ".grid": (
-              display: grid,
-              width: 100%,
-              grid-template-columns: 1fr 1fr,
-              grid-auto-rows: auto,
-              grid-gap: 1rem,
-              _responsive: (
-                  md: (
-                      grid-template-columns: 1fr 1fr 1fr 1fr,
-                      grid-gap: 1rem,
-                  ),
-              ),
-              _subclasses: (
-                  ".link": (
-                      display: block,
-                  ),
-              ),
+    margin: 25px 0,
+    _subclasses: (
+      ".grid": (
+        display: grid,
+        width: 100%,
+        grid-template-columns: 1fr 1fr,
+        grid-auto-rows: auto,
+        grid-gap: 1rem,
+        _responsive: (
+          md: (
+            grid-template-columns: 1fr 1fr 1fr 1fr,
+            grid-gap: 1rem,
           ),
+        ),
+        _subclasses: (
+          ".link": (
+            display: block,
+          ),
+        ),
       ),
+    ),
   );
 
   @include mixins.generate-component(
-          $art-section,
-          "art",
-          app.$config,
-          app.$theme
+    $art-section,
+    "art",
+    app.$config,
+    app.$theme
   );
 </style>
