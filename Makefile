@@ -19,7 +19,7 @@ build:
 
 watch:
 	@echo "[Running Docker nulllab container]"
-	docker run --rm -it -v ${CURRENT_DIR}/backend:/app nulllab npm i
+	docker run --rm -it -v ${CURRENT_DIR}/backend:/app nulllab npm i -f
 	docker run --rm -it \
 			-e ASTRO_TELEMETRY_DISABLED=1 \
 			-e INDEXNOW_KEY=$(INDEXNOW_KEY) \
