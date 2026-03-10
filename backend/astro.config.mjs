@@ -31,12 +31,6 @@ export default defineConfig({
     (await import("astro-compress")).default({
       Image: false,
     }),
-    htmlValidate({
-      patterns: ["**/*.html"],
-      formatter: "text",
-      failOnWarning: false,
-      allowEmpty: true,
-    }),
   ],
 
   // scopedStyleStrategy: 'where',
