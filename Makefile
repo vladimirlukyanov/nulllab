@@ -1,4 +1,4 @@
-.PHONY: cloud build clean sync watch
+.PHONY: cloud build clean sync watch html
 
 CURRENT_DIR := $(PWD)
 SCSSLEON_DIR := ~/Developer/my/scssleon
@@ -26,6 +26,13 @@ watch:
     		-v ${CURRENT_DIR}/backend:/app \
     		-v ${SCSSLEON_DIR}/scss:/app/src/styles/scss \
     		-p 4321:4321 nulllab npm run dev
+
+html :
+	docker run --rm -it \
+    		-v ${CURRENT_DIR}/backend:/app \
+    		-v ${CURRENT_DIR}/frontend:/app/dist \
+    		-v ${SCSSLEON_DIR}/scss:/app/src/styles/scss \
+    		nulllab npm run build
 
 sync :
 	docker run --rm -it \

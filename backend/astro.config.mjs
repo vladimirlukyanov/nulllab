@@ -29,8 +29,14 @@ export default defineConfig({
       location : 'indexnow'
     }),
     (await import("astro-compress")).default({
-      // Image: false,
-    })
+      Image: false,
+    }),
+    htmlValidate({
+      patterns: ["**/*.html"],
+      formatter: "text",
+      failOnWarning: false,
+      allowEmpty: true,
+    }),
   ],
 
   // scopedStyleStrategy: 'where',
