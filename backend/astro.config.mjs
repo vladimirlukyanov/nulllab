@@ -1,17 +1,17 @@
-import path, { dirname } from 'path'
-import { fileURLToPath } from 'url'
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-import { defineConfig } from 'astro/config'
-import { imageService } from '@unpic/astro/service'
+import { defineConfig } from 'astro/config';
+import { imageService } from '@unpic/astro/service';
 
 import add_csh_nonce from './src/lib/utils/add_csh_nonce.ts'
-import {indexNow} from './src/lib/integration'
+import {indexNow} from './src/lib/integration';
 
-import mdx from '@astrojs/mdx'
-import sitemap from '@astrojs/sitemap'
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -51,4 +51,7 @@ export default defineConfig({
       },
     },
   },
-})
+  experimental: {
+    rustCompiler: true
+  }
+});

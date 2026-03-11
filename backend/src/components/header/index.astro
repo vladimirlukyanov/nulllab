@@ -290,12 +290,6 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     }
 
     window.addEventListener('scroll', stickyNavigation);
-
-    window.addEventListener('pageshow', function (event) {
-        if (event.persisted) {
-            console.log(123);
-        }
-    });
 </script>
 
 <script>
@@ -336,6 +330,14 @@ const categories = (await getCollection('categories')).sort((a, b) => {
             document.getElementById('main_mobile_menu').classList.toggle('show');
             document.body.toggleAttribute('scroll-lock');
         }
-    }))
+    }));
+
+    // BFCache
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            // Force a reload if the user has logged out.
+            location.reload();
+        }
+    });
 
 </script>

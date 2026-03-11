@@ -1,3 +1,4 @@
 variable "google_site_verification" {
-  type      = string
+  type        = string
+  sensitive   = true
 }
