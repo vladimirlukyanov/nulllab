@@ -39,6 +39,7 @@ html :
 
 sync :
 	docker run --rm -it \
+			-e ASTRO_TELEMETRY_DISABLED=1 \
 			-e INDEXNOW_KEY=$(INDEXNOW_KEY) \
     		-v ${CURRENT_DIR}/backend:/app \
     		-v ${CURRENT_DIR}/frontend:/app/dist \
