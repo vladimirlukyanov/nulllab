@@ -32,7 +32,7 @@ watch:
 
 html :
 	docker run --rm -it \
-			-e INDEXNOW_KEY="123" \
+			-e INDEXNOW_KEY="--blank--" \
     		-v ${CURRENT_DIR}/backend:/app \
     		-v ${CURRENT_DIR}/frontend:/app/dist \
     		-v ${SCSSLEON_DIR}/scss:/app/src/styles/scss \
