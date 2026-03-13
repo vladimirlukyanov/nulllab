@@ -21,7 +21,7 @@ build:
 	docker build -t nulllab . -f ${CURRENT_DIR}/.config/docker/watch.Dockerfile
 
 watch:
-	@echo "[Running Docker nulllab container]"
+	@echo "[✨ \033[0;32mRunning\033[0m Docker 🐳 NullLab]"
 	docker run --rm -it -v ${CURRENT_DIR}/backend:/app nulllab npm i -f
 	docker run --rm -it \
 			-e ASTRO_TELEMETRY_DISABLED=1 \
