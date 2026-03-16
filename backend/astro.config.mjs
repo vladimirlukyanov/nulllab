@@ -18,6 +18,7 @@ export default defineConfig({
   compressHTML: true,
   outDir: './dist/',
   site: 'https://nulllab.net',
+  scopedStyleStrategy : 'where',
   markdown: {
     syntaxHighlight: false,
   },
@@ -28,21 +29,21 @@ export default defineConfig({
       key: process.env.INDEXNOW_KEY,
       location : 'indexnow'
     }),
-    (await import("astro-compress")).default({
-      Image: false,
-    }),
+    // (await import("astro-compress")).default({
+    //   Image: false,
+    // }),
   ],
-
-  // scopedStyleStrategy: 'where',
   image: {
     service: imageService(),
   },
-  scopedStyleStrategy: 'where',
   server: {
     host: true,
   },
   security: {
     checkOrigin: true,
+  },
+  experimental: {
+    rustCompiler: true
   },
   vite: {
     resolve: {
