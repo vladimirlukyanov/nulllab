@@ -59,19 +59,21 @@ const sidebar_posts = posts.filter((_post) => {
                 <div class="post">
                     <article class="content" itemscope
                              itemtype="https://schema.org/Article">
-                        <div class="category">
-                            {post.data.categories.map((category) => {
-                                return (
-                                        <a href={'/category/' + category.id}
-                                           class="link">{category.id}</a>
-                                )
-                            })}
-                        </div>
+                        {false &&
+                                <div class="category">
+                                    {post.data.categories.map((category) => {
+                                        return (
+                                                <a href={'/category/' + category.id}
+                                                   class="link">{category.id}</a>
+                                        )
+                                    })}
+                                </div>
+                        }
                         <h1 class="title"
                             itemprop="headline">{post.data.title}</h1>
 
                         <p class="description">{post.data.description}</p>
-                        <Content components={{ a: Link }}/>
+                        <Content components={{a: Link}}/>
                     </article>
 
                     {related_posts &&
@@ -154,9 +156,9 @@ const sidebar_posts = posts.filter((_post) => {
   );
 
   @include mixins.generate-component(
-      $single_post,
-      'single_post',
-      app.$config,
-      app.$theme
+    $single_post,
+    'single_post',
+    app.$config,
+    app.$theme
   );
 </style>
