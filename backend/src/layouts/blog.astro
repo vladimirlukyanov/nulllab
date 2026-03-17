@@ -18,7 +18,9 @@ const {title, description, published_date, updated_date, featured_image} = Astro
             image={featured_image}
             published_date={published_date}
             updated_date={updated_date}
-    />
+    >
+        <meta name="robots" content="index, follow, max-snippet:-1, max-video-preview:-1" />
+    </Head>
 </head>
 <body>
 <Header/>
