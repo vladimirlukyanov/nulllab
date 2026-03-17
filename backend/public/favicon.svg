@@ -2,11 +2,11 @@
   <defs>
     <style>
       .st0 {
-        fill: #fff;
+        fill: #111;
       }
       @media (prefers-color-scheme:dark) {
       .st0 {
-        fill: #000;
+        fill: #fff;
         }
       }
     </style>
