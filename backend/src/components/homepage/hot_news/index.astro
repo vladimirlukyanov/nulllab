@@ -9,7 +9,7 @@ const posts_column_1 = posts.filter((post) => post.data?.composition?.news?.colu
 const posts_column_2 = posts.filter((post) => post.data?.composition?.news?.column === 2);
 const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.column === 3);
 ---
-<section class="hot">
+<section class="hot" itemscope itemtype="https://schema.org/CollectionPage">
     <div class="container xxl">
         <div class="grid">
             <div class="one">
@@ -19,7 +19,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                         switch (post.data?.composition?.news?.block) {
                             case 'big':
                                 return (
-                                        <div class="post big" itemscope itemtype="https://schema.org/BlogPosting">
+                                        <div class="post big" role="list" aria-label="Posts list" itemscope itemtype="https://schema.org/ItemList">
                                             <meta itemprop="headline" content={post.data.title} />
                                             <meta itemprop="image" content={post.data.image.url.src} />
                                             <meta itemprop="datePublished" content={post.data.published_date} />

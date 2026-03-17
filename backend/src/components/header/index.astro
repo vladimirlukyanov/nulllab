@@ -26,6 +26,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
   <slot />
 </a>
 -->
+
 <div class="header top">
     <div class="container xxl">
         <nav class="navbar">
@@ -61,9 +62,9 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     </div>
 </div>
 
-<header class="header bottom">
+<nav class="navigation header bottom" role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
     <div class="container xxl">
-        <nav class="navbar">
+        <div class="navbar">
             <div class="left">
                 <a href="/" class="link" title="NullLab homepage">
                     <Logo class="logo"/>
@@ -97,9 +98,9 @@ const categories = (await getCollection('categories')).sort((a, b) => {
                     </svg>
                 </a>
             </div>
-        </nav>
+        </div>
     </div>
-</header>
+</nav>
 
 <style lang="scss">
 
@@ -266,11 +267,11 @@ const categories = (await getCollection('categories')).sort((a, b) => {
   );
 
   @include app.generate-component(
-      $header-section,
-      'header',
-      app.$config,
-      app.$theme,
-      (variable: (exclude : ('nav', 'navbar')))
+    $header-section,
+    'header',
+    app.$config,
+    app.$theme,
+    (variable: (exclude : ('nav', 'navbar')))
   );
 </style>
 
