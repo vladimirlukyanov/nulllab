@@ -149,7 +149,6 @@ const categories = (await getCollection('categories')).sort((a, b) => {
   );
 
   $header-bottom: (
-    min-height: 41px,
     padding-inline: var(global(--padding-inline)),
     border-bottom: var(--border-bottom),
     background: var(--background),
@@ -243,6 +242,11 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     backdrop-filter: blur(15px) saturate(4),
     box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px"),
     background: var(--sticky-background),
+    _subclasses: (
+      '.navbar' : (
+        padding: 12px 0,
+      )
+    )
   );
 
   $header-section: (
