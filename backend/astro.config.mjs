@@ -42,9 +42,6 @@ export default defineConfig({
   security: {
     checkOrigin: true,
   },
-  experimental: {
-    rustCompiler: true
-  },
   vite: {
     resolve: {
       alias: {
