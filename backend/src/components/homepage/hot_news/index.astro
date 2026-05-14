@@ -19,10 +19,11 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                         switch (post.data?.composition?.news?.block) {
                             case 'big':
                                 return (
-                                        <div class="post big" role="list" aria-label="Posts list" itemscope itemtype="https://schema.org/ItemList">
-                                            <meta itemprop="headline" content={post.data.title} />
-                                            <meta itemprop="image" content={post.data.image.url.src} />
-                                            <meta itemprop="datePublished" content={post.data.published_date} />
+                                        <div class="post big" role="list" aria-label="Posts list" itemscope
+                                             itemtype="https://schema.org/ItemList">
+                                            <meta itemprop="headline" content={post.data.title}/>
+                                            <meta itemprop="image" content={post.data.image.url.src}/>
+                                            <meta itemprop="datePublished" content={post.data.published_date}/>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
                                                 <span class="image">
@@ -43,9 +44,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                             case 'medium':
                                 return (
                                         <div class="post medium" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title} />
-                                            <meta itemprop="image" content={post.data.image.url.src} />
-                                            <meta itemprop="datePublished" content={post.data.published_date} />
+                                            <meta itemprop="headline" content={post.data.title}/>
+                                            <meta itemprop="image" content={post.data.image.url.src}/>
+                                            <meta itemprop="datePublished" content={post.data.published_date}/>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
                                                 <span class="image">
@@ -68,9 +69,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                             case 'small':
                                 return (
                                         <div class="post short" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title} />
-                                            <meta itemprop="image" content={post.data.image.url.src} />
-                                            <meta itemprop="datePublished" content={post.data.published_date} />
+                                            <meta itemprop="headline" content={post.data.title}/>
+                                            <meta itemprop="image" content={post.data.image.url.src}/>
+                                            <meta itemprop="datePublished" content={post.data.published_date}/>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
                                                 <span class="title">{post.data.short_description ?? post.data.title}</span>
@@ -80,9 +81,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                             default:
                                 return (
                                         <div class="post" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title} />
-                                            <meta itemprop="image" content={post.data.image.url.src} />
-                                            <meta itemprop="datePublished" content={post.data.published_date} />
+                                            <meta itemprop="headline" content={post.data.title}/>
+                                            <meta itemprop="image" content={post.data.image.url.src}/>
+                                            <meta itemprop="datePublished" content={post.data.published_date}/>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
                                                 <span class="image">
@@ -112,9 +113,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                         if (index === 0) {
                             return (
                                     <div class="featured" itemscope itemtype="https://schema.org/BlogPosting">
-                                        <meta itemprop="headline" content={post.data.title} />
-                                        <meta itemprop="image" content={post.data.image.url.src} />
-                                        <meta itemprop="datePublished" content={post.data.published_date} />
+                                        <meta itemprop="headline" content={post.data.title}/>
+                                        <meta itemprop="image" content={post.data.image.url.src}/>
+                                        <meta itemprop="datePublished" content={post.data.published_date}/>
                                         <a href={`/${post.id.substring(5)}/`} class="link"
                                            title={post.data.title}>
                                             <span class="title">{post.data.title}</span>
@@ -122,13 +123,14 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                         <a href={`/${post.id.substring(5)}/`} class="image-link"
                                            title={post.data.title}>
                                             <span class="image">
-                                                <Picture src={post.data.image.url}
-                                                         formats={['webp']}
-                                                         width={960}
-                                                         breakpoints={[370, 640, 960, 1280]}
-                                                         fetchpriority={'high'}
-                                                         loading={'lazy'}
-                                                         alt={post.data.image.alt} class="img"/>
+                                                <Picture
+                                                        loading={'lazy'}
+                                                        src={post.data.image.url}
+                                                        formats={['webp']}
+                                                        width={960}
+                                                        breakpoints={[370, 640, 960, 1280]}
+                                                        fetchpriority={'high'}
+                                                        alt={post.data.image.alt} class="img"/>
                                             </span>
                                             <span class="text">
                                                 <span class="subtitle">{post.data.short_description}</span>
@@ -141,9 +143,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                 case 'big':
                                     return (
                                             <div class="post big" itemscope itemtype="https://schema.org/BlogPosting">
-                                                <meta itemprop="headline" content={post.data.title} />
-                                                <meta itemprop="image" content={post.data.image.url.src} />
-                                                <meta itemprop="datePublished" content={post.data.published_date} />
+                                                <meta itemprop="headline" content={post.data.title}/>
+                                                <meta itemprop="image" content={post.data.image.url.src}/>
+                                                <meta itemprop="datePublished" content={post.data.published_date}/>
                                                 <a href={`/${post.id.substring(5)}/`}
                                                    class="link" title={post.data.title}>
                                                     <span class="image">
@@ -166,10 +168,11 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                     );
                                 case 'medium':
                                     return (
-                                            <div class="post medium" itemscope itemtype="https://schema.org/BlogPosting">
-                                                <meta itemprop="headline" content={post.data.title} />
-                                                <meta itemprop="image" content={post.data.image.url.src} />
-                                                <meta itemprop="datePublished" content={post.data.published_date} />
+                                            <div class="post medium" itemscope
+                                                 itemtype="https://schema.org/BlogPosting">
+                                                <meta itemprop="headline" content={post.data.title}/>
+                                                <meta itemprop="image" content={post.data.image.url.src}/>
+                                                <meta itemprop="datePublished" content={post.data.published_date}/>
                                                 <a href={`/${post.id.substring(5)}/`}
                                                    class="link" title={post.data.title}>
                                                     <span class="image">
@@ -191,9 +194,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                 case 'small':
                                     return (
                                             <div class="post short" itemscope itemtype="https://schema.org/BlogPosting">
-                                                <meta itemprop="headline" content={post.data.title} />
-                                                <meta itemprop="image" content={post.data.image.url.src} />
-                                                <meta itemprop="datePublished" content={post.data.published_date} />
+                                                <meta itemprop="headline" content={post.data.title}/>
+                                                <meta itemprop="image" content={post.data.image.url.src}/>
+                                                <meta itemprop="datePublished" content={post.data.published_date}/>
                                                 <a href={`/${post.id.substring(5)}/`}
                                                    class="link" title={post.data.title}>
                                                     <span class="title">{post.data.short_description ?? post.data.title}</span>
@@ -203,9 +206,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                 default:
                                     return (
                                             <div class="post" itemscope itemtype="https://schema.org/BlogPosting">
-                                                <meta itemprop="headline" content={post.data.title} />
-                                                <meta itemprop="image" content={post.data.image.url.src} />
-                                                <meta itemprop="datePublished" content={post.data.published_date} />
+                                                <meta itemprop="headline" content={post.data.title}/>
+                                                <meta itemprop="image" content={post.data.image.url.src}/>
+                                                <meta itemprop="datePublished" content={post.data.published_date}/>
                                                 <a href={`/${post.id.substring(5)}/`}
                                                    class="link" title={post.data.title}>
                                                     <span class="image">
@@ -237,9 +240,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                             case 'big':
                                 return (
                                         <div class="post big" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title} />
-                                            <meta itemprop="image" content={post.data.image.url.src} />
-                                            <meta itemprop="datePublished" content={post.data.published_date} />
+                                            <meta itemprop="headline" content={post.data.title}/>
+                                            <meta itemprop="image" content={post.data.image.url.src}/>
+                                            <meta itemprop="datePublished" content={post.data.published_date}/>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
                                                 <span class="image">
@@ -260,9 +263,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                             case 'medium':
                                 return (
                                         <div class="post medium" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title} />
-                                            <meta itemprop="image" content={post.data.image.url.src} />
-                                            <meta itemprop="datePublished" content={post.data.published_date} />
+                                            <meta itemprop="headline" content={post.data.title}/>
+                                            <meta itemprop="image" content={post.data.image.url.src}/>
+                                            <meta itemprop="datePublished" content={post.data.published_date}/>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
                                                 <span class="image">
@@ -284,9 +287,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                             case 'small':
                                 return (
                                         <div class="post short" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title} />
-                                            <meta itemprop="image" content={post.data.image.url.src} />
-                                            <meta itemprop="datePublished" content={post.data.published_date} />
+                                            <meta itemprop="headline" content={post.data.title}/>
+                                            <meta itemprop="image" content={post.data.image.url.src}/>
+                                            <meta itemprop="datePublished" content={post.data.published_date}/>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
                                                 <span class="title">{post.data.short_description ?? post.data.title}</span>
@@ -296,9 +299,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                             default:
                                 return (
                                         <div class="post" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title} />
-                                            <meta itemprop="image" content={post.data.image.url.src} />
-                                            <meta itemprop="datePublished" content={post.data.published_date} />
+                                            <meta itemprop="headline" content={post.data.title}/>
+                                            <meta itemprop="image" content={post.data.image.url.src}/>
+                                            <meta itemprop="datePublished" content={post.data.published_date}/>
                                             <a href={`/${post.id.substring(5)}/`}
                                                class="link" title={post.data.title}>
                                                 <span class="image">
