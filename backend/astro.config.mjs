@@ -1,15 +1,16 @@
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import path, {dirname} from 'path';
+import {fileURLToPath} from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-import { defineConfig } from 'astro/config';
-import { imageService } from '@unpic/astro/service';
+import {defineConfig} from 'astro/config';
+import {imageService} from '@unpic/astro/service';
 
 import add_csh_nonce from './src/lib/utils/add_csh_nonce.ts'
 import {indexNow} from './src/lib/integration';
 
+import {satteri} from '@astrojs/markdown-satteri';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
@@ -18,16 +19,15 @@ export default defineConfig({
   compressHTML: true,
   outDir: './dist/',
   site: 'https://nulllab.net',
-  scopedStyleStrategy : 'where',
-  markdown: {
-    syntaxHighlight: false,
-  },
+  scopedStyleStrategy: 'where',
   integrations: [
-    mdx(),
+    mdx({
+      processor: satteri()
+    }),
     sitemap(),
     indexNow({
       key: process.env.INDEXNOW_KEY,
-      location : 'indexnow'
+      location: 'indexnow'
     }),
     // (await import("astro-compress")).default({
     //   Image: false,
