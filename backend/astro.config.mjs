@@ -10,7 +10,6 @@ import {imageService} from '@unpic/astro/service';
 import add_csh_nonce from './src/lib/utils/add_csh_nonce.ts'
 import {indexNow} from './src/lib/integration';
 
-import {satteri} from '@astrojs/markdown-satteri';
 import { unified, rehypeHeadingIds } from '@astrojs/markdown-remark';
 
 import mdx from '@astrojs/mdx';
