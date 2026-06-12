@@ -10,7 +10,7 @@ import {imageService} from '@unpic/astro/service';
 import add_csh_nonce from './src/lib/utils/add_csh_nonce.ts'
 import {indexNow} from './src/lib/integration';
 
-import { unified, rehypeHeadingIds } from '@astrojs/markdown-remark';
+import {unified, rehypeHeadingIds} from '@astrojs/markdown-remark';
 
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
@@ -21,6 +21,9 @@ export default defineConfig({
   outDir: './dist/',
   site: 'https://nulllab.net',
   scopedStyleStrategy: 'where',
+  server: {
+    host: true,
+  },
   integrations: [
     mdx({
       processor: unified({
@@ -38,9 +41,6 @@ export default defineConfig({
   ],
   image: {
     service: imageService(),
-  },
-  server: {
-    host: true,
   },
   security: {
     checkOrigin: true,
