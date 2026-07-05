@@ -412,6 +412,19 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
             overflow: hidden,
             margin: 0 0 15px 0,
             _subclasses: (
+              '.img' : (
+                transition-property: transform,
+                transition-timing-function: cubic-bezier(.4, 0, .2, 1),
+                transition-duration: .5s,
+                transform: scale(1),
+              ),
+              '&:hover .img' : (
+                _atrule : (
+                  '@media (hover: hover) and (pointer: fine)' : (
+                    transform: scale(1.075),
+                  )
+                ),
+              ),
               '&:hover:after' : (
                 background-image: string.unquote('linear-gradient(oklch(0.28 0.05 160.39 / 0.2), rgba(0, 0, 0, 0.46))'),
               ),
@@ -495,6 +508,19 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                 border-radius: 0.5rem,
                 overflow: hidden,
                 _subclasses: (
+                  '.img' : (
+                    transition-property: transform,
+                    transition-timing-function: cubic-bezier(.4, 0, .2, 1),
+                    transition-duration: .5s,
+                    transform: scale(1),
+                  ),
+                  '&:hover .img' : (
+                    _atrule : (
+                      '@media (hover: hover) and (pointer: fine)' : (
+                        transform: scale(1.05),
+                      )
+                    ),
+                  ),
                   '&:hover:after' : (
                     background-image: string.unquote('linear-gradient(rgba(5, 17, 4, 0.25), rgba(0, 0, 0, 1))'),
                   ),
@@ -611,6 +637,19 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
             overflow: hidden,
             margin: 0 0 15px 0,
             _subclasses: (
+              '.img' : (
+                transition-property: transform,
+                transition-timing-function: cubic-bezier(.4, 0, .2, 1),
+                transition-duration: .5s,
+                transform: scale(1),
+              ),
+              '&:hover .img' : (
+                _atrule : (
+                  '@media (hover: hover) and (pointer: fine)' : (
+                    transform: scale(1.15),
+                  )
+                ),
+              ),
               '&:hover:after' : (
                 background-image: string.unquote('linear-gradient(oklch(0.28 0.05 160.39 / 0.2), rgba(0, 0, 0, 0.46))'),
               ),
@@ -727,6 +766,19 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
             overflow: hidden,
             margin: 0 auto 10px auto,
             _subclasses: (
+              '.img' : (
+                transition-property: transform,
+                transition-timing-function: cubic-bezier(.4, 0, .2, 1),
+                transition-duration: .5s,
+                transform: scale(1),
+              ),
+              '&:hover .img' : (
+                _atrule : (
+                  '@media (hover: hover) and (pointer: fine)' : (
+                    transform: scale(1.075),
+                  )
+                ),
+              ),
               '&:hover:after' : (
                 background-image: string.unquote('linear-gradient(oklch(0.28 0.05 160.39 / 0.2), rgba(0, 0, 0, 0.46))'),
               ),
