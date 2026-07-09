@@ -549,6 +549,12 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                     display: block,
                     width: 100%,
                     padding-inline: 25px,
+                    padding-bottom: 0,
+                    _responsive : (
+                      xl : (
+                        padding-bottom: 20px,
+                      )
+                    ),
                     _subclasses: (
                       '&:hover' : (
                         text-decoration: underline,
@@ -561,7 +567,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                 _responsive : (
                   xl : (
                     position: absolute,
-                    bottom: 20px,
+                    bottom: 0,
                     padding: 0,
                   )
                 )
