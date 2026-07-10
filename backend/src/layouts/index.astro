@@ -37,12 +37,12 @@ const { title, description, keywords, lang = 'en', noindex, nofollow } = Astro.p
 
   @use "~/styles/app.scss" as app;
 
-  @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
-  @use "@nulllogic/scssleon/scss/functions.scss" as functions;
+  @use "~/styles/scss/mixins.scss" as mixins;
+  @use "~/styles/scss/functions.scss" as functions;
 
   $main-section: (
       margin: 0 0 15px 0,
-      padding-inline: var(global(--padding-inline)),
+      padding-inline: var(--padding-inline),
   );
 
   @include mixins.generate-component(

@@ -1,54 +1,69 @@
 ---
 import FormattedDate from '../../FormattedDate.astro'
-import {Image, Picture} from 'astro:assets'
-import {words_limit} from '~/utils/text'
+import { Image, Picture } from 'astro:assets'
+import { words_limit } from '~/utils/text'
 
-const {posts} = Astro.props
+const { posts } = Astro.props
 
-const posts_column_1 = posts.filter((post) => post.data?.composition?.news?.column === 1);
-const posts_column_2 = posts.filter((post) => post.data?.composition?.news?.column === 2);
-const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.column === 3);
+const posts_column_1 = posts.filter(
+  (post) => post.data?.composition?.news?.column === 1)
+const posts_column_2 = posts.filter(
+  (post) => post.data?.composition?.news?.column === 2)
+const posts_column_3 = posts.filter(
+  (post) => post.data?.composition?.news?.column === 3)
 ---
 <section class="hot" itemscope itemtype="https://schema.org/CollectionPage">
     <div class="container xxl">
         <div class="grid">
             <div class="one">
-                {
-                    posts_column_1.slice(0, 5).map((post, index) => {
+              {
+                posts_column_1.slice(0, 5).map((post, index) => {
 
-                        switch (post.data?.composition?.news?.block) {
-                            case 'big':
-                                return (
-                                        <div class="post big" role="list" aria-label="Posts list" itemscope
-                                             itemtype="https://schema.org/ItemList">
-                                            <meta itemprop="headline" content={post.data.title}/>
-                                            <meta itemprop="image" content={post.data.image.url.src}/>
-                                            <meta itemprop="datePublished" content={post.data.published_date}/>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
+                  switch (post.data?.composition?.news?.block) {
+                    case 'big':
+                      return (
+                              <div class="post big" role="list"
+                                   aria-label="Posts list" itemscope
+                                   itemtype="https://schema.org/ItemList">
+                                  <meta itemprop="headline"
+                                        content={post.data.title}/>
+                                  <meta itemprop="image"
+                                        content={post.data.image.url.src}/>
+                                  <meta itemprop="datePublished"
+                                        content={post.data.published_date}/>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
                                                 <span class="image">
                                                     <Picture
                                                             class="img"
                                                             width={410}
-                                                            breakpoints={[370, 410, 820]}
+                                                            breakpoints={[
+                                                              370,
+                                                              410,
+                                                              820]}
                                                             layout={'full-width'}
                                                             formats={['webp']}
                                                             src={post.data.image.url}
                                                             alt={post.data.image.alt}
                                                     />
                                                 </span>
-                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
-                                            </a>
-                                        </div>
-                                );
-                            case 'medium':
-                                return (
-                                        <div class="post medium" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title}/>
-                                            <meta itemprop="image" content={post.data.image.url.src}/>
-                                            <meta itemprop="datePublished" content={post.data.published_date}/>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
+                                      <span class="title">{post.data.short_description ??
+                                        post.data.title}</span>
+                                  </a>
+                              </div>
+                      )
+                    case 'medium':
+                      return (
+                              <div class="post medium" itemscope
+                                   itemtype="https://schema.org/BlogPosting">
+                                  <meta itemprop="headline"
+                                        content={post.data.title}/>
+                                  <meta itemprop="image"
+                                        content={post.data.image.url.src}/>
+                                  <meta itemprop="datePublished"
+                                        content={post.data.published_date}/>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
                                                 <span class="image">
                                                     <Picture
                                                             class="img"
@@ -59,33 +74,43 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                             alt={post.data.image.alt}
                                                     />
                                                 </span>
-                                            </a>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
-                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
-                                            </a>
-                                        </div>
-                                );
-                            case 'small':
-                                return (
-                                        <div class="post short" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title}/>
-                                            <meta itemprop="image" content={post.data.image.url.src}/>
-                                            <meta itemprop="datePublished" content={post.data.published_date}/>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
-                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
-                                            </a>
-                                        </div>
-                                );
-                            default:
-                                return (
-                                        <div class="post" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title}/>
-                                            <meta itemprop="image" content={post.data.image.url.src}/>
-                                            <meta itemprop="datePublished" content={post.data.published_date}/>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
+                                  </a>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
+                                      <span class="title">{post.data.short_description ??
+                                        post.data.title}</span>
+                                  </a>
+                              </div>
+                      )
+                    case 'small':
+                      return (
+                              <div class="post short" itemscope
+                                   itemtype="https://schema.org/BlogPosting">
+                                  <meta itemprop="headline"
+                                        content={post.data.title}/>
+                                  <meta itemprop="image"
+                                        content={post.data.image.url.src}/>
+                                  <meta itemprop="datePublished"
+                                        content={post.data.published_date}/>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
+                                      <span class="title">{post.data.short_description ??
+                                        post.data.title}</span>
+                                  </a>
+                              </div>
+                      )
+                    default:
+                      return (
+                              <div class="post" itemscope
+                                   itemtype="https://schema.org/BlogPosting">
+                                  <meta itemprop="headline"
+                                        content={post.data.title}/>
+                                  <meta itemprop="image"
+                                        content={post.data.image.url.src}/>
+                                  <meta itemprop="datePublished"
+                                        content={post.data.published_date}/>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
                                                 <span class="image">
                                                     <Picture
                                                             class="img"
@@ -96,85 +121,107 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                             alt={post.data.image.alt}
                                                     />
                                                 </span>
-                                            </a>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
-                                                <span class="title">{post.data.title}</span>
-                                            </a>
-                                        </div>
-                                )
-                        }
-                    })
-                }
+                                  </a>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
+                                      <span class="title">{post.data.title}</span>
+                                  </a>
+                              </div>
+                      )
+                  }
+                })
+              }
             </div>
             <div class="two">
-                {
-                    posts_column_2.slice(0, 5).map((post, index) => {
-                        if (index === 0) {
-                            return (
-                                    <div class="featured" itemscope itemtype="https://schema.org/BlogPosting">
-                                        <meta itemprop="headline" content={post.data.title}/>
-                                        <meta itemprop="image" content={post.data.image.url.src}/>
-                                        <meta itemprop="datePublished" content={post.data.published_date}/>
-                                        <a href={`/${post.id.substring(5)}/`} class="link"
-                                           title={post.data.title}>
-                                            <span class="title">{post.data.title}</span>
-                                        </a>
-                                        <a href={`/${post.id.substring(5)}/`} class="image-link"
-                                           title={post.data.title}>
+              {
+                posts_column_2.slice(0, 5).map((post, index) => {
+                  if (index === 0) {
+                    return (
+                            <div class="featured" itemscope
+                                 itemtype="https://schema.org/BlogPosting">
+                                <meta itemprop="headline"
+                                      content={post.data.title}/>
+                                <meta itemprop="image"
+                                      content={post.data.image.url.src}/>
+                                <meta itemprop="datePublished"
+                                      content={post.data.published_date}/>
+                                <a href={`/${post.id.substring(5)}/`}
+                                   class="link"
+                                   title={post.data.title}>
+                                    <span class="title">{post.data.title}</span>
+                                </a>
+                                <a href={`/${post.id.substring(5)}/`}
+                                   class="image-link"
+                                   title={post.data.title}>
                                             <span class="image">
                                                 <Picture
                                                         loading={'lazy'}
                                                         src={post.data.image.url}
                                                         formats={['webp']}
                                                         width={960}
-                                                        breakpoints={[370, 640, 960, 1280]}
+                                                        breakpoints={[
+                                                          370,
+                                                          640,
+                                                          960,
+                                                          1280]}
                                                         fetchpriority={'high'}
-                                                        alt={post.data.image.alt} class="img"/>
+                                                        alt={post.data.image.alt}
+                                                        class="img"/>
                                             </span>
-                                            <span class="text">
+                                    <span class="text">
                                                 <span class="subtitle">{post.data.short_description}</span>
                                             </span>
-                                        </a>
-                                    </div>
-                            )
-                        } else {
-                            switch (post.data?.composition?.news?.block) {
-                                case 'big':
-                                    return (
-                                            <div class="post big" itemscope itemtype="https://schema.org/BlogPosting">
-                                                <meta itemprop="headline" content={post.data.title}/>
-                                                <meta itemprop="image" content={post.data.image.url.src}/>
-                                                <meta itemprop="datePublished" content={post.data.published_date}/>
-                                                <a href={`/${post.id.substring(5)}/`}
-                                                   class="link" title={post.data.title}>
+                                </a>
+                            </div>
+                    )
+                  } else {
+                    switch (post.data?.composition?.news?.block) {
+                      case 'big':
+                        return (
+                                <div class="post big" itemscope
+                                     itemtype="https://schema.org/BlogPosting">
+                                    <meta itemprop="headline"
+                                          content={post.data.title}/>
+                                    <meta itemprop="image"
+                                          content={post.data.image.url.src}/>
+                                    <meta itemprop="datePublished"
+                                          content={post.data.published_date}/>
+                                    <a href={`/${post.id.substring(5)}/`}
+                                       class="link" title={post.data.title}>
                                                     <span class="image">
                                                         <Picture
                                                                 class="img"
                                                                 width={410}
-                                                                breakpoints={[370, 410, 820]}
+                                                                breakpoints={[
+                                                                  370,
+                                                                  410,
+                                                                  820]}
                                                                 layout={'full-width'}
                                                                 formats={['webp']}
                                                                 src={post.data.image.url}
                                                                 alt={post.data.image.alt}
                                                         />
                                                     </span>
-                                                </a>
-                                                <a href={`/${post.id.substring(5)}/`}
-                                                   class="link" title={post.data.title}>
-                                                    <span class="title">{post.data.short_description ?? post.data.title}</span>
-                                                </a>
-                                            </div>
-                                    );
-                                case 'medium':
-                                    return (
-                                            <div class="post medium" itemscope
-                                                 itemtype="https://schema.org/BlogPosting">
-                                                <meta itemprop="headline" content={post.data.title}/>
-                                                <meta itemprop="image" content={post.data.image.url.src}/>
-                                                <meta itemprop="datePublished" content={post.data.published_date}/>
-                                                <a href={`/${post.id.substring(5)}/`}
-                                                   class="link" title={post.data.title}>
+                                    </a>
+                                    <a href={`/${post.id.substring(5)}/`}
+                                       class="link" title={post.data.title}>
+                                        <span class="title">{post.data.short_description ??
+                                          post.data.title}</span>
+                                    </a>
+                                </div>
+                        )
+                      case 'medium':
+                        return (
+                                <div class="post medium" itemscope
+                                     itemtype="https://schema.org/BlogPosting">
+                                    <meta itemprop="headline"
+                                          content={post.data.title}/>
+                                    <meta itemprop="image"
+                                          content={post.data.image.url.src}/>
+                                    <meta itemprop="datePublished"
+                                          content={post.data.published_date}/>
+                                    <a href={`/${post.id.substring(5)}/`}
+                                       class="link" title={post.data.title}>
                                                     <span class="image">
                                                         <Picture
                                                                 class="img"
@@ -184,33 +231,43 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                                 alt={post.data.image.alt}
                                                         />
                                                     </span>
-                                                </a>
-                                                <a href={`/${post.id.substring(5)}/`}
-                                                   class="link" title={post.data.title}>
-                                                    <span class="title">{post.data.short_description ?? post.data.title}</span>
-                                                </a>
-                                            </div>
-                                    );
-                                case 'small':
-                                    return (
-                                            <div class="post short" itemscope itemtype="https://schema.org/BlogPosting">
-                                                <meta itemprop="headline" content={post.data.title}/>
-                                                <meta itemprop="image" content={post.data.image.url.src}/>
-                                                <meta itemprop="datePublished" content={post.data.published_date}/>
-                                                <a href={`/${post.id.substring(5)}/`}
-                                                   class="link" title={post.data.title}>
-                                                    <span class="title">{post.data.short_description ?? post.data.title}</span>
-                                                </a>
-                                            </div>
-                                    );
-                                default:
-                                    return (
-                                            <div class="post" itemscope itemtype="https://schema.org/BlogPosting">
-                                                <meta itemprop="headline" content={post.data.title}/>
-                                                <meta itemprop="image" content={post.data.image.url.src}/>
-                                                <meta itemprop="datePublished" content={post.data.published_date}/>
-                                                <a href={`/${post.id.substring(5)}/`}
-                                                   class="link" title={post.data.title}>
+                                    </a>
+                                    <a href={`/${post.id.substring(5)}/`}
+                                       class="link" title={post.data.title}>
+                                        <span class="title">{post.data.short_description ??
+                                          post.data.title}</span>
+                                    </a>
+                                </div>
+                        )
+                      case 'small':
+                        return (
+                                <div class="post short" itemscope
+                                     itemtype="https://schema.org/BlogPosting">
+                                    <meta itemprop="headline"
+                                          content={post.data.title}/>
+                                    <meta itemprop="image"
+                                          content={post.data.image.url.src}/>
+                                    <meta itemprop="datePublished"
+                                          content={post.data.published_date}/>
+                                    <a href={`/${post.id.substring(5)}/`}
+                                       class="link" title={post.data.title}>
+                                        <span class="title">{post.data.short_description ??
+                                          post.data.title}</span>
+                                    </a>
+                                </div>
+                        )
+                      default:
+                        return (
+                                <div class="post" itemscope
+                                     itemtype="https://schema.org/BlogPosting">
+                                    <meta itemprop="headline"
+                                          content={post.data.title}/>
+                                    <meta itemprop="image"
+                                          content={post.data.image.url.src}/>
+                                    <meta itemprop="datePublished"
+                                          content={post.data.published_date}/>
+                                    <a href={`/${post.id.substring(5)}/`}
+                                       class="link" title={post.data.title}>
                                                     <span class="image">
                                                         <Picture
                                                                 class="img"
@@ -220,54 +277,66 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                                 alt={post.data.image.alt}
                                                         />
                                                     </span>
-                                                </a>
-                                                <a href={`/${post.id.substring(5)}/`}
-                                                   class="link" title={post.data.title}>
-                                                    <span class="title">{post.data.title}</span>
-                                                </a>
-                                            </div>
-                                    )
-                            }
-                        }
-                    })
-                }
+                                    </a>
+                                    <a href={`/${post.id.substring(5)}/`}
+                                       class="link" title={post.data.title}>
+                                        <span class="title">{post.data.title}</span>
+                                    </a>
+                                </div>
+                        )
+                    }
+                  }
+                })
+              }
             </div>
             <div class="three">
-                {
-                    posts_column_3.slice(0, 5).map((post, index) => {
+              {
+                posts_column_3.slice(0, 5).map((post, index) => {
 
-                        switch (post.data?.composition?.news?.block) {
-                            case 'big':
-                                return (
-                                        <div class="post big" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title}/>
-                                            <meta itemprop="image" content={post.data.image.url.src}/>
-                                            <meta itemprop="datePublished" content={post.data.published_date}/>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
+                  switch (post.data?.composition?.news?.block) {
+                    case 'big':
+                      return (
+                              <div class="post big" itemscope
+                                   itemtype="https://schema.org/BlogPosting">
+                                  <meta itemprop="headline"
+                                        content={post.data.title}/>
+                                  <meta itemprop="image"
+                                        content={post.data.image.url.src}/>
+                                  <meta itemprop="datePublished"
+                                        content={post.data.published_date}/>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
                                                 <span class="image">
                                                     <Picture
                                                             class="img"
                                                             width={410}
-                                                            breakpoints={[370, 410, 820]}
+                                                            breakpoints={[
+                                                              370,
+                                                              410,
+                                                              820]}
                                                             layout={'full-width'}
                                                             formats={['webp']}
                                                             src={post.data.image.url}
                                                             alt={post.data.image.alt}
                                                     />
                                                 </span>
-                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
-                                            </a>
-                                        </div>
-                                );
-                            case 'medium':
-                                return (
-                                        <div class="post medium" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title}/>
-                                            <meta itemprop="image" content={post.data.image.url.src}/>
-                                            <meta itemprop="datePublished" content={post.data.published_date}/>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
+                                      <span class="title">{post.data.short_description ??
+                                        post.data.title}</span>
+                                  </a>
+                              </div>
+                      )
+                    case 'medium':
+                      return (
+                              <div class="post medium" itemscope
+                                   itemtype="https://schema.org/BlogPosting">
+                                  <meta itemprop="headline"
+                                        content={post.data.title}/>
+                                  <meta itemprop="image"
+                                        content={post.data.image.url.src}/>
+                                  <meta itemprop="datePublished"
+                                        content={post.data.published_date}/>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
                                                 <span class="image">
                                                     <Picture
                                                             class="img"
@@ -277,33 +346,43 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                             alt={post.data.image.alt}
                                                     />
                                                 </span>
-                                            </a>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
-                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
-                                            </a>
-                                        </div>
-                                );
-                            case 'small':
-                                return (
-                                        <div class="post short" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title}/>
-                                            <meta itemprop="image" content={post.data.image.url.src}/>
-                                            <meta itemprop="datePublished" content={post.data.published_date}/>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
-                                                <span class="title">{post.data.short_description ?? post.data.title}</span>
-                                            </a>
-                                        </div>
-                                );
-                            default:
-                                return (
-                                        <div class="post" itemscope itemtype="https://schema.org/BlogPosting">
-                                            <meta itemprop="headline" content={post.data.title}/>
-                                            <meta itemprop="image" content={post.data.image.url.src}/>
-                                            <meta itemprop="datePublished" content={post.data.published_date}/>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
+                                  </a>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
+                                      <span class="title">{post.data.short_description ??
+                                        post.data.title}</span>
+                                  </a>
+                              </div>
+                      )
+                    case 'small':
+                      return (
+                              <div class="post short" itemscope
+                                   itemtype="https://schema.org/BlogPosting">
+                                  <meta itemprop="headline"
+                                        content={post.data.title}/>
+                                  <meta itemprop="image"
+                                        content={post.data.image.url.src}/>
+                                  <meta itemprop="datePublished"
+                                        content={post.data.published_date}/>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
+                                      <span class="title">{post.data.short_description ??
+                                        post.data.title}</span>
+                                  </a>
+                              </div>
+                      )
+                    default:
+                      return (
+                              <div class="post" itemscope
+                                   itemtype="https://schema.org/BlogPosting">
+                                  <meta itemprop="headline"
+                                        content={post.data.title}/>
+                                  <meta itemprop="image"
+                                        content={post.data.image.url.src}/>
+                                  <meta itemprop="datePublished"
+                                        content={post.data.published_date}/>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
                                                 <span class="image">
                                                     <Picture
                                                             class="img"
@@ -313,16 +392,16 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                                                             alt={post.data.image.alt}
                                                     />
                                                 </span>
-                                            </a>
-                                            <a href={`/${post.id.substring(5)}/`}
-                                               class="link" title={post.data.title}>
-                                                <span class="title">{post.data.title}</span>
-                                            </a>
-                                        </div>
-                                )
-                        }
-                    })
-                }
+                                  </a>
+                                  <a href={`/${post.id.substring(5)}/`}
+                                     class="link" title={post.data.title}>
+                                      <span class="title">{post.data.title}</span>
+                                  </a>
+                              </div>
+                      )
+                  }
+                })
+              }
             </div>
         </div>
     </div>
@@ -358,6 +437,18 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
           /***/
           '&.big' : (
             _subclasses: (
+              '.image' : (
+                margin: 0 auto,
+                _subclasses: (
+                  '&:hover .img' : (
+                    _atrule : (
+                      '@media (hover: hover) and (pointer: fine)' : (
+                        transform: var(--image-zoom-large)
+                      )
+                    ),
+                  ),
+                )
+              ),
               '.image > picture' : (
                 min-height: 160px,
                 display: block,
@@ -376,6 +467,15 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
               ),
               '.image' : (
                 margin: 0 auto,
+                _subclasses: (
+                  '&:hover .img' : (
+                    _atrule : (
+                      '@media (hover: hover) and (pointer: fine)' : (
+                        transform: var(--image-zoom-medium)
+                      )
+                    ),
+                  ),
+                )
               )
             ),
             _responsive: (
@@ -417,13 +517,6 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                 transition-timing-function: cubic-bezier(.4, 0, .2, 1),
                 transition-duration: .5s,
                 transform: scale(1),
-              ),
-              '&:hover .img' : (
-                _atrule : (
-                  '@media (hover: hover) and (pointer: fine)' : (
-                    transform: scale(1.075),
-                  )
-                ),
               ),
               '&:hover:after' : (
                 background-image: string.unquote('linear-gradient(oklch(0.28 0.05 160.39 / 0.2), rgba(0, 0, 0, 0.46))'),
@@ -517,7 +610,7 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                   '&:hover .img' : (
                     _atrule : (
                       '@media (hover: hover) and (pointer: fine)' : (
-                        transform: scale(1.05),
+                        transform: var(--image-zoom-featured),
                       )
                     ),
                   ),
@@ -589,6 +682,17 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
           /***/
           '&.big' : (
             _subclasses: (
+              '.image' : (
+                _subclasses: (
+                  '&:hover .img' : (
+                    _atrule : (
+                      '@media (hover: hover) and (pointer: fine)' : (
+                        transform: var(--image-zoom-large)
+                      )
+                    ),
+                  ),
+                )
+              ),
               '.image > picture' : (
                 min-height: 160px,
                 display: block,
@@ -607,6 +711,15 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
               ),
               '.image' : (
                 margin: 0 auto,
+                _subclasses: (
+                  '&:hover .img' : (
+                    _atrule : (
+                      '@media (hover: hover) and (pointer: fine)' : (
+                        transform: var(--image-zoom-medium)
+                      )
+                    ),
+                  ),
+                )
               )
             ),
             _responsive: (
@@ -648,13 +761,6 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                 transition-timing-function: cubic-bezier(.4, 0, .2, 1),
                 transition-duration: .5s,
                 transform: scale(1),
-              ),
-              '&:hover .img' : (
-                _atrule : (
-                  '@media (hover: hover) and (pointer: fine)' : (
-                    transform: scale(1.15),
-                  )
-                ),
               ),
               '&:hover:after' : (
                 background-image: string.unquote('linear-gradient(oklch(0.28 0.05 160.39 / 0.2), rgba(0, 0, 0, 0.46))'),
@@ -718,6 +824,17 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
           /***/
           '&.big' : (
             _subclasses: (
+              '.image' : (
+                _subclasses: (
+                  '&:hover .img' : (
+                    _atrule : (
+                      '@media (hover: hover) and (pointer: fine)' : (
+                        transform: var(--image-zoom-large)
+                      )
+                    ),
+                  ),
+                ),
+              ),
               '.image > picture' : (
                 min-height: 160px,
                 display: block,
@@ -736,6 +853,15 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
               ),
               '.image' : (
                 margin: 0 auto,
+                _subclasses: (
+                  '&:hover .img' : (
+                    _atrule : (
+                      '@media (hover: hover) and (pointer: fine)' : (
+                        transform: var(--image-zoom-medium)
+                      )
+                    ),
+                  ),
+                )
               )
             ),
             _responsive: (
@@ -777,13 +903,6 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
                 transition-timing-function: cubic-bezier(.4, 0, .2, 1),
                 transition-duration: .5s,
                 transform: scale(1),
-              ),
-              '&:hover .img' : (
-                _atrule : (
-                  '@media (hover: hover) and (pointer: fine)' : (
-                    transform: scale(1.075),
-                  )
-                ),
               ),
               '&:hover:after' : (
                 background-image: string.unquote('linear-gradient(oklch(0.28 0.05 160.39 / 0.2), rgba(0, 0, 0, 0.46))'),
@@ -829,9 +948,9 @@ const posts_column_3 = posts.filter((post) => post.data?.composition?.news?.colu
   );
 
   $hot-section: (
-    --image-zoom-small : 1.1,
-    --image-zoom-medium : 1.075,
-    --image-zoom-large : 1.05,
+    --image-zoom-medium : scale(1.15),
+    --image-zoom-large : scale(1.0925),
+    --image-zoom-featured : scale(1.0625),
     margin: 25px 0,
     _subclasses: (
       /***/
