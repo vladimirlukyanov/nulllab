@@ -220,10 +220,11 @@ const categories = (await getCollection('categories')).sort((a, b) => {
             )
           ),
           '.logo' : (
-            width: 80px,
+            width: 86px,
             height: auto,
             display: block,
             transition: string.unquote('opacity 0.25s ease-out, display 0.25s ease-out allow-discrete'),
+            margin-top: -2px,
             /***/
             _atrule : (
               '@starting-style' : (
@@ -244,7 +245,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     background: var(--sticky-background),
     _subclasses : (
       '.navbar' : (
-        padding: 14px 0,
+        padding: 15px 0,
       )
     )
   );
